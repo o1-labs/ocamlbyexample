@@ -1,0 +1,13 @@
+{
+    "title": "Hello World",
+    "sections": [
+        {
+            "line": 1,
+            "text": "There's no main function in ocaml, rather statements that can have side effects (here printing to stdout)."
+        },
+        {
+            "line": 4,
+            "text": "We need the `let () =` part to tell ocaml that the `print_endline` function returns nothing, which is written in Ocaml as the \"unit\" symbol `()`"
+        }
+    ]
+}
