@@ -9,19 +9,19 @@ jobs:
   deploy:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+      - name: get code
+        uses: actions/checkout@v2
 
       - name: Setup ocaml
         uses: avsm/setup-ocaml@v1
-        #                     ^^^
         with:
           ocaml-version: 4.12.0
+          #              ^^^^^^
 
       - name: Build
         run: |
           opam install dune
+          eval $(opam env)
           mkdir dist
           dune exec tool/bin/main.exe 
 
