@@ -79,7 +79,25 @@
 
 <body>
     <div class="container">
-        content
+
+        <h1>{{ title }}</h1>
+
+        {% for section in sections %}
+        <h2><code>{{ section.file }}</code></h2>
+        <table class="explanation_code">
+            {% for explanation in section.explanations %}
+            <tr>
+                <td class="explanation">
+                    {{ explanation.explanation }}
+                </td>
+                <td class="code">
+                    <pre><code class="ocaml">{{ explanation.code }}</code></pre>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endfor %}
+
     </div>
 
 </body>

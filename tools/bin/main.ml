@@ -3,61 +3,181 @@ open Core
 (* constants *)
 
 let chapters_list = "book/chapters.json"
+
 let chapters_dir = "book/chapters/"
+
 let chapter_template = "templates/chapter.html"
+
+let output_dir = "dist/"
 
 (* data structures *)
 
-type section = { line : int ; 
-text : string }
+type explanation =
+  | Parsed of { code : string list; explanation : string }
+  | Unparsed of { line : int; text : string }
 
-type chapter = { title : string ; sections : section list }
+type section = { file : string; explanations : explanation list }
+
+type chapter = { title : string; folder : string; sections : section list }
 
 (* read *)
+
+let get_chapter folder =
+  let chapter_file = chapters_dir ^ folder ^ "/" ^ "chapter.json" in
+  let json = Yojson.Basic.from_file chapter_file in
+  let open Yojson.Basic.Util in
+  let title = json |> member "title" |> to_string in
+  let to_explanation = function
+    | `Assoc [ ("line", line); ("text", text) ] ->
+        Unparsed { line = to_int line; text = to_string text }
+    | _ ->
+        failwith
+          "misformated chapter.json: explanations must contain blocks of { \
+           line, text }"
+  in
+  let to_section = function
+    | `Assoc [ ("file", file); ("explanations", explanations) ] ->
+        let file = to_string file in
+        let explanations = explanations |> convert_each to_explanation in
+        { file; explanations }
+    | _ ->
+        failwith
+          "misformated chapter.json: sections must contain blocks of { file, \
+           explanations }"
+  in
+  let sections = json |> member "sections" |> convert_each to_section in
+  { title; folder; sections }
 
 let get_chapters _ =
   let json = Yojson.Basic.from_file chapters_list in
   let open Yojson.Basic.Util in
   let chapters = json |> member "chapters" |> to_list |> filter_string in
+  let chapters = List.map chapters ~f:get_chapter in
   chapters
 
-let get_chapter name =
-  let chapter_file = chapters_dir ^ name ^ "/chapter.json" in
-  let json = Yojson.Basic.from_file chapter_file in
-  let open Yojson.Basic.Util in
-  let title = json |> member "title" |> to_string in
-(*  let sections = json |> member "sections" |> to_list |> in *)
-  let to_section = function
-    | `Assoc ([ ("line", line); ("text", text)]) -> 
-      {line = to_int line ; text = to_string text }
-    | _ -> 
-      failwith "misformated chapter.json file: a section must contain block of { line, text }"
-  in
-  let sections = json |> member "sections" |> convert_each to_section in
-    {title ; sections}
+let get_code folder file_name =
+  let file_name = chapters_dir ^ folder ^ "/" ^ file_name in
+  In_channel.read_lines file_name
+
+(* transform *)
+
+let produce_explanation (code : string list) (ln : int) (e : explanation)
+    (rest_expls : explanation list) =
+  match e with
+  | Unparsed expl ->
+      (* explanation starts later *)
+      if ln < expl.line then
+        let limit = expl.line - ln in
+        let code, remaining_code = List.split_n code limit in
+        let explanation = Parsed { code; explanation = "" } in
+        let ln = expl.line in
+        (explanation, ln, remaining_code, e :: rest_expls)
+        (* explanation starts now *)
+      else if ln = expl.line then
+        match rest_expls with
+        (* explanation goes to the end *)
+        | [] ->
+            let explanation = Parsed { code; explanation = expl.text } in
+            let ln = ln + List.length code in
+            let remaining_code = [] in
+            (explanation, ln, remaining_code, [])
+        (* explanation is upper bounded *)
+        | Unparsed next :: rest_expls ->
+            let limit = next.line - ln in
+            let code, remaining_code = List.split_n code limit in
+            let explanation = Parsed { code; explanation = expl.text } in
+            let ln = next.line in
+            (explanation, ln, remaining_code, rest_expls)
+        | _ ->
+            failwith
+              "this shouldn't happen, parsed explanation should be unparsed"
+      else failwith "this shouldn't happen, byexample missed an explanation"
+  | _ -> failwith "this shouldn't happen, explanation passed is parsed"
+
+let rec produce_explanations (result : explanation list) ln (code : string list)
+    (explanations : explanation list) =
+  match (code, explanations) with
+  | [], [] -> result
+  | code, [] -> result @ [ Parsed { code; explanation = "" } ]
+  | [], [ Unparsed expl ] when expl.line > ln ->
+      result @ [ Parsed { code = []; explanation = expl.text } ]
+  | [], _ ->
+      failwith
+        "misformated chapter.json: there can only be one trailing explanation \
+         (with no associated code)"
+  | code, expl :: rest_expls ->
+      let explanation, ln, remaining_code, rest_expls =
+        produce_explanation code ln expl rest_expls
+      in
+      let new_result = result @ [ explanation ] in
+      produce_explanations new_result ln remaining_code rest_expls
+
+let parse_section folder ({ file; explanations } as section) =
+  let code = get_code folder file in
+  let explanations = produce_explanations [] 1 code explanations in
+  { section with explanations }
+
+let parse_chapter ({ folder; sections; _ } as chapter) =
+  let sections = List.map sections ~f:(parse_section folder) in
+  { chapter with sections }
+
+let parse_chapters chapters = List.map chapters ~f:parse_chapter
 
 (* write *)
 
-  let get_chapter_template { title ; sections } = 
-    let open Jingoo in
-    let models = [("title", Jg_types.Tstr title)] in
-    let result = Jg_template.from_file chapter models
+let explanation_to_model = function
+  | Unparsed _ ->
+      failwith "this shouldn't happen, explanations must be parsed first"
+  | Parsed { code; explanation } ->
+      let code = String.concat code ~sep:"\n" in
+      let open Jingoo.Jg_types in
+      printf "%s" code;
+      Tobj [ ("code", Tstr code); ("explanation", Tstr explanation) ]
 
+let section_to_model { file; explanations } =
+  let explanations = List.map explanations ~f:explanation_to_model in
+  let open Jingoo.Jg_types in
+  Tobj [ ("file", Tstr file); ("explanations", Tlist explanations) ]
+
+let chapter_to_html { title; folder; sections } =
+  let sections = List.map sections ~f:section_to_model in
+  let open Jingoo in
+  let models =
+    [
+      ("title", Jg_types.Tstr title);
+      ("folder", Jg_types.Tstr folder);
+      ("sections", Jg_types.Tlist sections);
+    ]
+  in
+  let result = Jg_template.from_file chapter_template ~models in
+  printf "%s\n" (Jingoo.Jg_types.show_tvalue (Jingoo.Jg_types.Tobj models));
+  (folder, result)
+
+let html_to_disk (name, data) =
+  let output_file = output_dir ^ name ^ ".html" in
+  Out_channel.write_all output_file ~data
 
 (* helpers *)
 
-let print_section { line ; text } = 
-  printf "  - %d: %s\n" line text
+let print_explanation = function
+  | Unparsed { line; text } -> printf "    + %d: %s\n" line text
+  | Parsed { code; explanation } ->
+      let code = String.concat ~sep:"\n" code in
+      printf "    + code: %s\n    + %s\n" code explanation
 
-let print_chapter (idx: int) { title ; sections } = 
+let print_section { file; explanations } =
+  printf "  - %s\n" file;
+  List.iter explanations ~f:print_explanation
+
+let print_chapter (idx : int) { title; sections; _ } =
   printf "%d - %s\n" (idx + 1) title;
   List.iter sections ~f:print_section
 
 (* main *)
 
 let main _ =
-  let chapters = get_chapters () in
-  let chapters = List.map chapters ~f:( fun name -> get_chapter name) in
-  List.iteri chapters ~f:print_chapter
+  let chapters = parse_chapters @@ get_chapters @@ () in
+  let chapters_html = List.map chapters ~f:chapter_to_html in
+  List.iter chapters_html ~f:html_to_disk
 
-let () =  main ()
+let () = main ()
