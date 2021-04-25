@@ -23,7 +23,7 @@ jobs:
           opam install dune
           eval $(opam env)
           mkdir dist
-          dune exec tool/bin/main.exe 
+          dune exec tools/bin/main.exe 
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
