@@ -18,34 +18,25 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/monokai-sublime.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 
-    <script>
-        // <pre><code>
-        hljs.highlightAll();
 
-        // custom .code
-        document.querySelectorAll('.code2').forEach(block => {
-            hljs.highlightBlock(block);
-        });
-
-    </script>
+    <!-- markdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
 
     <!-- custom style -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;900&display=swap');
-        /* reset */
 
+        /* reset */
         * {
             box-sizing: border-box;
         }
 
         /* body */
-
         body {
             margin-top: 60px;
         }
 
         /* table */
-
         .explanation_code {
             background-color: #23241f;
             margin-bottom: 60px;
@@ -69,7 +60,6 @@
         }
 
         /* hljs reset */
-
         .code pre code {
             padding: 15px !important;
             white-space: pre-wrap;
@@ -99,6 +89,19 @@
         {% endfor %}
 
     </div>
+
+    <script>
+        // highlight <pre><code>
+        hljs.highlightAll();
+
+        // markdown explanations
+        var converter = new showdown.Converter();
+        let e = document.querySelectorAll(".explanation")
+        e.forEach((thing) => {
+            let html = converter.makeHtml(thing.innerText)
+            thing.innerHTML = html
+        })
+    </script>
 
 </body>
 

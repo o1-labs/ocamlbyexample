@@ -15,10 +15,13 @@ let output_dir = "dist/"
 type explanation =
   | Parsed of { code : string list; explanation : string }
   | Unparsed of { line : int; text : string }
+[@@deriving show]
 
 type section = { file : string; explanations : explanation list }
+[@@deriving show]
 
 type chapter = { title : string; folder : string; sections : section list }
+[@@deriving show]
 
 (* read *)
 
@@ -63,6 +66,9 @@ let get_code folder file_name =
 
 let produce_explanation (code : string list) (ln : int) (e : explanation)
     (rest_expls : explanation list) =
+  printf "+ ln: %d ; e = %s\n" ln (show_explanation e);
+  List.iteri rest_expls ~f:(fun idx e ->
+      printf "  - res_expl %d: %s\n" idx (show_explanation e));
   match e with
   | Unparsed expl ->
       (* explanation starts later *)
@@ -87,6 +93,11 @@ let produce_explanation (code : string list) (ln : int) (e : explanation)
             let code, remaining_code = List.split_n code limit in
             let explanation = Parsed { code; explanation = expl.text } in
             let ln = next.line in
+            let rest_expls = Unparsed next :: rest_expls in
+            printf "  - limit:%d\n" limit;
+            printf "  - ln: %d\n" ln;
+            printf "  - remaining_code: %d\n" (List.length remaining_code);
+            printf "  - rest_expls: %d\n" (List.length rest_expls);
             (explanation, ln, remaining_code, rest_expls)
         | _ ->
             failwith
@@ -110,6 +121,10 @@ let rec produce_explanations (result : explanation list) ln (code : string list)
         produce_explanation code ln expl rest_expls
       in
       let new_result = result @ [ explanation ] in
+      printf "+ calling produce_explanations again\n";
+      printf "  - ln: %d\n" ln;
+      printf "  - remaining_code: %d\n" (List.length remaining_code);
+      printf "  - remaining_expls: %d\n" (List.length rest_expls);
       produce_explanations new_result ln remaining_code rest_expls
 
 let parse_section folder ({ file; explanations } as section) =
@@ -131,7 +146,6 @@ let explanation_to_model = function
   | Parsed { code; explanation } ->
       let code = String.concat code ~sep:"\n" in
       let open Jingoo.Jg_types in
-      printf "%s" code;
       Tobj [ ("code", Tstr code); ("explanation", Tstr explanation) ]
 
 let section_to_model { file; explanations } =
@@ -150,7 +164,7 @@ let chapter_to_html { title; folder; sections } =
     ]
   in
   let result = Jg_template.from_file chapter_template ~models in
-  printf "%s\n" (Jingoo.Jg_types.show_tvalue (Jingoo.Jg_types.Tobj models));
+  (*  printf "%s\n" (Jingoo.Jg_types.show_tvalue (Jingoo.Jg_types.Tobj models)); *)
   (folder, result)
 
 let html_to_disk (name, data) =
@@ -178,6 +192,7 @@ let print_chapter (idx : int) { title; sections; _ } =
 let main _ =
   let chapters = parse_chapters @@ get_chapters @@ () in
   let chapters_html = List.map chapters ~f:chapter_to_html in
-  List.iter chapters_html ~f:html_to_disk
+  List.iter chapters_html ~f:html_to_disk;
+  printf "done generating files in dist/\n"
 
 let () = main ()
