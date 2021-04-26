@@ -20,8 +20,7 @@ jobs:
 
       - name: Build
         run: |
-          opam install dune
-          opam install . --deps-only 
+          opam install dune core cmdliner yojson jingoo ppx_deriving
           eval $(opam env)
           mkdir dist
           dune exec tools/bin/main.exe 
