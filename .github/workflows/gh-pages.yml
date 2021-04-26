@@ -21,6 +21,7 @@ jobs:
       - name: Build
         run: |
           opam install dune
+          opam install . --deps-only 
           eval $(opam env)
           mkdir dist
           dune exec tools/bin/main.exe 
