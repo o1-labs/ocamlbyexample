@@ -8,6 +8,8 @@ let chapters_dir = "book/chapters/"
 
 let chapter_template = "templates/chapter.html"
 
+let index_template = "templates/index.html"
+
 let output_dir = "dist/"
 
 (* data structures *)
@@ -174,9 +176,31 @@ let chapter_to_html { title; folder; sections } =
   (*  printf "%s\n" (Jingoo.Jg_types.show_tvalue (Jingoo.Jg_types.Tobj models)); *)
   (folder, result)
 
+let chapters_to_index chapters =
+  let open Jingoo in
+  let chapter_to_model chapter =
+    Jg_types.Tobj
+      [
+        ("title", Jg_types.Tstr chapter.title);
+        ("folder", Jg_types.Tstr chapter.folder);
+      ]
+  in
+  let chapters = List.map chapters ~f:chapter_to_model in
+  let models = [ ("chapters", Jg_types.Tlist chapters) ] in
+  let result = Jg_template.from_file index_template ~models in
+  result
+
 let html_to_disk (name, data) =
   let output_file = output_dir ^ name ^ ".html" in
   Out_channel.write_all output_file ~data
+
+let chapters_to_html chapters =
+  let chapters_html = List.map chapters ~f:chapter_to_html in
+  List.iter chapters_html ~f:html_to_disk
+
+let index_to_html chapters =
+  let index_html = chapters_to_index chapters in
+  html_to_disk ("index", index_html)
 
 (* helpers *)
 
@@ -198,8 +222,8 @@ let print_chapter (idx : int) { title; sections; _ } =
 
 let main _ =
   let chapters = parse_chapters @@ get_chapters @@ () in
-  let chapters_html = List.map chapters ~f:chapter_to_html in
-  List.iter chapters_html ~f:html_to_disk;
+  chapters_to_html chapters;
+  index_to_html chapters;
   printf "done generating files in dist/\n"
 
 let () = main ()
