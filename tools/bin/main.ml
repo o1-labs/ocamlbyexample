@@ -17,7 +17,7 @@ type explanation =
   | Unparsed of { line : int; text : string }
 [@@deriving show]
 
-type section = { file : string; explanations : explanation list }
+type section = { file : string; lang : string; explanations : explanation list }
 [@@deriving show]
 
 type chapter = { title : string; folder : string; sections : section list }
@@ -39,10 +39,12 @@ let get_chapter folder =
            line, text }"
   in
   let to_section = function
-    | `Assoc [ ("file", file); ("explanations", explanations) ] ->
+    | `Assoc [ ("file", file); ("lang", lang); ("explanations", explanations) ]
+      ->
         let file = to_string file in
+        let lang = to_string lang in
         let explanations = explanations |> convert_each to_explanation in
-        { file; explanations }
+        { file; lang; explanations }
     | _ ->
         failwith
           "misformated chapter.json: sections must contain blocks of { file, \
@@ -127,7 +129,7 @@ let rec produce_explanations (result : explanation list) ln (code : string list)
       printf "  - remaining_expls: %d\n" (List.length rest_expls);
       produce_explanations new_result ln remaining_code rest_expls
 
-let parse_section folder ({ file; explanations } as section) =
+let parse_section folder ({ file; explanations; _ } as section) =
   let code = get_code folder file in
   let explanations = produce_explanations [] 1 code explanations in
   { section with explanations }
@@ -148,10 +150,15 @@ let explanation_to_model = function
       let open Jingoo.Jg_types in
       Tobj [ ("code", Tstr code); ("explanation", Tstr explanation) ]
 
-let section_to_model { file; explanations } =
+let section_to_model { file; lang; explanations } =
   let explanations = List.map explanations ~f:explanation_to_model in
   let open Jingoo.Jg_types in
-  Tobj [ ("file", Tstr file); ("explanations", Tlist explanations) ]
+  Tobj
+    [
+      ("file", Tstr file);
+      ("lang", Tstr lang);
+      ("explanations", Tlist explanations);
+    ]
 
 let chapter_to_html { title; folder; sections } =
   let sections = List.map sections ~f:section_to_model in
@@ -179,8 +186,8 @@ let print_explanation = function
       let code = String.concat ~sep:"\n" code in
       printf "    + code: %s\n    + %s\n" code explanation
 
-let print_section { file; explanations } =
-  printf "  - %s\n" file;
+let print_section { file; lang; explanations } =
+  printf "  - %s (%s)\n" file lang;
   List.iter explanations ~f:print_explanation
 
 let print_chapter (idx : int) { title; sections; _ } =
