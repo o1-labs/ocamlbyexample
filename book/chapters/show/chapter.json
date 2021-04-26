@@ -1,0 +1,20 @@
+{
+    "title": "Show",
+    "sections": [
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": []
+        },
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": []
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": []
+        }
+    ]
+}

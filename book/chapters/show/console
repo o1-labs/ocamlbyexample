@@ -1,0 +1,3 @@
+$ opam install base ppx_deriving
+$ dune exec ./main.exe
+{ Main.name = "david"; age = 32; human = false }

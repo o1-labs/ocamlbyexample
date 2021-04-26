@@ -3,6 +3,7 @@
     "sections": [
         {
             "file": "hello.ml",
+            "lang": "ocaml",
             "explanations": [
                 {
                     "line": 1,
@@ -15,7 +16,8 @@
             ]
         },
         {
-            "file": "hello.sh",
+            "file": "console",
+            "lang": "console",
             "explanations": [
                 {
                     "line": 1,
