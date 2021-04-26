@@ -10,7 +10,7 @@
                 },
                 {
                     "line": 4,
-                    "text": "We need the `let () =` part to tell ocaml that the `print_endline` function returns nothing, which is written in Ocaml as the \"unit\" symbol `()`"
+                    "text": "A more idiomatic way to write this is to enforce that the code returns nothing, or in ocaml term that it returns the \"unit\" symbol `()`."
                 }
             ]
         },
