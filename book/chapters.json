@@ -10,6 +10,7 @@
         "inline-tests",
         "show",
         "bin_prot",
-        "functors"
+        "functors",
+        "dune"
     ]
 }

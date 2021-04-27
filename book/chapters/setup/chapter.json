@@ -7,11 +7,11 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "You can install opam, the version management / package manager of OCaml https://opam.ocaml.org/doc/Install.html"
+                    "text": "Install **opam**, the version management / package manager of OCaml. If you don't trust me, check the [official webpage](https://opam.ocaml.org/doc/Install.html)."
                 },
                 {
                     "line": 2,
-                    "text": "Let's install tools and packages that will be needed in the first series of examples."
+                    "text": "In all of these examples, you will need to replace the standard library of OCaml with the well-accepted replacements of Janestreet: Base, Core_kernel, and Core. To consult the documentation of any packages, refer to the [docs](https://docs.ocaml.pro/)."
                 }
             ]
         }

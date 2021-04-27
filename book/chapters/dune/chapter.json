@@ -1,0 +1,35 @@
+{
+    "title": "dune",
+    "sections": [
+        {
+            "file": "dune-project",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        },
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        },
+        {
+            "file": ".ocamlformat",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "You need an `.ocamlformat` file (that can be empty) at the root for `ocamlformat` to work."
+                }
+            ]
+        }
+    ]
+}
