@@ -1,0 +1,25 @@
+{
+    "title": "Hello World",
+    "sections": [
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        }
+    ]
+}

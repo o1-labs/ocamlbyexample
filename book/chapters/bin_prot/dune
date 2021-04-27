@@ -1,0 +1,5 @@
+(executable
+ (name main)
+ (libraries core bin_prot)
+ (preprocess
+  (pps ppx_bin_prot ppx_deriving.show)))

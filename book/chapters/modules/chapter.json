@@ -1,0 +1,50 @@
+{
+    "title": "Modules",
+    "sections": [
+        {
+            "file": "add.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "We can split code in different files, which OCaml will understand as different **modules**."
+                }
+            ]
+        },
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 3,
+                    "text": "Other files (modules) will be able to use another module's code by referring to its filename with an uppercase."
+                },
+                {
+                    "line": 7,
+                    "text": "Modules can also appear within a file."
+                },
+                {
+                    "line": 15,
+                    "text": "A module **signature** can also be defined."
+                },
+                {
+                    "line": 25,
+                    "text": "A module can also re-use other modules by either **including** a whole module or re-using parts of a module."
+                },
+                {
+                    "line": 30,
+                    "text": "by either **including** a whole module or re-using parts of a module."
+                },
+                {
+                    "line": 33,
+                    "text": "or re-using parts of a module."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": []
+        }
+    ]
+}

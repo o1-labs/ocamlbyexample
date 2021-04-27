@@ -1,0 +1,5 @@
+utop # let add_one i = i + 1;;
+val add_one : int -> int = <fun>
+
+utop # add_one 1;;
+- : int = 2

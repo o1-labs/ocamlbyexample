@@ -1,6 +1,15 @@
 {
     "chapters": [
+        "setup",
         "hello-world",
-        "show"
+        "utop",
+        "list",
+        "records",
+        "match",
+        "modules",
+        "inline-tests",
+        "show",
+        "bin_prot",
+        "functors"
     ]
 }

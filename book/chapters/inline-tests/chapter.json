@@ -1,0 +1,15 @@
+{
+    "title": "Inline tests",
+    "sections": [
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": []
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": []
+        }
+    ]
+}

@@ -7,11 +7,11 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "There's no main function in ocaml, rather statements that can have side effects (here printing to stdout)."
+                    "text": "There's no main function in OCaml, rather statements that can have side effects (here printing to stdout)."
                 },
                 {
                     "line": 4,
-                    "text": "A more idiomatic way to write this is to enforce that the code returns nothing, or in ocaml term that it returns the \"unit\" symbol `()`."
+                    "text": "A more idiomatic way to write this is to enforce that the code returns nothing, or in OCaml term that it returns the \"unit\" symbol `()`."
                 }
             ]
         },
@@ -21,7 +21,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "You can build your file with the ocaml compiler `ocamlc`, similar to C programs."
+                    "text": "You can compile your code with the OCaml compiler `ocamlc`, similar to C programs."
                 }
             ]
         }

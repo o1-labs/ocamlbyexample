@@ -1,0 +1,19 @@
+{
+    "title": "Setup",
+    "sections": [
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "You can install opam, the version management / package manager of OCaml https://opam.ocaml.org/doc/Install.html"
+                },
+                {
+                    "line": 2,
+                    "text": "Let's install tools and packages that will be needed in the first series of examples."
+                }
+            ]
+        }
+    ]
+}
