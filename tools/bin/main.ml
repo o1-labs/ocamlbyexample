@@ -70,9 +70,6 @@ let get_code folder file_name =
 
 let produce_explanation (code : string list) (ln : int) (e : explanation)
     (rest_expls : explanation list) =
-  printf "+ ln: %d ; e = %s\n" ln (show_explanation e);
-  List.iteri rest_expls ~f:(fun idx e ->
-      printf "  - res_expl %d: %s\n" idx (show_explanation e));
   match e with
   | Unparsed expl ->
       (* explanation starts later *)
@@ -98,10 +95,6 @@ let produce_explanation (code : string list) (ln : int) (e : explanation)
             let explanation = Parsed { code; explanation = expl.text } in
             let ln = next.line in
             let rest_expls = Unparsed next :: rest_expls in
-            printf "  - limit:%d\n" limit;
-            printf "  - ln: %d\n" ln;
-            printf "  - remaining_code: %d\n" (List.length remaining_code);
-            printf "  - rest_expls: %d\n" (List.length rest_expls);
             (explanation, ln, remaining_code, rest_expls)
         | _ ->
             failwith
@@ -125,10 +118,6 @@ let rec produce_explanations (result : explanation list) ln (code : string list)
         produce_explanation code ln expl rest_expls
       in
       let new_result = result @ [ explanation ] in
-      printf "+ calling produce_explanations again\n";
-      printf "  - ln: %d\n" ln;
-      printf "  - remaining_code: %d\n" (List.length remaining_code);
-      printf "  - remaining_expls: %d\n" (List.length rest_expls);
       produce_explanations new_result ln remaining_code rest_expls
 
 let parse_section folder ({ file; explanations; _ } as section) =
@@ -173,7 +162,6 @@ let chapter_to_html { title; folder; sections } =
     ]
   in
   let result = Jg_template.from_file chapter_template ~models in
-  (*  printf "%s\n" (Jingoo.Jg_types.show_tvalue (Jingoo.Jg_types.Tobj models)); *)
   (folder, result)
 
 let chapters_to_index chapters =
@@ -224,6 +212,6 @@ let main _ =
   let chapters = parse_chapters @@ get_chapters @@ () in
   chapters_to_html chapters;
   index_to_html chapters;
-  printf "done generating files in dist/\n"
+  printf "done generating HTML files in dist/\n"
 
 let () = main ()
