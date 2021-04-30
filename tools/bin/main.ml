@@ -85,25 +85,27 @@ let get_code folder file_name =
 let produce_explanation (code : string list) (ln : int) (e : explanation)
     (rest_expls : explanation list) =
   match e with
+  | Parsed _ ->
+      failwith "this shouldn't happen, explanation passed is already parsed"
   | Unparsed expl ->
-      (* explanation starts later *)
       if ln < expl.line then
+        (* explanation starts later *)
         let limit = expl.line - ln in
         let code, remaining_code = List.split_n code limit in
         let explanation = Parsed { code; explanation = "" } in
         let ln = expl.line in
         (explanation, ln, remaining_code, e :: rest_expls)
-        (* explanation starts now *)
       else if ln = expl.line then
+        (* explanation starts now *)
         match rest_expls with
-        (* explanation goes to the end *)
         | [] ->
+            (* and goes to the end *)
             let explanation = Parsed { code; explanation = expl.text } in
             let ln = ln + List.length code in
             let remaining_code = [] in
             (explanation, ln, remaining_code, [])
-        (* explanation is upper bounded *)
         | Unparsed next :: rest_expls ->
+            (* and is upper bounded *)
             let limit = next.line - ln in
             let code, remaining_code = List.split_n code limit in
             let explanation = Parsed { code; explanation = expl.text } in
@@ -113,8 +115,10 @@ let produce_explanation (code : string list) (ln : int) (e : explanation)
         | _ ->
             failwith
               "this shouldn't happen, parsed explanation should be unparsed"
-      else failwith "this shouldn't happen, byexample missed an explanation"
-  | _ -> failwith "this shouldn't happen, explanation passed is parsed"
+      else
+        (* explanation starts before code *)
+        let explanation = Parsed { code = []; explanation = expl.text } in
+        (explanation, ln, code, rest_expls)
 
 let rec produce_explanations (result : explanation list) ln (code : string list)
     (explanations : explanation list) =

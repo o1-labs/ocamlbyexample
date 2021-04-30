@@ -6,8 +6,8 @@
             "lang": "ocaml",
             "explanations": [
                 {
-                    "line": 1,
-                    "text": "Lists hold any number of items of the same type."
+                    "line": 0,
+                    "text": "Lists can hold any number of items of the same type."
                 },
                 {
                     "line": 4,
