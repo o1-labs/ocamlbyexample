@@ -15,17 +15,31 @@ let output_dir = "dist/"
 (* data structures *)
 
 type explanation =
-  | Parsed of { code : string list; explanation : string }
+  (* 1:1 matching with what's in the JSON file *)
   | Unparsed of { line : int; text : string }
+  (* a parsed explanation includes the code related to a block of text *)
+  | Parsed of { code : string list; explanation : string }
 [@@deriving show]
 
-type section = { file : string; lang : string; explanations : explanation list }
+type section = {
+  (* path to the file *)
+  file : string;
+  (* this must be a class recognized by https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md *)
+  lang : string;
+  (* a file has several "blocks" of text explaining the code *)
+  explanations : explanation list;
+}
 [@@deriving show]
 
-type chapter = { title : string; folder : string; sections : section list }
+type chapter = {
+  title : string;
+  folder : string;
+  (* a chapter has several files *)
+  sections : section list;
+}
 [@@deriving show]
 
-(* read *)
+(* read JSON files *)
 
 let get_chapter folder =
   let chapter_file = chapters_dir ^ folder ^ "/" ^ "chapter.json" in
@@ -124,38 +138,39 @@ let rec produce_explanations (result : explanation list) ln (code : string list)
       let new_result = result @ [ explanation ] in
       produce_explanations new_result ln remaining_code rest_expls
 
-let parse_section folder ({ file; explanations; _ } as section) =
-  let code = get_code folder file in
-  let explanations = produce_explanations [] 1 code explanations in
-  { section with explanations }
+let parse_chapters chapters =
+  let parse_section folder ({ file; explanations; _ } as section) =
+    let code = get_code folder file in
+    let explanations = produce_explanations [] 1 code explanations in
+    { section with explanations }
+  in
+  let parse_chapter ({ folder; sections; _ } as chapter) =
+    let sections = List.map sections ~f:(parse_section folder) in
+    { chapter with sections }
+  in
+  List.map chapters ~f:parse_chapter
 
-let parse_chapter ({ folder; sections; _ } as chapter) =
-  let sections = List.map sections ~f:(parse_section folder) in
-  { chapter with sections }
-
-let parse_chapters chapters = List.map chapters ~f:parse_chapter
-
-(* write *)
-
-let explanation_to_model = function
-  | Unparsed _ ->
-      failwith "this shouldn't happen, explanations must be parsed first"
-  | Parsed { code; explanation } ->
-      let code = String.concat code ~sep:"\n" in
-      let open Jingoo.Jg_types in
-      Tobj [ ("code", Tstr code); ("explanation", Tstr explanation) ]
-
-let section_to_model { file; lang; explanations } =
-  let explanations = List.map explanations ~f:explanation_to_model in
-  let open Jingoo.Jg_types in
-  Tobj
-    [
-      ("file", Tstr file);
-      ("lang", Tstr lang);
-      ("explanations", Tlist explanations);
-    ]
+(* ocaml -> models for HTML *)
 
 let chapter_to_model { title; folder; sections } =
+  let explanation_to_model = function
+    | Unparsed _ ->
+        failwith "this shouldn't happen, explanations must be parsed first"
+    | Parsed { code; explanation } ->
+        let code = String.concat code ~sep:"\n" in
+        let open Jingoo.Jg_types in
+        Tobj [ ("code", Tstr code); ("explanation", Tstr explanation) ]
+  in
+  let section_to_model { file; lang; explanations } =
+    let explanations = List.map explanations ~f:explanation_to_model in
+    let open Jingoo.Jg_types in
+    Tobj
+      [
+        ("file", Tstr file);
+        ("lang", Tstr lang);
+        ("explanations", Tlist explanations);
+      ]
+  in
   let sections = List.map sections ~f:section_to_model in
   let open Jingoo in
   Jg_types.Tobj
@@ -169,6 +184,8 @@ let chapters_to_model chapters =
   let chapters = List.map chapters ~f:chapter_to_model in
   Jingoo.Jg_types.Tlist chapters
 
+(* models -> HTML *)
+
 let chapter_to_html chapters chapter =
   let folder = chapter.folder in
   let chapter = chapter_to_model chapter in
@@ -181,6 +198,8 @@ let chapters_to_index chapters =
   let models = [ ("chapters", chapters) ] in
   let result = Jingoo.Jg_template.from_file index_template ~models in
   result
+
+(* HTML -> disk *)
 
 let html_to_disk (name, data) =
   let output_file = output_dir ^ name ^ ".html" in
