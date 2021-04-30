@@ -1,5 +1,17 @@
+$ utop
+
 utop # let add_one i = i + 1;;
 val add_one : int -> int = <fun>
-
+─( 17:14:39 )─< command 1 >─────
 utop # add_one 1;;
 - : int = 2
+─( 17:14:58 )─< command 2 >────
+utop #
+
+$ dune utop src/lib/my_module
+
+utop # open My_module;;
+─( 17:13:43 )─< command 1 >──
+utop # My_module.Toolkit.(do_stuff (from_int 3));;
+- : float = 259200000.
+─( 17:14:58 )─< command 2 >────

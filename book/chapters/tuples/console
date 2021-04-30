@@ -1,0 +1,3 @@
+$ dune exec ./main.exe
+Hey OCaml, give me five!
+I'll give you 3 + 2 = 5

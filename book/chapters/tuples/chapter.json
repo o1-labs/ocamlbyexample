@@ -1,5 +1,5 @@
 {
-    "title": "Lists",
+    "title": "Tuples",
     "sections": [
         {
             "file": "main.ml",
@@ -7,11 +7,11 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "Lists hold any number of items of the same type."
+                    "text": "Tuple hold fixed numbers of items of different types."
                 },
                 {
                     "line": 4,
-                    "text": "The items are separated by semicolons."
+                    "text": "The items are separated by commas.  Parenthesis are optional."
                 }
             ]
         },
@@ -21,11 +21,11 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "Items can be prepended and appended to lists"
+                    "text": "Individual components are extracted by pattern matching syntax."
                 },
                 {
                     "line": 4,
-                    "text": "Lists can be iterated over and displayed."
+                    "text": "The first and last elements of a pair can be extracted with fst and snd."
                 }
             ]
         }

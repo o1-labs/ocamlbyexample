@@ -7,7 +7,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
+                    "text": "Utop is a universal interactive toplevel for OCaml."
                 }
             ]
         },
@@ -17,11 +17,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
-                },
-                {
-                    "line": 4,
-                    "text": "..."
+                    "text": "You can use it to interatively experiment with code, load libraries and debug modules."
                 }
             ]
         }
