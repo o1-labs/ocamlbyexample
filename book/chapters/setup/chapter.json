@@ -7,7 +7,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "Install **opam**, the version management / package manager of OCaml. If you don't trust me, check the [official webpage](https://opam.ocaml.org/doc/Install.html)."
+                    "text": "Install **opam**, the version management and package manager of OCaml. You can also consult the [official opam webpage](https://opam.ocaml.org/doc/Install.html)."
                 },
                 {
                     "line": 2,
