@@ -84,26 +84,43 @@
 </head>
 
 <body>
-    <div class="container">
 
-        <h1>{{ title }}</h1>
 
-        {% for section in sections %}
-        <h2><code>{{ section.file }}</code></h2>
-        <table class="explanation_code">
-            {% for explanation in section.explanations %}
-            <tr>
-                <td class="explanation">
-                    {{ explanation.explanation }}
-                </td>
-                <td class="code">
-                    <pre><code class="{{ section.lang }}">{{ explanation.code }}</code></pre>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-        {% endfor %}
+    <div class="row">
+        <div class="col col-lg-2" id="chapters">
 
+            <ul>
+                {% for chapter in chapters %}
+                <li><a href="{{chapter.folder}}.html">{{ chapter.title}}</a></li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+        <div class="col col-md-auto">
+
+            <div class="container">
+
+                <h1>{{ chapter.title }}</h1>
+
+                {% for section in chapter.sections %}
+                <h2><code>{{ section.file }}</code></h2>
+                <table class="explanation_code">
+                    {% for explanation in section.explanations %}
+                    <tr>
+                        <td class="explanation">
+                            {{ explanation.explanation }}
+                        </td>
+                        <td class="code">
+                            <pre><code class="{{ section.lang }}">{{ explanation.code }}</code></pre>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endfor %}
+
+            </div>
+        </div>
     </div>
 
     <script>

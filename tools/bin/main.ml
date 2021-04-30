@@ -155,31 +155,31 @@ let section_to_model { file; lang; explanations } =
       ("explanations", Tlist explanations);
     ]
 
-let chapter_to_html { title; folder; sections } =
+let chapter_to_model { title; folder; sections } =
   let sections = List.map sections ~f:section_to_model in
   let open Jingoo in
-  let models =
+  Jg_types.Tobj
     [
       ("title", Jg_types.Tstr title);
       ("folder", Jg_types.Tstr folder);
       ("sections", Jg_types.Tlist sections);
     ]
-  in
-  let result = Jg_template.from_file chapter_template ~models in
+
+let chapters_to_model chapters =
+  let chapters = List.map chapters ~f:chapter_to_model in
+  Jingoo.Jg_types.Tlist chapters
+
+let chapter_to_html chapters chapter =
+  let folder = chapter.folder in
+  let chapter = chapter_to_model chapter in
+  let models = [ ("chapters", chapters); ("chapter", chapter) ] in
+  let result = Jingoo.Jg_template.from_file chapter_template ~models in
   (folder, result)
 
 let chapters_to_index chapters =
-  let open Jingoo in
-  let chapter_to_model chapter =
-    Jg_types.Tobj
-      [
-        ("title", Jg_types.Tstr chapter.title);
-        ("folder", Jg_types.Tstr chapter.folder);
-      ]
-  in
-  let chapters = List.map chapters ~f:chapter_to_model in
-  let models = [ ("chapters", Jg_types.Tlist chapters) ] in
-  let result = Jg_template.from_file index_template ~models in
+  let chapters = chapters_to_model chapters in
+  let models = [ ("chapters", chapters) ] in
+  let result = Jingoo.Jg_template.from_file index_template ~models in
   result
 
 let html_to_disk (name, data) =
@@ -187,7 +187,8 @@ let html_to_disk (name, data) =
   Out_channel.write_all output_file ~data
 
 let chapters_to_html chapters =
-  let chapters_html = List.map chapters ~f:chapter_to_html in
+  let chapters_mod = chapters_to_model chapters in
+  let chapters_html = List.map chapters ~f:(chapter_to_html chapters_mod) in
   List.iter chapters_html ~f:html_to_disk
 
 let index_to_html chapters =
