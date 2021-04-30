@@ -12,6 +12,10 @@
                 {
                     "line": 4,
                     "text": "The items are separated by commas.  Parenthesis are optional."
+                },
+                {
+                    "line": 8,
+                    "text": "The first and last elements of a pair can be extracted with fst and snd."
                 }
             ]
         },
@@ -22,10 +26,6 @@
                 {
                     "line": 1,
                     "text": "Individual components are extracted by pattern matching syntax."
-                },
-                {
-                    "line": 4,
-                    "text": "The first and last elements of a pair can be extracted with fst and snd."
                 }
             ]
         }

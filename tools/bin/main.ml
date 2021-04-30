@@ -109,10 +109,14 @@ let rec produce_explanations (result : explanation list) ln (code : string list)
   | code, [] -> result @ [ Parsed { code; explanation = "" } ]
   | [], [ Unparsed expl ] when expl.line > ln ->
       result @ [ Parsed { code = []; explanation = expl.text } ]
-  | [], _ ->
+  | [], Unparsed expl :: _ ->
+      eprintf "explanation dangling: %s" expl.text;
       failwith
         "misformated chapter.json: there can only be one trailing explanation \
          (with no associated code)"
+  | [], _ ->
+      failwith
+        "this shouldn't happen, trailing explanation has already been parsed"
   | code, expl :: rest_expls ->
       let explanation, ln, remaining_code, rest_expls =
         produce_explanation code ln expl rest_expls
