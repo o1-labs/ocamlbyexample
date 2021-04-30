@@ -11,7 +11,7 @@
                 },
                 {
                     "line": 2,
-                    "text": "In all of these examples, you will need to replace the standard library of OCaml with the well-accepted replacements of Janestreet: Base, Core_kernel, and Core. To consult the documentation of any packages, refer to the [docs](https://docs.ocaml.pro/)."
+                    "text": "In all of these examples, you will need to **replace** the standard library of OCaml with the well-accepted standard library replacement of Janestreet: **`Core`**. To consult the documentation of any packages (including `Core`), refer to the [ocaml docs](https://docs.ocaml.pro/)."
                 }
             ]
         }
