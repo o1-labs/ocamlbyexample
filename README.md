@@ -18,9 +18,9 @@ Some guidelines:
 
 ## How to render the thing locally?
 
-You need [ocaml](https://ocaml.org/) and [dune](https://github.com/ocaml/dune) set up.
+You need [ocaml](https://ocaml.org/) and [dune](https://github.com/ocaml/dune) set up. Then simply run:
 
 ```
-dune exec ./tools/bin/main.exe
+make
 ```
 

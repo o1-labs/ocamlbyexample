@@ -1,0 +1,40 @@
+{
+    "title": "Error Handling",
+    "sections": [
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 3,
+                    "text": "Similarly to the `'a option` variant type, the `('a, 'b) result` variant type can be used to return some value of some type, or some error of some type (here, a `string`)."
+                },
+                {
+                    "line": 13,
+                    "text": "`match` can be used to sort through the tags of the `result` variant type."
+                },
+                {
+                    "line": 18,
+                    "text": "`failwith` can be used to raise an exception."
+                },
+                {
+                    "line": 20,
+                    "text": "Exceptions can be crafted and raised manually by declaring custom `'a exn` types (here, `Foo`) and throwing them using the `raise` function."
+                },
+                {
+                    "line": 22,
+                    "text": ""
+                },
+                {
+                    "line": 24,
+                    "text": "Note that any code that comes after a raised exception will not get executed."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": []
+        }
+    ]
+}

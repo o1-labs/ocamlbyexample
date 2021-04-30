@@ -8,6 +8,7 @@
         "records",
         "match",
         "modules",
+        "errors",
         "inline-tests",
         "show",
         "bin_prot",

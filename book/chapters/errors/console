@@ -1,0 +1,26 @@
+$ dune exec ./main.exe -- result
+error: you gave me a negative int
+this might not get executed
+
+$ dune exec ./main.exe 
+Uncaught exception:
+  
+  (Invalid_argument "index out of bounds")
+
+$ dune exe ./main.exe -- failwith
+Uncaught exception:
+  
+  (Failure "some error message")
+
+Raised at Stdlib.failwith in file "stdlib.ml", line 29, characters 17-33
+Called from Dune__exe__Main in file "book/chapters/errors/main.ml", line 7, characters 18-47
+
+$ dune exe ./main.exe -- exn
+Uncaught exception:
+  
+  Foo("some other error message")
+
+Raised at Dune__exe__Main in file "book/chapters/errors/main.ml", line 21, characters 4-42
+
+$ dune exe ./main.exe -- some_arg
+argument not recognized
