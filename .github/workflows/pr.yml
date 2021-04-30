@@ -5,7 +5,22 @@ on:
 
 jobs:
   check_pr:
-    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+        ocaml-version:
+          - 4.12.0
+          - 4.11.0
+          - 4.10.1
+          - 4.09.1
+          - 4.08.1
+
+    runs-on: ${{ matrix.os }}
+
     steps:
       - name: Get code
         uses: actions/checkout@v2
@@ -20,4 +35,4 @@ jobs:
         run: |
           opam install dune core cmdliner yojson jingoo ppx_deriving
           eval $(opam env)
-          dune exec tools/bin/main.exe 
+          dune exec tools/bin/main.exe
