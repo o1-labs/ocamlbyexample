@@ -1,15 +1,13 @@
-name: Deploy to Github pages
+name: Check pull requests
 
 on:
-  push:
-    branches:
-      - main
+  pull_request
 
 jobs:
-  deploy:
+  check_pr:
     runs-on: ubuntu-18.04
     steps:
-      - name: get code
+      - name: Get code
         uses: actions/checkout@v2
 
       - name: Setup ocaml
@@ -23,9 +21,3 @@ jobs:
           opam install dune core cmdliner yojson jingoo ppx_deriving
           eval $(opam env)
           dune exec tools/bin/main.exe 
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
