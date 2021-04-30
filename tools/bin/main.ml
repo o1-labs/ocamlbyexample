@@ -213,6 +213,7 @@ let print_chapter (idx : int) { title; sections; _ } =
 (* main *)
 
 let main _ =
+  Unix.mkdir_p output_dir;
   let chapters = parse_chapters @@ get_chapters @@ () in
   chapters_to_html chapters;
   index_to_html chapters;
