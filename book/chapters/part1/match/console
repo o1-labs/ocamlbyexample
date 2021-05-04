@@ -1,2 +1,7 @@
-$ dune exec ./main.ml
+# let i = 1 in 
+# match i with
+# | 0 -> print_endline "zero"
+# | 1 -> print_endline "one"
+# | _ -> failwith "didn't expect such a number";;
 one
+- : unit = ()

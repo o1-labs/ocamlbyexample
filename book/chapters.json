@@ -6,15 +6,13 @@
                 "part1/setup",
                 "part1/hello-world",
                 "part1/utop",
+                "part1/match",
                 "part1/tuples",
                 "part1/list",
                 "part1/records",
-                "part1/match",
                 "part1/modules",
                 "part1/errors",
                 "part1/inline-tests",
-                "part1/show",
-                "part1/bin_prot",
                 "part1/functors"
             ]
         },
@@ -24,6 +22,17 @@
                 "part1/dune",
                 "part2/dune-release",
                 "part2/opam-pin"
+            ]
+        },
+        {
+            "title": "Advanced Ocaml",
+            "chapters": []
+        },
+        {
+            "title": "Libraries",
+            "chapters": [
+                "part1/show",
+                "part1/bin_prot"
             ]
         }
     ]
