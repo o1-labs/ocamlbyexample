@@ -90,8 +90,17 @@
         <div class="col col-lg-2" id="chapters">
 
             <ul>
-                {% for chapter in chapters %}
-                <li><a href="{{chapter.folder}}.html">{{ chapter.title}}</a></li>
+                {% for part in parts %}
+                <h2>{{ part.title }}</h2>
+                <ul>
+                    {% for c in part.chapters %}
+                    {% if c.folder == chapter.folder %}
+                    <li>{{ c.title}}</li>
+                    {% else %}
+                    <li><a href="{{c.folder}}.html">{{ c.title}}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
                 {% endfor %}
             </ul>
 

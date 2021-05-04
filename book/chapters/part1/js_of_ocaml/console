@@ -1,0 +1,2 @@
+$ dune build ./main.bc
+$ js_of_ocaml cubes.byte

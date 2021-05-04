@@ -1,0 +1,6 @@
+all transitive depepdencies are also accessible!
+
+that's fucked up
+
+you can't use the same dependency twice with the same version, or two dependencies that have the same name 
+you can't use two dependencies that use the same  dependency but w different version, or different dependencies but with the same name

@@ -6,4 +6,4 @@ module type Thing = sig
   val b : t -> string 
 end
 
-
+module Make (Animal : Thing)

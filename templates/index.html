@@ -50,11 +50,14 @@
     <div class="row">
         <div class="col col-lg-2" id="chapters">
 
+            {% for part in parts %}
+            <h2>{{ part.title }}</h2>
             <ul>
-                {% for chapter in chapters %}
+                {% for chapter in part.chapters %}
                 <li><a href="{{chapter.folder}}.html">{{ chapter.title}}</a></li>
                 {% endfor %}
             </ul>
+            {% endfor %}
 
         </div>
 

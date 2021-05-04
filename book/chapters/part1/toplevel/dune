@@ -1,0 +1,5 @@
+(executable
+ (name mytoplevel)
+ (libraries compiler-libs.toplevel mylib)
+ (link_flags (-linkall))
+ (modes byte))
