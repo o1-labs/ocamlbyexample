@@ -12,9 +12,10 @@ Create a folder in `book/chapters/` (using another example), then add your chapt
 
 Some guidelines: 
 
-* short examples are best
-* a chapter should teach one thing well
-* a chapter should never use something that wasn't explained in a previous chapter (unless it introduces it)
+1. short examples are best
+1. a chapter should teach one thing well
+1. each explanation block should teach one thing well
+1. a chapter should never use something that wasn't explained in a previous chapter (unless it introduces it)
 
 ## How to render the thing locally?
 

@@ -21,7 +21,9 @@
         {
             "title": "Project Management",
             "chapters": [
-                "part1/dune"
+                "part1/dune",
+                "part2/dune-release",
+                "part2/opam-pin"
             ]
         }
     ]

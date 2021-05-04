@@ -94,7 +94,7 @@
                 <h2>{{ part.title }}</h2>
                 <ul>
                     {% for c in part.chapters %}
-                    {% if c.folder == chapter.folder %}
+                    {% if c.folder == chapter.folder || c.folder == "" %}
                     <li>{{ c.title}}</li>
                     {% else %}
                     <li><a href="{{c.folder}}.html">{{ c.title}}</a></li>

@@ -50,31 +50,36 @@ type part = {
 
 let get_chapter folder =
   let chapter_file = chapters_dir ^ folder ^ "/" ^ "chapter.json" in
-  let json = Yojson.Basic.from_file chapter_file in
-  let open Yojson.Basic.Util in
-  let title = json |> member "title" |> to_string in
-  let to_explanation = function
-    | `Assoc [ ("line", line); ("text", text) ] ->
-        Unparsed { line = to_int line; text = to_string text }
-    | _ ->
-        failwith
-          "misformated chapter.json: explanations must contain blocks of { \
-           line, text }"
-  in
-  let to_section = function
-    | `Assoc [ ("file", file); ("lang", lang); ("explanations", explanations) ]
-      ->
-        let file = to_string file in
-        let lang = to_string lang in
-        let explanations = explanations |> convert_each to_explanation in
-        { file; lang; explanations }
-    | _ ->
-        failwith
-          "misformated chapter.json: sections must contain blocks of { file, \
-           explanations }"
-  in
-  let sections = json |> member "sections" |> convert_each to_section in
-  { title; folder; sections }
+  match Sys.file_exists chapter_file with
+  | `Unknown | `No -> { title = folder; folder = ""; sections = [] }
+  | `Yes ->
+      ();
+      let json = Yojson.Basic.from_file chapter_file in
+      let open Yojson.Basic.Util in
+      let title = json |> member "title" |> to_string in
+      let to_explanation = function
+        | `Assoc [ ("line", line); ("text", text) ] ->
+            Unparsed { line = to_int line; text = to_string text }
+        | _ ->
+            failwith
+              "misformated chapter.json: explanations must contain blocks of { \
+               line, text }"
+      in
+      let to_section = function
+        | `Assoc
+            [ ("file", file); ("lang", lang); ("explanations", explanations) ]
+          ->
+            let file = to_string file in
+            let lang = to_string lang in
+            let explanations = explanations |> convert_each to_explanation in
+            { file; lang; explanations }
+        | _ ->
+            failwith
+              "misformated chapter.json: sections must contain blocks of { \
+               file, explanations }"
+      in
+      let sections = json |> member "sections" |> convert_each to_section in
+      { title; folder; sections }
 
 let get_part part =
   let open Yojson.Basic.Util in
@@ -240,6 +245,9 @@ let html_to_disk (name, data) =
 
 let chapters_to_html parts chapters =
   let parts_mod = parts_to_model parts in
+  let chapters =
+    List.filter chapters ~f:(fun { folder; _ } -> not (String.is_empty folder))
+  in
   let chapters_html = List.map chapters ~f:(chapter_to_html parts_mod) in
   List.iter chapters_html ~f:html_to_disk
 
