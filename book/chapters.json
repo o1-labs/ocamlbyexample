@@ -1,18 +1,28 @@
 {
-    "chapters": [
-        "setup",
-        "hello-world",
-        "utop",
-        "tuples",
-        "list",
-        "records",
-        "match",
-        "modules",
-        "errors",
-        "inline-tests",
-        "show",
-        "bin_prot",
-        "functors",
-        "dune"
+    "parts": [
+        {
+            "title": "Language Basics",
+            "chapters": [
+                "part1/setup",
+                "part1/hello-world",
+                "part1/utop",
+                "part1/tuples",
+                "part1/list",
+                "part1/records",
+                "part1/match",
+                "part1/modules",
+                "part1/errors",
+                "part1/inline-tests",
+                "part1/show",
+                "part1/bin_prot",
+                "part1/functors"
+            ]
+        },
+        {
+            "title": "Project Management",
+            "chapters": [
+                "part1/dune"
+            ]
+        }
     ]
 }

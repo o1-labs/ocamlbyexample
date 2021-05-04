@@ -39,6 +39,13 @@ type chapter = {
 }
 [@@deriving show]
 
+type part = {
+  title : string;
+  (* each part has several chapters *)
+  chapters : chapter list;
+}
+[@@deriving show]
+
 (* read JSON files *)
 
 let get_chapter folder =
@@ -69,12 +76,19 @@ let get_chapter folder =
   let sections = json |> member "sections" |> convert_each to_section in
   { title; folder; sections }
 
-let get_chapters _ =
+let get_part part =
+  let open Yojson.Basic.Util in
+  let title = part |> member "title" |> to_string in
+  let chapters = part |> member "chapters" |> to_list |> filter_string in
+  let chapters = List.map chapters ~f:get_chapter in
+  { title; chapters }
+
+let get_parts _ =
   let json = Yojson.Basic.from_file chapters_list in
   let open Yojson.Basic.Util in
-  let chapters = json |> member "chapters" |> to_list |> filter_string in
-  let chapters = List.map chapters ~f:get_chapter in
-  chapters
+  let parts = json |> member "parts" |> to_list in
+  let parts = List.map parts ~f:get_part in
+  parts
 
 let get_code folder file_name =
   let file_name = chapters_dir ^ folder ^ "/" ^ file_name in
@@ -142,7 +156,7 @@ let rec produce_explanations (result : explanation list) ln (code : string list)
       let new_result = result @ [ explanation ] in
       produce_explanations new_result ln remaining_code rest_expls
 
-let parse_chapters chapters =
+let parse_parts parts =
   let parse_section folder ({ file; explanations; _ } as section) =
     let code = get_code folder file in
     let explanations = produce_explanations [] 1 code explanations in
@@ -150,9 +164,14 @@ let parse_chapters chapters =
   in
   let parse_chapter ({ folder; sections; _ } as chapter) =
     let sections = List.map sections ~f:(parse_section folder) in
-    { chapter with sections }
+    let folder = String.substr_replace_all folder ~pattern:"/" ~with_:"-" in
+    { chapter with sections; folder }
   in
-  List.map chapters ~f:parse_chapter
+  let parse_part ({ chapters; _ } as part) =
+    let chapters = List.map chapters ~f:parse_chapter in
+    { part with chapters }
+  in
+  List.map parts ~f:parse_part
 
 (* ocaml -> models for HTML *)
 
@@ -188,34 +207,47 @@ let chapters_to_model chapters =
   let chapters = List.map chapters ~f:chapter_to_model in
   Jingoo.Jg_types.Tlist chapters
 
+let part_to_model { title; chapters } =
+  let chapters = chapters_to_model chapters in
+  let open Jingoo in
+  Jg_types.Tobj [ ("title", Jg_types.Tstr title); ("chapters", chapters) ]
+
+let parts_to_model parts =
+  let parts = List.map parts ~f:part_to_model in
+  Jingoo.Jg_types.Tlist parts
+
 (* models -> HTML *)
 
-let chapter_to_html chapters chapter =
+let chapter_to_html parts chapter =
   let folder = chapter.folder in
   let chapter = chapter_to_model chapter in
-  let models = [ ("chapters", chapters); ("chapter", chapter) ] in
+  let models = [ ("parts", parts); ("chapter", chapter) ] in
   let result = Jingoo.Jg_template.from_file chapter_template ~models in
   (folder, result)
 
-let chapters_to_index chapters =
-  let chapters = chapters_to_model chapters in
-  let models = [ ("chapters", chapters) ] in
+let parts_to_index parts =
+  let parts = parts_to_model parts in
+  let models = [ ("parts", parts) ] in
   let result = Jingoo.Jg_template.from_file index_template ~models in
   result
 
 (* HTML -> disk *)
 
 let html_to_disk (name, data) =
+  let name = String.substr_replace_all name ~pattern:"/" ~with_:"-" in
   let output_file = output_dir ^ name ^ ".html" in
   Out_channel.write_all output_file ~data
 
-let chapters_to_html chapters =
-  let chapters_mod = chapters_to_model chapters in
-  let chapters_html = List.map chapters ~f:(chapter_to_html chapters_mod) in
+let chapters_to_html parts chapters =
+  let parts_mod = parts_to_model parts in
+  let chapters_html = List.map chapters ~f:(chapter_to_html parts_mod) in
   List.iter chapters_html ~f:html_to_disk
 
-let index_to_html chapters =
-  let index_html = chapters_to_index chapters in
+let parts_to_html parts =
+  List.iter parts ~f:(fun { chapters; _ } -> chapters_to_html parts chapters)
+
+let index_to_html parts =
+  let index_html = parts_to_index parts in
   html_to_disk ("index", index_html)
 
 (* helpers *)
@@ -238,9 +270,9 @@ let print_chapter (idx : int) { title; sections; _ } =
 
 let main _ =
   Unix.mkdir_p output_dir;
-  let chapters = parse_chapters @@ get_chapters @@ () in
-  chapters_to_html chapters;
-  index_to_html chapters;
+  let parts = parse_parts @@ get_parts @@ () in
+  parts_to_html parts;
+  index_to_html parts;
   printf "done generating HTML files in dist/\n"
 
 let () = main ()
