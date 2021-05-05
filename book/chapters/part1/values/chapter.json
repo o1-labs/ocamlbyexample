@@ -1,0 +1,15 @@
+{
+    "title": "Values",
+    "sections": [
+        {
+            "file": "utop",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "https://www.craigfe.io/operator-lookup/ "
+                }
+            ]
+        }
+    ]
+}
