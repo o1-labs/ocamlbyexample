@@ -12,6 +12,10 @@
                 {
                     "line": 3,
                     "text": "In all of these examples, you will need to **replace** the standard library of OCaml with the well-accepted standard library replacement of Janestreet: **`Core`**. To consult the documentation of any packages (including `Core`), refer to the [ocaml docs](https://docs.ocaml.pro/)."
+                },
+                {
+                    "line": 5,
+                    "text": "Sometimes, things won't work if you don't set some PATHs via this command."
                 }
             ]
         }
