@@ -148,7 +148,7 @@ let rec produce_explanations (result : explanation list) ln (code : string list)
   match (code, explanations) with
   | [], [] -> result
   | code, [] -> result @ [ Parsed { code; explanation = "" } ]
-  | [], [ Unparsed expl ] when expl.line > ln ->
+  | [], [ Unparsed expl ] ->
       result @ [ Parsed { code = []; explanation = expl.text } ]
   | [], Unparsed expl :: _ ->
       eprintf "explanation dangling: %s" expl.text;
