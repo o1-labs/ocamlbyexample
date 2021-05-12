@@ -7,7 +7,11 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "https://www.craigfe.io/operator-lookup/ "
+                    "text": "The integer type can contain numbers from -4611686018427387904 to 4611686018427387903."
+                },
+                {
+                    "line": 30,
+                    "text": "If you see an operator you haven't seen before, you can check what it is on the [operator lookup](https://www.craigfe.io/operator-lookup/) page."
                 }
             ]
         }

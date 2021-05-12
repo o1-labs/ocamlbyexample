@@ -1,14 +1,29 @@
-1 + 1;;
+utop # 1 + 1;;
+- : int = 2
 
-1 +. 1;;
-
-1 * 1;;
-
-1 *. 1;;
-
-Int.( * ) 2 3;;
-
-Int.( = ) 3 5;;
+utop # 1.3 +. 2.5;;
+- : float = 3.8
 
 utop # 1 lsl 3;;
 - : int = 8
+
+utop # 3 > 5;;
+- : bool = false
+
+utop # "hello" ^ " world";;
+- : string = "hello world"
+
+utop # let a = 1;;
+val a : int = 1
+
+utop # let add_one i = i + 1;;
+val add_one : int -> int = <fun>
+
+utop # let a' = add_one a;;
+val a' : int = 2
+
+utop # Int.( * ) 2 3;;
+- : int = 6
+
+utop # Int.( = ) 3 5;;
+- : bool = false

@@ -37,7 +37,8 @@
             "chapters": [
                 "libraries/show",
                 "libraries/bin_prot",
-                "libraries/ctypes"
+                "libraries/ctypes",
+                "compiling to javascript"
             ]
         }
     ]
