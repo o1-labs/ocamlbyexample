@@ -38,6 +38,7 @@
         /* body */
         body {
             margin-top: 20px;
+            margin-bottom: 60px;
         }
 
         h1.title {
@@ -137,15 +138,32 @@
             <div class="col col-lg-2">
 
                 <div class="chapters">
+                    {% set ns = namespace (found=false, folder="", title="") %}
                     {% for part in parts %}
                     <h2>{{ part.title }}</h2>
                     <ul>
                         {% for c in part.chapters %}
-                        {% if c.folder == chapter.folder || c.folder == "" %}
-                        <li>{{ c.title}}</li>
-                        {% else %}
-                        <li><a href="{{c.folder}}.html">{{ c.title}}</a></li>
+
+                        {% if ns.found %}
+                        {% set ns.folder = c.folder %}
+                        {% set ns.title = c.title %}
+                        {% set ns.found = false %}
                         {% endif %}
+
+                        {% if c.folder == chapter.folder %}
+                        {% set ns.found = true -%}
+                        {% endif %}
+
+                        {% if c.folder == chapter.folder || c.folder == "" %}
+
+                        <li>{{ c.title}}</li>
+
+                        {% else %}
+
+                        <li><a href="{{c.folder}}.html">{{ c.title}}</a></li>
+
+                        {% endif %}
+
                         {% endfor %}
                     </ul>
                     {% endfor %}
@@ -179,6 +197,16 @@
                         {% endfor %}
                     </table>
                     {% endfor %}
+
+                    <div style="text-align:right">
+                        {% if ns.folder != "" %}
+                        next: <a href="{{ns.folder}}.html">{{ns.title}}</a>
+                        {% elseif ns.title != "" %}
+                        next: <a>{{ns.title}}</a>
+                        {% else %}
+                        you've reached the end!
+                        {% endif %}
+                    </div>
 
                 </div>
             </div>
