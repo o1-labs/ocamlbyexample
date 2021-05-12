@@ -38,16 +38,20 @@ let rec has_changed (last_change : float) (folders : string list) : float option
           else has_changed last_change rest)
 
 (* watches a folder and apply [f] if any change is detected *)
-let rec watch last_change path ~f =
+let rec watch last_timestamp path ~f =
   Unix.sleep 1;
-  match has_changed last_change path with
-  | None -> watch last_change path ~f
-  | Some new_last_change ->
-      printf "some changes observed, new timestamp: %f\n%!" new_last_change;
-      f ();
-      watch new_last_change path ~f
+  match has_changed last_timestamp path with
+  | None -> watch last_timestamp path ~f
+  | Some new_timestamp ->
+      printf "some changes were observed (timestamp %f). Rebuilding...\n%!"
+        new_timestamp;
+      (try f ()
+       with some_exception ->
+         printf "there's an error in your files: %s\n%!"
+           (Exn.to_string some_exception));
+      watch new_timestamp path ~f
 
 (* watches a folder and apply [f] if any change is detected *)
 let main path ~f =
-  let last_change = highest_timestamp path in
-  watch last_change path ~f
+  let last_timestamp = highest_timestamp path in
+  watch last_timestamp path ~f
