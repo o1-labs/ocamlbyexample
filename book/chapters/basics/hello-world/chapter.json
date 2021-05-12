@@ -24,6 +24,26 @@
                     "text": "You can compile your code with the OCaml compiler `ocamlc`, similar to C programs."
                 }
             ]
+        },
+        {
+            "file": "hello2.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "We can use the `core` library we installed in the previous example by \"opening\" it. We can then use Core's [printf](https://ocaml.janestreet.com/ocaml-core/odoc/stdlib/Stdlib/Printf/index.html) function directly. Notice that arguments of a function are not surrounded by parenthesis or commas."
+                }
+            ]
+        },
+        {
+            "file": "console2",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "To compile code using external libraries, you can use `ocamlfind` which will do the work of finding and linking these libraries at compilation time."
+                }
+            ]
         }
     ]
 }

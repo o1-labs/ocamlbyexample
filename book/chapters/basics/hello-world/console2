@@ -1,0 +1,4 @@
+$ opam install ocamlfind
+$ ocamlfind opt -package core -thread -linkpkg hello2.ml
+$ ./a.out
+hello world
