@@ -1,0 +1,5 @@
+let sigemptyset = foreign "sigemptyset" (ptr sigset_t @-> returning int)
+let sigfillset = foreign "sigfillset" (ptr sigset_t @-> returning int)
+let sigaddset = foreign "sigaddset" (ptr sigset_t @-> int @-> returning int)
+let sigdelset = foreign "sigdelset" (ptr sigset_t @-> int @-> returning int)
+let sigismember = foreign "sigismember" (ptr sigset_t @-> int @-> returning int)

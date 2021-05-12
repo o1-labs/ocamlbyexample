@@ -1,0 +1,9 @@
+utop # let i = 1;;
+val i : int = 1
+
+utop # match i with
+| 0 -> print_endline "zero"
+| 1 -> print_endline "one"
+| _ -> print_endline "some other number";;
+one
+- : unit = ()

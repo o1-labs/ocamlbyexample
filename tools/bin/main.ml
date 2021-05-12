@@ -2,13 +2,17 @@ open Core
 
 (* constants *)
 
-let chapters_list = "book/chapters.json"
+let book_dir = "book"
 
-let chapters_dir = "book/chapters/"
+let chapters_list = book_dir ^ "/chapters.json"
 
-let chapter_template = "templates/chapter.html"
+let chapters_dir = book_dir ^ "/chapters"
 
-let index_template = "templates/index.html"
+let template_dir = "templates"
+
+let chapter_template = template_dir ^ "/chapter.html"
+
+let index_template = template_dir ^ "/index.html"
 
 let output_dir = "dist/"
 
@@ -49,7 +53,7 @@ type part = {
 (* read JSON files *)
 
 let get_chapter folder =
-  let chapter_file = chapters_dir ^ folder ^ "/" ^ "chapter.json" in
+  let chapter_file = chapters_dir ^ "/" ^ folder ^ "/" ^ "chapter.json" in
   match Sys.file_exists chapter_file with
   | `Unknown | `No -> { title = folder; folder = ""; sections = [] }
   | `Yes ->
@@ -96,7 +100,7 @@ let get_parts _ =
   parts
 
 let get_code folder file_name =
-  let file_name = chapters_dir ^ folder ^ "/" ^ file_name in
+  let file_name = chapters_dir ^ "/" ^ folder ^ "/" ^ file_name in
   In_channel.read_lines file_name
 
 (* transform *)
@@ -274,13 +278,27 @@ let print_chapter (idx : int) { title; sections; _ } =
   printf "%d - %s\n" (idx + 1) title;
   List.iter sections ~f:print_section
 
+let array_get array idx =
+  let len = Array.length array in
+  if idx > len - 1 then None else Some array.(idx)
+
 (* main *)
 
-let main _ =
+let build _ =
   Unix.mkdir_p output_dir;
   let parts = parse_parts @@ get_parts @@ () in
   parts_to_html parts;
   index_to_html parts;
   printf "done generating HTML files in dist/\n"
+
+let main _ =
+  let argv = Sys.get_argv () in
+  let arg = array_get argv 1 in
+  match arg with
+  | None | Some "build" -> build ()
+  | Some "watch" ->
+      print_endline ("now watching " ^ book_dir);
+      Watch.watch 0. [ book_dir; template_dir ] ~f:build
+  | _ -> print_endline "usage: byexample <build|watch>"
 
 let () = main ()

@@ -19,9 +19,22 @@ Some guidelines:
 
 ## How to render the thing locally?
 
-You need [ocaml](https://ocaml.org/) and [dune](https://github.com/ocaml/dune) set up. Then simply run:
+You need [ocaml](https://ocaml.org/) and [dune](https://github.com/ocaml/dune) set up.
+
+Install opam (OCaml) dependencies:
+
+```
+make deps
+```
+
+Then simply run:
 
 ```
 make
 ```
 
+or to automatically update the website as you change files:
+
+```
+make watch
+```

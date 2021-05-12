@@ -1,0 +1,25 @@
+{
+    "title": "Calling C programs",
+    "sections": [
+        {
+            "file": "console",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "https://opam.ocaml.org/packages/ctypes/"
+                }
+            ]
+        },
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        }
+    ]
+}

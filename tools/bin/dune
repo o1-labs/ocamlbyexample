@@ -1,5 +1,5 @@
 (executable
  (name main)
- (libraries core cmdliner yojson jingoo)
+ (libraries core yojson jingoo)
  (preprocess
   (pps ppx_deriving.show)))

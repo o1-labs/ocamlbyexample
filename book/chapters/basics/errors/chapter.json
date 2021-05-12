@@ -27,7 +27,7 @@
                 },
                 {
                     "line": 24,
-                    "text": "Note that any code that comes after a raised exception will not get executed."
+                    "text": "Note that any code that comes after a raised exception will not get executed. Also see https://github.com/janestreet/ppx_expect"
                 }
             ]
         },

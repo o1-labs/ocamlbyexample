@@ -3,23 +3,24 @@
         {
             "title": "Language Basics",
             "chapters": [
-                "part1/setup",
-                "part1/hello-world",
-                "part1/utop",
-                "part1/match",
-                "part1/tuples",
-                "part1/list",
-                "part1/records",
-                "part1/modules",
-                "part1/errors",
-                "part1/inline-tests",
-                "part1/functors"
+                "basics/setup",
+                "basics/hello-world",
+                "basics/utop",
+                "basics/values",
+                "basics/match",
+                "basics/tuples",
+                "basics/list",
+                "basics/records",
+                "basics/modules",
+                "basics/errors",
+                "basics/inline-tests",
+                "basics/functors"
             ]
         },
         {
             "title": "Project Management",
             "chapters": [
-                "part1/dune",
+                "basics/dune",
                 "part2/dune-release",
                 "part2/opam-pin"
             ]
@@ -32,7 +33,8 @@
             "title": "Libraries",
             "chapters": [
                 "part1/show",
-                "part1/bin_prot"
+                "part1/bin_prot",
+                "part3/ctypes"
             ]
         }
     ]
