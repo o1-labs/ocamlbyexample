@@ -10,31 +10,34 @@
                 "basics/match",
                 "basics/tuples",
                 "basics/list",
+                "basics/array",
                 "basics/records",
                 "basics/modules",
                 "basics/errors",
-                "basics/inline-tests",
-                "basics/functors"
+                "basics/inline-tests"
             ]
         },
         {
             "title": "Project Management",
             "chapters": [
-                "basics/dune",
-                "part2/dune-release",
-                "part2/opam-pin"
+                "build/dune",
+                "dune-release",
+                "opam pin"
             ]
         },
         {
             "title": "Advanced Ocaml",
-            "chapters": []
+            "chapters": [
+                "functors",
+                "monads"
+            ]
         },
         {
             "title": "Libraries",
             "chapters": [
-                "part1/show",
-                "part1/bin_prot",
-                "part3/ctypes"
+                "libraries/show",
+                "libraries/bin_prot",
+                "libraries/ctypes"
             ]
         }
     ]

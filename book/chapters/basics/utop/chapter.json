@@ -13,7 +13,7 @@
         },
         {
             "file": "utop",
-            "lang": "console",
+            "lang": "ocaml",
             "explanations": [
                 {
                     "line": 1,

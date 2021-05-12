@@ -7,7 +7,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
+                    "text": "A dune-project file is at the root of any project, it allows to set configuration for any executable or library in the project."
                 }
             ]
         },
@@ -17,7 +17,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
+                    "text": "A dune allows you to declare an executable or a library."
                 }
             ]
         },
@@ -28,6 +28,16 @@
                 {
                     "line": 1,
                     "text": "You need an `.ocamlformat` file (that can be empty) at the root for `ocamlformat` to work."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "You can run utop with your library thanks to e dune."
                 }
             ]
         }
