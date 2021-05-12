@@ -37,10 +37,48 @@
 
         /* body */
         body {
-            margin-top: 60px;
+            margin-top: 20px;
+        }
+
+        h1.title {
+            padding-left: 24px;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        /* sidebar */
+
+        .chapters {
+            padding: 15px;
+            background-color: #dcf0f73d;
+        }
+
+        .chapters h2 {
+            font-size: 17px;
+        }
+
+        .chapters a {
+            color: black;
+            text-decoration: none;
+            border-bottom: 1px black solid;
         }
 
         /* table */
+        .chapter h1 {
+            font-size: 30px;
+        }
+
+        .filename {
+            background-color: white;
+        }
+
+        .filename h2 {
+
+            font-size: 15px;
+        }
+
         .explanation_code {
             background-color: #23241f;
             margin-bottom: 60px;
@@ -84,50 +122,65 @@
 </head>
 
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2">
+            </div>
 
-
-    <div class="row">
-        <div class="col col-lg-2" id="chapters">
-
-            <ul>
-                {% for part in parts %}
-                <h2>{{ part.title }}</h2>
-                <ul>
-                    {% for c in part.chapters %}
-                    {% if c.folder == chapter.folder || c.folder == "" %}
-                    <li>{{ c.title}}</li>
-                    {% else %}
-                    <li><a href="{{c.folder}}.html">{{ c.title}}</a></li>
-                    {% endif %}
-                    {% endfor %}
-                </ul>
-                {% endfor %}
-            </ul>
-
+            <div class="col col-md-auto">
+                <h1 class="title">OCaml By Examples</h1>
+            </div>
         </div>
 
-        <div class="col col-md-auto">
 
-            <div class="container">
+        <div class="row">
+            <div class="col col-lg-2">
 
-                <h1>{{ chapter.title }}</h1>
-
-                {% for section in chapter.sections %}
-                <h2><code>{{ section.file }}</code></h2>
-                <table class="explanation_code">
-                    {% for explanation in section.explanations %}
-                    <tr>
-                        <td class="explanation">
-                            {{ explanation.explanation }}
-                        </td>
-                        <td class="code">
-                            <pre><code class="{{ section.lang }}">{{ explanation.code }}</code></pre>
-                        </td>
-                    </tr>
+                <div class="chapters">
+                    {% for part in parts %}
+                    <h2>{{ part.title }}</h2>
+                    <ul>
+                        {% for c in part.chapters %}
+                        {% if c.folder == chapter.folder || c.folder == "" %}
+                        <li>{{ c.title}}</li>
+                        {% else %}
+                        <li><a href="{{c.folder}}.html">{{ c.title}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
                     {% endfor %}
-                </table>
-                {% endfor %}
+                </div>
 
+            </div>
+
+            <div class="col col-md-auto chapter">
+
+                <div class="container">
+
+                    <h1>{{ chapter.title }}</h1>
+
+                    {% for section in chapter.sections %}
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>{{ section.file }}</code></h2>
+                            </td>
+                        </tr>
+                        {% for explanation in section.explanations %}
+                        <tr>
+                            <td class="explanation">
+                                {{ explanation.explanation }}
+                            </td>
+                            <td class="code">
+                                <pre><code class="{{ section.lang }}">{{ explanation.code }}</code></pre>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endfor %}
+
+                </div>
             </div>
         </div>
     </div>
