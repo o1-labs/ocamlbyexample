@@ -1,27 +1,26 @@
 # Ocaml By Example
 
-https://mimoo.github.io/ocamlbyexample/
+Learn the OCaml language, following a series of examples!
 
-## What is this?
+You can visit the rendered course here: https://mimoo.github.io/ocamlbyexample/.
 
-inspired by https://www.gobyexample.com
+This page is inspired by https://www.gobyexample.com.
 
-## How to add your own example
+## Adding your own examples (chapters)
 
 Create a folder in `book/chapters/` (using another example), then add your chapter in `book/chapters.json`.
 
 Some guidelines: 
 
 1. short examples are best
-1. a chapter should teach one thing well
-1. each explanation block should teach one thing well
-1. a chapter should never use something that wasn't explained in a previous chapter (unless it introduces it)
+1. one chapter teaches one concept well
+1. one block of explanation teaches one subconcept well
+1. a concept is always introduced and explained the first time it is being used in an example
 
-## How to render the thing locally?
+## How to render the webpage locally
 
-You need [ocaml](https://ocaml.org/) and [dune](https://github.com/ocaml/dune) set up.
-
-Install opam (OCaml) dependencies:
+You need the [OCaml](https://ocaml.org/) language setup.
+Once you've set up OCaml you can install the dependencies needed by the project with:
 
 ```
 make deps
@@ -38,3 +37,9 @@ or to automatically update the website as you change files:
 ```
 make watch
 ```
+
+## Can I use this for another programming language?
+
+Yes, while the code is written in OCaml you can use it to build similar webpages for any programming language (although syntax highlighting will only work for languages supported by [highlight.js](https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md)).
+
+So feel free to fork this page and use to teach your own stuff!

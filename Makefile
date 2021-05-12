@@ -3,6 +3,6 @@ all:
 
 watch:
 	dune exec ./tools/bin/main.exe -- watch 
-	
+
 deps:
-	opam install fileutils
+	opam install dune core yojson jingoo
