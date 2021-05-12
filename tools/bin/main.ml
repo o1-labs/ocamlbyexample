@@ -297,8 +297,10 @@ let main _ =
   match arg with
   | None | Some "build" -> build ()
   | Some "watch" ->
+      print_endline "building once first";
+      build ();
       print_endline ("now watching " ^ book_dir);
-      Watch.watch 0. [ book_dir; template_dir ] ~f:build
+      Watch.main [ book_dir; template_dir ] ~f:build
   | _ -> print_endline "usage: byexample <build|watch>"
 
 let () = main ()
