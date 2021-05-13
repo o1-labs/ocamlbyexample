@@ -145,23 +145,11 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-opam.html">opam</a></li>
-
                         
 
                         
 
-                        
-
-                        
-                        
-
-                        
-
-                        <li>hello world</li>
+                        <li>opam</li>
 
                         
 
@@ -171,6 +159,18 @@
                         
                         
                         
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-hello-world.html">hello world</a></li>
+
+                        
+
+                        
+
                         
 
                         
@@ -435,38 +435,8 @@
 
                 <div class="container">
 
-                    <h1>hello world</h1>
+                    <h1>opam</h1>
 
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>hello.ml</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                There&apos;s no main function in OCaml, rather statements that can have side effects (here printing to stdout).
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">(* this is a comment *)
-print_endline &quot;hello world&quot;
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                A more idiomatic way to write this is to enforce that the code returns nothing, or in OCaml term that it returns the **unit** symbol `()`.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let () = print_endline &quot;hello world&quot;</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
                     
                     <table class="explanation_code">
                         <tr>
@@ -478,67 +448,59 @@ print_endline &quot;hello world&quot;
                         
                         <tr>
                             <td class="explanation">
-                                You can compile your code with the OCaml compiler **ocamlc**, similar to C programs.
+                                Install **opam**, the version management and package manager of OCaml. You can also consult the [official opam webpage](https://opam.ocaml.org/doc/Install.html).
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ ocamlc -o your_program hello.ml
-$ ./your_program
-hello world
-hello world</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>hello2.ml</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                We can also use [methods of the Core library]((https://ocaml.janestreet.com/ocaml-core/odoc/stdlib/Stdlib/Printf/index.html)) we installed in the previous example. Notice that arguments of a function are not surrounded by parenthesis or commas.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let () =
-  Core.printf &quot;%s\n&quot; &quot;hello world&quot;
+                                <pre><code class="console">$ sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
 </code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                You can also access a library&apos;s methods directly by opening the library. In general this is bad practice, unless the library is made to be opened (like Core).
+                                In all of these examples, you will need to **replace** the standard library of OCaml with the well-accepted standard library replacement of Janestreet: **Core**. To consult the documentation of any packages (including Core), refer to the [ocaml docs](https://docs.ocaml.pro/).
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">open Core
-let () = 
-  printf &quot;%s\n&quot; &quot;hello world&quot;</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console2</code></h2>
+                                <pre><code class="console">$ opam install core
+</code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                To compile code using external libraries, you can use `ocamlfind` which will do the work of finding and linking these libraries at compilation time. This is not ideal though, and you will later learn about an easier way to build your projects using [dune](build-dune.html).
+                                Sometimes, things won&apos;t work if you don&apos;t set some PATHs via this command.
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install ocamlfind
-$ ocamlfind opt -package core -thread -linkpkg hello2.ml
-$ ./a.out
-hello world</code></pre>
+                                <pre><code class="console">$ eval $(opam config env)
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The command `opam switch` allows you to manage different versions of OCaml. This is called a **switch** and the installed binaries and libraries are stored in the `~/.opam` directory.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam switch
+#  switch   compiler                    description
+→  default  ocaml-base-compiler.4.12.0  default
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Best practice is to create a **local** switch for your project: a version of OCaml and a set of libraries that will only be used when in a specific folder. When a local switch is used, relevant binaries and libraries are stored under a `_opam` folder in your project.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam switch list-available
+...
+$ opam switch create . 4.11.0
+...
+$ opam switch
+#  switch           compiler                    description
+→  /ocamlbyexample  ocaml-base-compiler.4.11.0  /ocamlbyexample
+   default          ocaml-base-compiler.4.12.0  default</code></pre>
                             </td>
                         </tr>
                         
@@ -547,7 +509,7 @@ hello world</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-utop.html">utop</a>
+                        next: <a href="basics-hello-world.html">hello world</a>
                         
                     </div>
 
