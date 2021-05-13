@@ -1,12 +1,12 @@
 {
-    "title": "Lists",
+    "title": "lists",
     "sections": [
         {
             "file": "main.ml",
             "lang": "ocaml",
             "explanations": [
                 {
-                    "line": 0,
+                    "line": 1,
                     "text": "Lists can hold any number of items of the same type."
                 },
                 {

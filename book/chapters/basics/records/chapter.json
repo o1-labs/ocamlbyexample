@@ -1,14 +1,9 @@
 {
-    "title": "Records",
+    "title": "records",
     "sections": [
         {
-            "file": "main.ml",
+            "file": "utop",
             "lang": "ocaml",
-            "explanations": []
-        },
-        {
-            "file": "console",
-            "lang": "console",
             "explanations": []
         }
     ]
