@@ -1,5 +1,5 @@
 (executable
  (name main)
- (libraries core yojson jingoo)
+ (libraries core yojson jingoo byexample)
  (preprocess
   (pps ppx_deriving.show)))
