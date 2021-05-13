@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: |
           eval $(opam env)
-          opam install dune core yojson jingoo ppx_deriving
+          make deps
           make 
 
       - name: Deploy
