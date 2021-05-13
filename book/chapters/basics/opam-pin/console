@@ -1,0 +1,3 @@
+$ opam pin add package_name path # this works with ".git" !!! if you have uncommitted changes you're in for a world of pain
+$ opam pin add package_name path -k path # unless you specify that it's a path
+

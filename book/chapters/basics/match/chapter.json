@@ -1,10 +1,19 @@
 {
-    "title": "Match",
+    "title": "match",
     "sections": [
         {
             "file": "utop",
             "lang": "ocaml",
-            "explanations": []
+            "explanations": [
+                {
+                    "line": 4,
+                    "text": "OCaml offers a very powerful way to **match** patterns with the `match` keyword. Think of a `switch` or a long series of `if` and `else if` in a different language."
+                },
+                {
+                    "line": 11,
+                    "text": "`match` are safe to use as they will not allow you to miss a pattern."
+                }
+            ]
         }
     ]
 }

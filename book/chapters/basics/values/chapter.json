@@ -1,13 +1,41 @@
 {
-    "title": "Values",
+    "title": "values",
     "sections": [
         {
             "file": "utop",
-            "lang": "console",
+            "lang": "ocaml",
             "explanations": [
                 {
                     "line": 1,
-                    "text": "The integer type can contain numbers from -4611686018427387904 to 4611686018427387903."
+                    "text": "The integer type `int` can contain numbers from -4611686018427387904 to 4611686018427387903."
+                },
+                {
+                    "line": 4,
+                    "text": "The `float` type uses different symbols for operations: `+.`, `-.`, etc."
+                },
+                {
+                    "line": 7,
+                    "text": "Bitwise operations can be performed using `lsl` (shift left), `lxor` (XOR), `land` (AND), etc."
+                },
+                {
+                    "line": 10,
+                    "text": "Comparing numbers can be done using `>`, `<`, and `<>` for inequality."
+                },
+                {
+                    "line": 13,
+                    "text": "Strings can be concatenated using the `^` operator."
+                },
+                {
+                    "line": 16,
+                    "text": "Variables can be declared via the `let` keyword."
+                },
+                {
+                    "line": 19,
+                    "text": "Functions are like variables, except that they take arguments specified after the name of the function and before the `=`. The last statement is automatically returned (no need to write `return`)."
+                },
+                {
+                    "line": 25,
+                    "text": "Operators can be overloaded and different types might define different operators."
                 },
                 {
                     "line": 30,

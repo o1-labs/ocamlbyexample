@@ -1,0 +1,31 @@
+{
+    "title": "opam",
+    "sections": [
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Install **opam**, the version management and package manager of OCaml. You can also consult the [official opam webpage](https://opam.ocaml.org/doc/Install.html)."
+                },
+                {
+                    "line": 3,
+                    "text": "In all of these examples, you will need to **replace** the standard library of OCaml with the well-accepted standard library replacement of Janestreet: **Core**. To consult the documentation of any packages (including Core), refer to the [ocaml docs](https://docs.ocaml.pro/)."
+                },
+                {
+                    "line": 5,
+                    "text": "Sometimes, things won't work if you don't set some PATHs via this command."
+                },
+                {
+                    "line": 7,
+                    "text": "The command `opam switch` allows you to manage different versions of OCaml. This is called a **switch** and the installed binaries and libraries are stored in the `~/.opam` directory."
+                },
+                {
+                    "line": 11,
+                    "text": "Best practice is to create a **local** switch for your project: a version of OCaml and a set of libraries that will only be used when in a specific folder. When a local switch is used, relevant binaries and libraries are stored under a `_opam` folder in your project."
+                }
+            ]
+        }
+    ]
+}

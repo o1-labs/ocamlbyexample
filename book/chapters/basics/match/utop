@@ -7,3 +7,24 @@ utop # match i with
 | _ -> print_endline "some other number";;
 one
 - : unit = ()
+
+utop # let last_name first_name =
+    match first_name with
+    | "bill" -> "gates"
+    | "elon" -> "musk"
+    ;;
+Lines 2-4, characters 0-18:
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+""
+val last_name : string -> string = <fun>
+
+utop # let last_name first_name =
+    match first_name with
+    | "bill" -> "gates"
+    | "elon" -> "musk"
+    | x -> "some other name: " ^ x;;
+val last_name : string -> string = <fun>
+
+utop # last_name "david";;
+- : string = "some other name: david"
