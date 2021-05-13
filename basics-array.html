@@ -241,15 +241,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-array.html">arrays</a></li>
-
                         
 
                         
 
+                        <li>arrays</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -277,20 +282,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>Error Handling</li>
+                        <li><a href="basics-errors.html">Error Handling</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -435,139 +435,24 @@
 
                 <div class="container">
 
-                    <h1>Error Handling</h1>
+                    <h1>arrays</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>main.ml</code></h2>
+                                <h2><code>utop</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                
+                                Arrays are similar to lists.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">open Core
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                Similarly to the `&apos;a option` variant type, the `(&apos;a, &apos;b) result` variant type can be used to return some value of some type, or some error of some type (here, a `string`).
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let can_error i =
-  if i &gt;= 0 then 
-    Ok i
-  else
-    Error &quot;you gave me a negative int&quot;
-
-let () =
-  let args = Sys.get_argv () in 
-  match args.(1) with 
-  | &quot;result&quot; -&gt; (</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                `match` can be used to sort through the tags of the `result` variant type.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">    let res = can_error (-1) in
-    match res with 
-    | Ok i -&gt; printf &quot;success: %d\n&quot; i 
-    | Error s -&gt; printf &quot;error: %s\n&quot; s
-  )</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                `failwith` can be used to raise an exception.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">  | &quot;failwith&quot; -&gt; failwith &quot;some error message&quot;
-  | &quot;exn&quot; -&gt; </code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                Exceptions can be crafted and raised manually by declaring custom `&apos;a exn` types (here, `Foo`) and throwing them using the `raise` function.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">    let exception Foo of string in
-    raise (Foo &quot;some other error message&quot;)</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">  | _ -&gt; print_endline &quot;argument not recognized&quot;
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                Note that any code that comes after a raised exception will not get executed. Also see https://github.com/janestreet/ppx_expect
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let () =
-  print_endline &quot;this might not get executed&quot;</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                
-                            </td>
-                            <td class="code">
-                                <pre><code class="console">$ dune exec ./main.exe -- result
-error: you gave me a negative int
-this might not get executed
-
-$ dune exec ./main.exe 
-Uncaught exception:
-  
-  (Invalid_argument &quot;index out of bounds&quot;)
-
-$ dune exe ./main.exe -- failwith
-Uncaught exception:
-  
-  (Failure &quot;some error message&quot;)
-
-Raised at Stdlib.failwith in file &quot;stdlib.ml&quot;, line 29, characters 17-33
-Called from Dune__exe__Main in file &quot;book/chapters/errors/main.ml&quot;, line 7, characters 18-47
-
-$ dune exe ./main.exe -- exn
-Uncaught exception:
-  
-  Foo(&quot;some other error message&quot;)
-
-Raised at Dune__exe__Main in file &quot;book/chapters/errors/main.ml&quot;, line 21, characters 4-42
-
-$ dune exe ./main.exe -- some_arg
-argument not recognized</code></pre>
+                                <pre><code class="ocaml">utop # let a = [| 1; 2; 3 |];;
+val a : int array = [|1; 2; 3|]</code></pre>
                             </td>
                         </tr>
                         
@@ -576,7 +461,7 @@ argument not recognized</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-inline-tests.html">Inline tests</a>
+                        next: <a href="basics-records.html">records</a>
                         
                     </div>
 

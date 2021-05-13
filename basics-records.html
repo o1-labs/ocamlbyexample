@@ -232,7 +232,7 @@
 
                         
 
-                        <li><a href="basics-list.html">Lists</a></li>
+                        <li><a href="basics-list.html">lists</a></li>
 
                         
 
@@ -244,7 +244,7 @@
 
                         
 
-                        <li>basics/array</li>
+                        <li><a href="basics-array.html">arrays</a></li>
 
                         
 
@@ -257,7 +257,7 @@
 
                         
 
-                        <li>Records</li>
+                        <li>records</li>
 
                         
 
@@ -435,14 +435,14 @@
 
                 <div class="container">
 
-                    <h1>Records</h1>
+                    <h1>records</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>main.ml</code></h2>
+                                <h2><code>utop</code></h2>
                             </td>
                         </tr>
                         
@@ -451,42 +451,26 @@
                                 
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">open Core
+                                <pre><code class="ocaml">utop # type person = { name: string ; age: int ; human : bool };;
+type person = { name : string; age : int; human : bool; }
 
-type person = { name: string ; age: int ; human : bool }
+utop # let david = { name = &quot;david&quot; ; age = 32 ; human = false };;
+val david : person = {name = &quot;david&quot;; age = 32; human = false}
 
-let david = { name = &quot;david&quot; ; age = 32 ; human = false }
+utop # let mary = { david with name = &quot;mary&quot; };;
+val mary : person = {name = &quot;mary&quot;; age = 32; human = false}
 
-let mary = { david with name = &quot;mary&quot; }
+utop # let toggle_human (p : person) = { p with human = not p.human };;
+val toggle_human : person -&gt; person = &lt;fun&gt;
 
-let toggle_human (p : person) = 
-  { p with human = not p.human }
-
-let () = 
+utop # let () = 
   let david&apos; = toggle_human david in
   if david&apos;.human then
     print_endline &quot;david is human&quot;
   else
-    print_endline &quot;david is not human&quot;</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                
-                            </td>
-                            <td class="code">
-                                <pre><code class="console">$ dune exec ./main.ml</code></pre>
+    print_endline &quot;david is not human&quot;
+;;
+david is human</code></pre>
                             </td>
                         </tr>
                         
