@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCaml By Example | &lt;fun&gt;</title>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+    <!-- highlightjs -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+
+
+    <!-- markdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+
+    <!-- custom style -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;900&display=swap');
+
+        /* reset */
+        * {
+            box-sizing: border-box;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        /* body */
+        body {
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+
+        h1.title {
+            padding-left: 24px;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        /* sidebar */
+
+        .chapters {
+            padding: 15px;
+            background-color: #dcf0f73d;
+        }
+
+        .chapters h2 {
+            font-size: 17px;
+        }
+
+        .chapters a {
+            color: black;
+            text-decoration: none;
+            border-bottom: 1px black solid;
+        }
+
+        /* table */
+        .chapter h1 {
+            font-size: 30px;
+        }
+
+        .filename {
+            background-color: white;
+        }
+
+        .filename h2 {
+
+            font-size: 15px;
+        }
+
+        .explanation_code {
+            background-color: #23241f;
+            margin-bottom: 60px;
+        }
+
+        .explanation_code tr td {
+            vertical-align: top;
+        }
+
+        .explanation {
+            width: 500px;
+            padding-right: 50px !important;
+
+            background-color: white;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .code {
+            width: 500px;
+        }
+
+        /* hljs reset */
+
+        .code {
+            padding: 5px 0 !important;
+        }
+
+        table .code:first-child {
+            padding-top: 15px !important;
+        }
+
+        .code pre {
+            margin-bottom: 0 !important;
+        }
+
+        .code pre code {
+            padding: 0 15px !important;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2">
+            </div>
+
+            <div class="col col-md-auto">
+                <h1 class="title">OCaml By Examples</h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col col-lg-2">
+
+                <div class="chapters">
+                    
+                    
+                    <h2>Language Basics</h2>
+                    <ul>
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li>basics/setup</li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-hello-world.html">hello world</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-utop.html">utop</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+                        
+
+                        
+
+                        <li>values</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-match.html">match</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-tuples.html">tuples</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-list.html">Lists</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li>basics/array</li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-records.html">Records</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-modules.html">Modules</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-errors.html">Error Handling</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-inline-tests.html">Inline tests</a></li>
+
+                        
+
+                        
+                    </ul>
+                    
+                    <h2>Project Management</h2>
+                    <ul>
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="build-dune.html">dune</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li>dune-release</li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li>opam pin</li>
+
+                        
+
+                        
+                    </ul>
+                    
+                    <h2>Advanced Ocaml</h2>
+                    <ul>
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li>functors</li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li>monads</li>
+
+                        
+
+                        
+                    </ul>
+                    
+                    <h2>Libraries</h2>
+                    <ul>
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-show.html">Show</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-bin_prot.html">bin_prot</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-ctypes.html">Calling C programs</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-js_of_ocaml.html">Compiling to javascript</a></li>
+
+                        
+
+                        
+                    </ul>
+                    
+                </div>
+
+            </div>
+
+            <div class="col col-md-10 chapter">
+
+                <div class="container">
+
+                    <h1>values</h1>
+
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>utop</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The integer type `int` can contain numbers from -4611686018427387904 to 4611686018427387903.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # 1 + 1;;
+- : int = 2
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The `float` type uses different symbols for operations: `+.`, `-.`, etc.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # 1.3 +. 2.5;;
+- : float = 3.8
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Bitwise operations can be performed using `lsl` (shift left), `lxor` (XOR), `land` (AND), etc.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # 1 lsl 3;;
+- : int = 8
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Comparing numbers can be done using `&gt;`, `&lt;`, and `&lt;&gt;` for inequality.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # 3 &gt; 5;;
+- : bool = false
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Strings can be concatenated using the `^` operator.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # &quot;hello&quot; ^ &quot; world&quot;;;
+- : string = &quot;hello world&quot;
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Variables can be declared via the `let` keyword.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # let a = 1;;
+val a : int = 1
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Functions are like variables, except that they take arguments specified after the name of the function and before the `=`. The last statement is automatically returned (no need to write `return`).
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # let add_one i = i + 1;;
+val add_one : int -&gt; int = &lt;fun&gt;
+
+utop # let a&apos; = add_one a;;
+val a&apos; : int = 2
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Operators can be overloaded and different types might define different operators.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # Int.( * ) 2 3;;
+- : int = 6
+
+utop # Int.( = ) 3 5;;
+- : bool = false</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                If you see an operator you haven&apos;t seen before, you can check what it is on the [operator lookup](https://www.craigfe.io/operator-lookup/) page.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml"></code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+
+                    <div style="text-align:right">
+                        
+                        next: <a href="basics-match.html">match</a>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // highlight <pre><code>
+        hljs.highlightAll();
+
+        // markdown explanations
+        var converter = new showdown.Converter();
+        let e = document.querySelectorAll(".explanation")
+        e.forEach((thing) => {
+            let html = converter.makeHtml(thing.innerText)
+            thing.innerHTML = html
+        })
+    </script>
+
+</body>
+
+</html>

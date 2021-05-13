@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCaml By Example</title>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+    <!-- highlightjs -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+
+
+    <!-- markdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+
+    <!-- custom style -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;900&display=swap');
+
+        /* reset */
+        * {
+            box-sizing: border-box;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        /* body */
+        body {
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+
+        h1.title {
+            padding-left: 24px;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        /* sidebar */
+
+        .chapters {
+            padding: 15px;
+            background-color: #dcf0f73d;
+        }
+
+        .chapters h2 {
+            font-size: 17px;
+        }
+
+        .chapters a {
+            color: black;
+            text-decoration: none;
+            border-bottom: 1px black solid;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2">
+            </div>
+
+            <div class="col col-md-auto">
+                <h1 class="title">OCaml By Examples</h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col col-lg-2">
+
+                <div class="chapters">
+                    
+                    <h2>Language Basics</h2>
+                    <ul>
+                        
+
+                        
+
+                        <li>basics/setup</li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-hello-world.html">hello world</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-utop.html">utop</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-values.html">values</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-match.html">match</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-tuples.html">tuples</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-list.html">Lists</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li>basics/array</li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-records.html">Records</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-modules.html">Modules</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-errors.html">Error Handling</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-inline-tests.html">Inline tests</a></li>
+
+                        
+
+                        
+                    </ul>
+                    
+                    <h2>Project Management</h2>
+                    <ul>
+                        
+
+                        
+
+                        <li><a href="build-dune.html">dune</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li>dune-release</li>
+
+                        
+
+                        
+
+                        
+
+                        <li>opam pin</li>
+
+                        
+
+                        
+                    </ul>
+                    
+                    <h2>Advanced Ocaml</h2>
+                    <ul>
+                        
+
+                        
+
+                        <li>functors</li>
+
+                        
+
+                        
+
+                        
+
+                        <li>monads</li>
+
+                        
+
+                        
+                    </ul>
+                    
+                    <h2>Libraries</h2>
+                    <ul>
+                        
+
+                        
+
+                        <li><a href="libraries-show.html">Show</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-bin_prot.html">bin_prot</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-ctypes.html">Calling C programs</a></li>
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-js_of_ocaml.html">Compiling to javascript</a></li>
+
+                        
+
+                        
+                    </ul>
+                    
+                </div>
+
+            </div>
+
+            <div class="col col-md-10 chapter">
+
+                <div class="container">
+                    Ocaml is a concise, performant, statically typed, and pure functionnal language.
+
+                    See <a href="https://queue.acm.org/detail.cfm?id=2038036">Why the next language you learn should be
+                        functional (2011)</a>.
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
