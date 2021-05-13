@@ -1,0 +1,25 @@
+{
+    "title": "Compiling to javascript",
+    "sections": [
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        },
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        }
+    ]
+}

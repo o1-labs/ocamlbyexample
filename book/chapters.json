@@ -38,7 +38,7 @@
                 "libraries/show",
                 "libraries/bin_prot",
                 "libraries/ctypes",
-                "compiling to javascript"
+                "libraries/js_of_ocaml"
             ]
         }
     ]

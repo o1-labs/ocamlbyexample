@@ -1,0 +1,5 @@
+$ opam install js_of_ocaml js_of_ocaml-compiler js_of_ocaml-ppx
+$ dune build ./main.bc.js
+$ node _build/default/main.bc.js
+hello from js
+
