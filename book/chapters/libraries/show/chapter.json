@@ -1,5 +1,5 @@
 {
-    "title": "Show",
+    "title": "show: printing types",
     "sections": [
         {
             "file": "main.ml",

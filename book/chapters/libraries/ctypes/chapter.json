@@ -1,5 +1,5 @@
 {
-    "title": "Calling C programs",
+    "title": "ctypes: calling C programs",
     "sections": [
         {
             "file": "console",

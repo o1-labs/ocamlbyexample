@@ -1,5 +1,5 @@
 {
-    "title": "Compiling to javascript",
+    "title": "js_of_ocaml: compiling to javascript",
     "sections": [
         {
             "file": "console",
