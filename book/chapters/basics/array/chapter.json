@@ -1,0 +1,15 @@
+{
+    "title": "arrays",
+    "sections": [
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Arrays are similar to lists."
+                }
+            ]
+        }
+    ]
+}
