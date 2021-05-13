@@ -20,9 +20,9 @@ jobs:
 
       - name: Build
         run: |
-          opam install dune core cmdliner yojson jingoo ppx_deriving
           eval $(opam env)
-          dune exec tools/bin/main.exe 
+          opam install dune core yojson jingoo ppx_deriving
+          make 
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
