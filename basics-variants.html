@@ -169,20 +169,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>utop</li>
+                        <li><a href="basics-utop.html">utop</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -222,15 +217,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-variants.html">variants</a></li>
-
                         
 
                         
 
+                        <li>variants</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -435,28 +435,8 @@
 
                 <div class="container">
 
-                    <h1>utop</h1>
+                    <h1>variants</h1>
 
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                utop is a universal interactive toplevel for OCaml.
-                            </td>
-                            <td class="code">
-                                <pre><code class="console">$ opam install utop
-$ utop</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
                     
                     <table class="explanation_code">
                         <tr>
@@ -468,36 +448,31 @@ $ utop</code></pre>
                         
                         <tr>
                             <td class="explanation">
-                                You can use it to interatively experiment with code, load libraries and debug modules.
+                                Variants are what is known as an `enum` in other languages, although variants are much more powerful in OCaml: they can hold data of different types.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let add_one i = i + 1;;
-val add_one : int -&gt; int = &lt;fun&gt;
+                                <pre><code class="ocaml">utop # type container = 
+| SmallBox
+| BigBox of int
+| HugeBox of int * string;;
+type container = SmallBox | BigBox of int | HugeBox of int * string
 
-utop # add_one 1;;
-- : int = 2</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>.ocamlinit</code></h2>
+utop # let box = BigBox(5);;
+val box : container = BigBox 5
+</code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                Libraries are by default not accessible in utop, unless you write `#require &quot;library_name&quot;;;`. As Core is a standard library replacement you can enter these few lines in your `~/.ocamlinit` file to initialize utop with Core automatically.
+                                To use a variant, use a `match` statement.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">#use &quot;topfind&quot;;;
-#thread;;
-#require &quot;core.top&quot;;;
-open Core;;</code></pre>
+                                <pre><code class="ocaml">utop # match box with
+| BigBox (i) -&gt; printf &quot;a big box of %d\n&quot; i
+| _ -&gt; print_endline &quot;something else&quot;;;
+a big box of 5
+- : unit = ()</code></pre>
                             </td>
                         </tr>
                         
@@ -506,7 +481,7 @@ open Core;;</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-values.html">values</a>
+                        next: <a href="basics-list.html">Lists</a>
                         
                     </div>
 
