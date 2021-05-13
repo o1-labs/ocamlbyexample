@@ -1,0 +1,19 @@
+{
+    "title": "variants",
+    "sections": [
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Variants are what is known as an `enum` in other languages, although variants are much more powerful in OCaml: they can hold data of different types."
+                },
+                {
+                    "line": 10,
+                    "text": "To use a variant, use a `match` statement."
+                }
+            ]
+        }
+    ]
+}

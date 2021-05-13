@@ -9,7 +9,7 @@
                 "basics/values",
                 "basics/match",
                 "basics/tuples",
-                "variants",
+                "basics/variants",
                 "basics/list",
                 "basics/array",
                 "basics/records",

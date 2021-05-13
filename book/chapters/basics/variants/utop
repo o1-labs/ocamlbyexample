@@ -1,0 +1,14 @@
+utop # type container = 
+| SmallBox
+| BigBox of int
+| HugeBox of int * string;;
+type container = SmallBox | BigBox of int | HugeBox of int * string
+
+utop # let box = BigBox(5);;
+val box : container = BigBox 5
+
+utop # match box with
+| BigBox (i) -> printf "a big box of %d\n" i
+| _ -> print_endline "something else";;
+a big box of 5
+- : unit = ()
