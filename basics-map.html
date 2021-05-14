@@ -265,32 +265,32 @@
                         
 
                         
-                        
 
                         
 
-                        <li>records</li>
+                        <li><a href="basics-records.html">records</a></li>
 
-                        
-
-                        
-
-                        
-                        
-                        
-                        
                         
 
                         
 
                         
 
-                        <li><a href="basics-map.html">maps</a></li>
+                        
+                        
+
+                        
+
+                        <li>maps</li>
 
                         
 
                         
 
+                        
+                        
+                        
+                        
                         
 
                         
@@ -459,7 +459,7 @@
 
                 <div class="container">
 
-                    <h1>records</h1>
+                    <h1>maps</h1>
 
                     
                     <table class="explanation_code">
@@ -472,29 +472,50 @@
                         
                         <tr>
                             <td class="explanation">
-                                
+                                Maps are OCaml&apos;s associative arrays (also called hashmaps or dictionnaries). You can create a hashmap by specifying a module to use as a key type.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # type person = { name: string ; age: int ; human : bool };;
-type person = { name : string; age : int; human : bool; }
-
-utop # let david = { name = &quot;david&quot; ; age = 32 ; human = false };;
-val david : person = {name = &quot;david&quot;; age = 32; human = false}
-
-utop # let mary = { david with name = &quot;mary&quot; };;
-val mary : person = {name = &quot;mary&quot;; age = 32; human = false}
-
-utop # let toggle_human (p : person) = { p with human = not p.human };;
-val toggle_human : person -&gt; person = &lt;fun&gt;
-
-utop # let () = 
-  let david&apos; = toggle_human david in
-  if david&apos;.human then
-    print_endline &quot;david is human&quot;
-  else
-    print_endline &quot;david is not human&quot;
-;;
-david is human</code></pre>
+                                <pre><code class="ocaml">utop # let balances = Map.empty (module String);;
+val balances : (string, &apos;a, String.comparator_witness) Map.t = &lt;abstr&gt;
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Adding a value to a map returns the [polymorphic variant](basics-variants.html) `` `Ok`` or `` `Duplicate`` (in which case the value already exists in the map). 
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # Map.add balances &quot;david&quot; 2;;
+- : (string, int, String.comparator_witness) Map.t Base.Map.Or_duplicate.t =
+`Ok &lt;abstr&gt;
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                To update a map, simply use the new map returned by `` `Ok`.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # let balances = match Map.add balances &quot;david&quot; 2 with
+| `Ok x -&gt; x
+| `Duplicate -&gt; balances;;
+val balances : (string, int, String.comparator_witness) Map.t = &lt;abstr&gt;
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                To update an already existing entry, you can use the `Map.set` method.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # let balances = match Map.add balances &quot;david&quot; 3 with
+| `Ok x -&gt; x
+| `Duplicate -&gt; print_endline &quot;duplicate&quot;; Map.set balances &quot;david&quot; 3;;
+duplicate
+val balances : (string, int, String.comparator_witness) Map.t = &lt;abstr&gt;</code></pre>
                             </td>
                         </tr>
                         
@@ -503,7 +524,7 @@ david is human</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-map.html">maps</a>
+                        next: <a href="basics-modules.html">modules</a>
                         
                     </div>
 
