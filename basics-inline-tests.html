@@ -313,11 +313,10 @@
                         
 
                         
-                        
 
                         
 
-                        <li>tests</li>
+                        <li><a href="basics-bits.html">bits</a></li>
 
                         
 
@@ -328,10 +327,6 @@
                     <ul>
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -344,6 +339,23 @@
 
                         
 
+                        
+
+                        
+                        
+
+                        
+
+                        <li>tests</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -466,6 +478,30 @@
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
+                                <h2><code>dune</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(library
+ (name mylib)
+ (libraries)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test)))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
                                 <h2><code>main.ml</code></h2>
                             </td>
                         </tr>
@@ -517,8 +553,16 @@ end)</code></pre>
                                 
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install ppx_inline_test
-$ dune exec ./main.exe</code></pre>
+                                <pre><code class="console">$ opam install ppx_inline_test</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                unfortunately the output of dune runtest is **nothing** if tests pass, so it&apos;s not always clear if tests are actually working or not.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ dune runtest</code></pre>
                             </td>
                         </tr>
                         
@@ -527,7 +571,7 @@ $ dune exec ./main.exe</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="build-dune.html">dune</a>
+                        next: <a>dune-release</a>
                         
                     </div>
 
