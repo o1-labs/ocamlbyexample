@@ -17,13 +17,14 @@
                 "basics/map",
                 "basics/modules",
                 "basics/errors",
-                "basics/inline-tests"
+                "basics/bits"
             ]
         },
         {
             "title": "Project Management",
             "chapters": [
                 "build/dune",
+                "basics/inline-tests",
                 "dune-release",
                 "opam pin"
             ]

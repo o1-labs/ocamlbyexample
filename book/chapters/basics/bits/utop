@@ -1,0 +1,12 @@
+utop # let a = 0x12;;
+val a : int = 
+
+utop # let a = 0x1204_1024;;
+val a : int = 302256164
+
+utop # let some_bytes = Bytes.of_string "\x01\x02";;
+utop # let hexstring = Hexstring.encode some_bytes;;
+utop # let some_bytes' = Hexstring.decode hexstring;;
+
+utop # Hex.show hex;;
+- : string = "0102"

@@ -2,6 +2,11 @@
     "title": "tests",
     "sections": [
         {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": []
+        },
+        {
             "file": "main.ml",
             "lang": "ocaml",
             "explanations": []
@@ -9,7 +14,12 @@
         {
             "file": "console",
             "lang": "console",
-            "explanations": []
+            "explanations": [
+                {
+                    "line": 2,
+                    "text": "unfortunately the output of dune runtest is **nothing** if tests pass, so it's not always clear if tests are actually working or not."
+                }
+            ]
         }
     ]
 }
