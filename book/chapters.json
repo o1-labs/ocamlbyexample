@@ -11,8 +11,10 @@
                 "basics/tuples",
                 "basics/variants",
                 "basics/list",
+                "sets",
                 "basics/array",
                 "basics/records",
+                "basics/map",
                 "basics/modules",
                 "basics/errors",
                 "basics/inline-tests"

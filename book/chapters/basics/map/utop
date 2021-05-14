@@ -1,11 +1,6 @@
 utop # let balances = Map.empty (module String);;
 val balances : (string, 'a, String.comparator_witness) Map.t = <abstr>
 
-utop # let balances = Map.add balances "david" 2;;
-val balances :
-  (string, int, String.comparator_witness) Map.t Base.Map.Or_duplicate.t =
-  `Ok <abstr>
-
 utop # Map.add balances "david" 2;;
 - : (string, int, String.comparator_witness) Map.t Base.Map.Or_duplicate.t =
 `Ok <abstr>

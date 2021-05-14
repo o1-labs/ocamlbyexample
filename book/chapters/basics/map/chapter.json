@@ -7,7 +7,19 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
+                    "text": "Maps are OCaml's associative arrays (also called hashmaps or dictionnaries). You can create a hashmap by specifying a module to use as a key type."
+                },
+                {
+                    "line": 4,
+                    "text": "Adding a value to a map returns the [polymorphic variant](basics-variants.html) `` `Ok`` or `` `Duplicate`` (in which case the value already exists in the map). "
+                },
+                {
+                    "line": 8,
+                    "text": "To update a map, simply use the new map returned by `` `Ok`."
+                },
+                {
+                    "line": 13,
+                    "text": "To update an already existing entry, you can use the `Map.set` method."
                 }
             ]
         }
