@@ -42,7 +42,8 @@
                 "libraries/show",
                 "libraries/bin_prot",
                 "libraries/ctypes",
-                "libraries/js_of_ocaml"
+                "libraries/js_of_ocaml",
+                "libraries/qcheck"
             ]
         }
     ]
