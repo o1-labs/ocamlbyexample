@@ -1,0 +1,35 @@
+{
+    "title": "core_bench: benchmarks",
+    "sections": [
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Benchmarks are executables. They can live anywhere in your code, but are often found under a `bench/` directory."
+                }
+            ]
+        },
+        {
+            "file": "bench.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        }
+    ]
+}
