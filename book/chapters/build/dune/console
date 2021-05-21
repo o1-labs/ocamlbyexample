@@ -1,9 +1,5 @@
-$ dune build
-$ dune exec
-$ dune utop src/lib/my_module
+$ dune build main.exe
 
-utop # open My_module;;
+$ dune exec main.exe
 
-utop # My_module.Toolkit.(do_stuff (from_int 3));;
-- : float = 259200000.
-
+$ opam install ocamlformat ocaml-lsp-server

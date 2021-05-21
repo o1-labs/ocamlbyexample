@@ -24,6 +24,7 @@
             "title": "Project Management",
             "chapters": [
                 "build/dune",
+                "build/libraries",
                 "basics/inline-tests",
                 "dune-release",
                 "opam pin"

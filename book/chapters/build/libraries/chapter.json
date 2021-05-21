@@ -1,0 +1,35 @@
+{
+    "title": "libraries",
+    "sections": [
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "You can use dune to manage internal (as well as external) libraries. You'll just need a name and a list of dependencies (in the `libraries` field)."
+                }
+            ]
+        },
+        {
+            "file": "lib.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "You can use dune to launch utop with your library."
+                }
+            ]
+        }
+    ]
+}

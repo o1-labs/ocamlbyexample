@@ -7,7 +7,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "A dune-project file is at the root of any project, it allows to set configuration for any executable or library in the project."
+                    "text": "A dune-project file is at the root of any project, it allows to set configuration for any executable or library in the project (there can be several)."
                 }
             ]
         },
@@ -17,17 +17,17 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "A dune allows you to declare an executable or a library."
+                    "text": "A dune allows you to declare an executable or a library using [S-expressions](https://en.wikipedia.org/wiki/S-expression) (basically parenthesis everywhere). Here we use dune to define an executable (not a library)."
                 }
             ]
         },
         {
-            "file": ".ocamlformat",
-            "lang": "console",
+            "file": "main.ml",
+            "lang": "ocaml",
             "explanations": [
                 {
                     "line": 1,
-                    "text": "You need an `.ocamlformat` file (that can be empty) at the root for `ocamlformat` to work."
+                    "text": "You find a `dune` file in the same folder as the library or executable files; that folder can be located anywhere in the folder containing the `dune-project` file and it can be named anything."
                 }
             ]
         },
@@ -37,7 +37,25 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "You can run utop with your library thanks to e dune."
+                    "text": "You can use the `build` command line tool to build your project. The programs or library files will be generated and stored inside a `_build/` folder under your project's folder."
+                },
+                {
+                    "line": 3,
+                    "text": "You can also directly run your program using `exec`. Note that the `.exe` extension has nothing to do with Windows executables."
+                },
+                {
+                    "line": 5,
+                    "text": "You can install `ocamlformat` (`opam install ocamlformat`) to auto-format your code, and the language server protocol `ocaml-lsp-server` to support clicking through function definitions  in your favorite editor (check [OCaml Platform](https://github.com/ocamllabs/vscode-ocaml-platform) if you use VSCode)."
+                }
+            ]
+        },
+        {
+            "file": ".ocamlformat",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": " Just note that you'll need an empty `.ocamlformat` file at the root for `ocamlformat` to work."
                 }
             ]
         }

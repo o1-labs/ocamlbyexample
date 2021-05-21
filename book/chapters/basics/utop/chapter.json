@@ -7,7 +7,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "utop is a universal interactive toplevel for OCaml."
+                    "text": "**utop** is a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) for OCaml: an interactive program that allows you to quickly test OCaml commands."
                 }
             ]
         },
@@ -17,7 +17,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "You can use it to interatively experiment with code, load libraries and debug modules."
+                    "text": "In utop, you can experiment with code, load libraries and debug modules. Note that nothing gets executed unless you write `;;` to indicate that things should get executed."
                 }
             ]
         },
@@ -27,7 +27,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "Libraries are by default not accessible in utop, unless you write `#require \"library_name\";;`. As Core is a standard library replacement you can enter these few lines in your `~/.ocamlinit` file to initialize utop with Core automatically."
+                    "text": "Libraries are by default not accessible in utop, unless you write `#require \"library_name\";;`.<br> As Core is a standard library replacement you can enter these few lines in your `~/.ocamlinit` file to initialize utop with Core automatically."
                 }
             ]
         }

@@ -31,7 +31,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "We can also use [methods of the Core library]((https://ocaml.janestreet.com/ocaml-core/odoc/stdlib/Stdlib/Printf/index.html)) we installed in the previous example. Notice that arguments of a function are not surrounded by parenthesis or commas."
+                    "text": "We can also use [methods of the Core library]((https://ocaml.janestreet.com/ocaml-core/odoc/stdlib/Stdlib/Printf/index.html) we installed in the previous example. Notice that arguments of a function are not surrounded by parenthesis or commas."
                 },
                 {
                     "line": 4,
@@ -45,7 +45,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "To compile code using external libraries, you can use `ocamlfind` which will do the work of finding and linking these libraries at compilation time. This is not ideal though, and you will later learn about an easier way to build your projects using [dune](build-dune.html)."
+                    "text": "To compile code using external libraries, you can use `ocamlfind` which will do the work of finding and linking these libraries at compilation time.<br> This is a bit cumbersome though; you will later learn about an easier way to build projects using [dune](build-dune.html)."
                 }
             ]
         }
