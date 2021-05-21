@@ -27,7 +27,7 @@
                 "build/dune",
                 "build/libraries",
                 "basics/inline-tests",
-                "dune-release",
+                "build/dune-release",
                 "opam pin"
             ]
         },

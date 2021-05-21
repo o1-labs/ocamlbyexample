@@ -1,0 +1,4 @@
+(library
+ (name my_lib_thing)
+ (public_name my_lib.thing)
+ (libraries core))

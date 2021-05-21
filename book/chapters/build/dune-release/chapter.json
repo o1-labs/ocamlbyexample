@@ -1,0 +1,97 @@
+{
+    "title": "publishing",
+    "sections": [
+        {
+            "file": "my_lib.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "..."
+                }
+            ]
+        },
+        {
+            "file": "my_lib.opam",
+            "lang": "yml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "A library (or set of dune libraries) can be published to an opam repository. For this, an opam package file needs to be created with these fields."
+                }
+            ]
+        },
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "The corresponding dune file must have a `public_name` field sharing the same name. This `public_name` field will be used by other dune files to list their dependency on your library, while the `name` will be used by OCaml code that wants to interact with the module. (In theory the `name` field can be anything but you should avoid that.)"
+                }
+            ]
+        },
+        {
+            "file": "dune2",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "An opam package can be a set of dune libraries. This sub-library will have to be imported as `my_lib.thing` by other dune files, but will be used as `my_lib_thing` by OCaml code."
+                }
+            ]
+        },
+        {
+            "file": "LICENSE",
+            "lang": "text",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Before publishing an opam package you need a license in your repository."
+                }
+            ]
+        },
+        {
+            "file": "README.md",
+            "lang": "markdown",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "And a README, we're not fools."
+                }
+            ]
+        },
+        {
+            "file": "CHANGES.md",
+            "lang": "markdown",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "You will also need to keep track of a changelog for each new version of your library."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "To publish a package you can install `dune-release`."
+                },
+                {
+                    "line": 2,
+                    "text": "Make sure your package is correctly set up"
+                },
+                {
+                    "line": 3,
+                    "text": "This will automatically detect the new version (in `CHANGES.md` and your opam package file `my_lib.opam`) and tag the repository accordingly."
+                },
+                {
+                    "line": 4,
+                    "text": "Finally, you can use this command to push the tag to your remote repository and create a pull request to the opam repository."
+                }
+            ]
+        }
+    ]
+}

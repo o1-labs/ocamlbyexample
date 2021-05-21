@@ -1,0 +1,4 @@
+$ opam install dune-release
+$ dune-release lint
+$ dune-release tag
+$ dune-release

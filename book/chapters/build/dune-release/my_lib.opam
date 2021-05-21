@@ -1,0 +1,15 @@
+opam-version: "2.0"
+name: "my_lib"
+version: "0.2.0"
+synopsis: "A library to do things"
+maintainer: "your_email@gmail.com"
+authors: "your_email@gmail.com"
+license: "Apache-2.0"
+homepage: "https://github.com/mimoo/my_lib"
+bug-reports: "your_email@gmail.com"
+depends: [
+  "ocaml" {>= "4.12.0" & < "4.13"}
+  "core" {>= "v0.14.0" & < "v.0.15"}
+]
+build: ["dune" "build" "-p" name "-j" jobs]
+dev-repo: "git+https://github.com/mimoo/my_lib.git"
