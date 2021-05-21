@@ -1,0 +1,21 @@
+utop # let one = 1 in
+let two = one + 1 in
+let four = two + two in
+four + four;;
+- : int = 8
+
+utop # let () = print_endline "hello" in
+  let () = print_endline "world" in
+  print_endline "!";;
+hello
+world
+!
+- : unit = ()
+
+utop # print_endline "hello";
+  print_endline "world";
+  print_endline "!";;
+hello
+world
+!
+- : unit = ()

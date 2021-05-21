@@ -1,0 +1,23 @@
+{
+    "title": "imperative",
+    "sections": [
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "OCaml is a **functional** language, which is about evaluating functions. But programs are generally more complicated... One of the major feature of OCaml is the `in` keyword which allows to iteratively construct values that help evaluate the last expression."
+                },
+                {
+                    "line": 7,
+                    "text": "But complex programs have side effects: functions that change something somewhere else, like printing to stdout or getting some input from stdin. These side-effects don't always return anything, but they can still be chained using the `in` keyword."
+                },
+                {
+                    "line": 15,
+                    "text": "It is unatural though, and it is common to write in an **imperative** style by separating side-effects with a semicolon."
+                }
+            ]
+        }
+    ]
+}
