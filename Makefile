@@ -1,8 +1,8 @@
 all:
-	dune exec ./tools/bin/main.exe
+	dune exec bin/main.exe --root ./tools 
 
 watch:
-	dune exec ./tools/bin/main.exe -- watch 
+	dune exec bin/main.exe --root ./tools -- watch 
 
 deps:
 	opam install dune core yojson jingoo ppx_deriving
