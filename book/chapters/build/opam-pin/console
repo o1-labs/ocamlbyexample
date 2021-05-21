@@ -1,0 +1,5 @@
+$ opam pin add some_lib some/path --kind path
+
+$ opam pin add sponge https://github.com/o1-labs/snarky.git
+
+$ opam pin add https://github.com/o1-labs/snarky.git

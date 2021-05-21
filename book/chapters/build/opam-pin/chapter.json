@@ -1,0 +1,27 @@
+{
+    "title": "pins",
+    "sections": [
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 0,
+                    "text": "Sometimes, you want to use a specific version of a dependency, for this you have `opam pin`!"
+                },
+                {
+                    "line": 1,
+                    "text": "You can tell opam that some library `some_lib` lives under some path `some/path`. It opam finds a `some_lib.opam` file it'll install that library."
+                },
+                {
+                    "line": 3,
+                    "text": "Some libraries are in github repositories, but not published as an opam package. No worries, `opam pin` is here."
+                },
+                {
+                    "line": 5,
+                    "text": "If the name of the library is ommitted, `opam pin` will install all the opam package files it can find in the root folder of the given destination."
+                }
+            ]
+        }
+    ]
+}
