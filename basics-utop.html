@@ -350,6 +350,18 @@
 
                         
 
+                        <li><a href="build-libraries.html">libraries</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
                         <li><a href="basics-inline-tests.html">tests</a></li>
 
                         
@@ -412,6 +424,18 @@
                     
                     <h2>Libraries</h2>
                     <ul>
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-core_bench.html">core_bench: benchmarks</a></li>
+
+                        
+
                         
 
                         
@@ -496,7 +520,7 @@
                         
                         <tr>
                             <td class="explanation">
-                                utop is a universal interactive toplevel for OCaml.
+                                **utop** is a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) for OCaml: an interactive program that allows you to quickly test OCaml commands.
                             </td>
                             <td class="code">
                                 <pre><code class="console">$ opam install utop
@@ -516,14 +540,14 @@ $ utop</code></pre>
                         
                         <tr>
                             <td class="explanation">
-                                You can use it to interatively experiment with code, load libraries and debug modules.
+                                In utop, you can experiment with code, load libraries and debug modules. Note that nothing gets executed unless you write `;;` to indicate that things should get executed.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let add_one i = i + 1;;
-val add_one : int -&gt; int = &lt;fun&gt;
+                                <pre><code class="ocaml">utop # 1 + 1;;
+- : int = 2
 
-utop # add_one 1;;
-- : int = 2</code></pre>
+utop # 1 = 1;;
+- : bool = true</code></pre>
                             </td>
                         </tr>
                         
@@ -539,7 +563,7 @@ utop # add_one 1;;
                         
                         <tr>
                             <td class="explanation">
-                                Libraries are by default not accessible in utop, unless you write `#require &quot;library_name&quot;;;`. As Core is a standard library replacement you can enter these few lines in your `~/.ocamlinit` file to initialize utop with Core automatically.
+                                Libraries are by default not accessible in utop, unless you write `#require &quot;library_name&quot;;;`.&lt;br&gt; As Core is a standard library replacement you can enter these few lines in your `~/.ocamlinit` file to initialize utop with Core automatically.
                             </td>
                             <td class="code">
                                 <pre><code class="ocaml">#use &quot;topfind&quot;;;

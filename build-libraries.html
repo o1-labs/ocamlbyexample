@@ -313,11 +313,10 @@
                         
 
                         
-                        
 
                         
 
-                        <li>bits</li>
+                        <li><a href="basics-bits.html">bits</a></li>
 
                         
 
@@ -328,10 +327,6 @@
                     <ul>
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -347,15 +342,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="build-libraries.html">libraries</a></li>
-
                         
 
                         
 
+                        <li>libraries</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -507,8 +507,50 @@
 
                 <div class="container">
 
-                    <h1>bits</h1>
+                    <h1>libraries</h1>
 
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>dune</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can use dune to manage internal (as well as external) libraries. You&apos;ll just need a name and a list of dependencies (in the `libraries` field).
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(library
+ (name lib)
+ (libraries core))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>lib.ml</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                ...
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">open Core
+
+let add_one i = i + 1</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
                     
                     <table class="explanation_code">
                         <tr>
@@ -520,40 +562,13 @@
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                You can use dune to launch utop with your library.
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install hexstring base64</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>utop</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                ...
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">utop # let a = 0x12;;
-val a : int = 
+                                <pre><code class="console">$ dune utop .
 
-utop # let a = 0x1204_1024;;
-val a : int = 302256164
-
-utop # let some_bytes = Bytes.of_string &quot;\x01\x02&quot;;;
-utop # let hexstring = Hexstring.encode some_bytes;;
-utop # let some_bytes&apos; = Hexstring.decode hexstring;;
-
-utop # Hex.show hex;;
-- : string = &quot;0102&quot;</code></pre>
+utop # Lib.add_one 1;;
+- : int = 2</code></pre>
                             </td>
                         </tr>
                         
@@ -562,7 +577,7 @@ utop # Hex.show hex;;
 
                     <div style="text-align:right">
                         
-                        next: <a href="build-dune.html">dune</a>
+                        next: <a href="basics-inline-tests.html">tests</a>
                         
                     </div>
 

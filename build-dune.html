@@ -350,6 +350,18 @@
 
                         
 
+                        <li><a href="build-libraries.html">libraries</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
                         <li><a href="basics-inline-tests.html">tests</a></li>
 
                         
@@ -412,6 +424,18 @@
                     
                     <h2>Libraries</h2>
                     <ul>
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-core_bench.html">core_bench: benchmarks</a></li>
+
+                        
+
                         
 
                         
@@ -496,7 +520,7 @@
                         
                         <tr>
                             <td class="explanation">
-                                A dune-project file is at the root of any project, it allows to set configuration for any executable or library in the project.
+                                A dune-project file is at the root of any project, it allows to set configuration for any executable or library in the project (there can be several).
                             </td>
                             <td class="code">
                                 <pre><code class="lisp">(lang dune 2.8)
@@ -517,7 +541,7 @@
                         
                         <tr>
                             <td class="explanation">
-                                A dune allows you to declare an executable or a library.
+                                A dune allows you to declare an executable or a library using [S-expressions](https://en.wikipedia.org/wiki/S-expression) (basically parenthesis everywhere). Here we use dune to define an executable (not a library).
                             </td>
                             <td class="code">
                                 <pre><code class="lisp">(executable
@@ -532,16 +556,16 @@
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>.ocamlformat</code></h2>
+                                <h2><code>main.ml</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                You need an `.ocamlformat` file (that can be empty) at the root for `ocamlformat` to work.
+                                You find a `dune` file in the same folder as the library or executable files; that folder can be located anywhere in the folder containing the `dune-project` file and it can be named anything.
                             </td>
                             <td class="code">
-                                <pre><code class="console"></code></pre>
+                                <pre><code class="ocaml">let () = print_endline &quot;hello world&quot;</code></pre>
                             </td>
                         </tr>
                         
@@ -557,18 +581,49 @@
                         
                         <tr>
                             <td class="explanation">
-                                You can run utop with your library thanks to e dune.
+                                You can use the `build` command line tool to build your project. The programs or library files will be generated and stored inside a `_build/` folder under your project&apos;s folder.
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ dune build
-$ dune exec
-$ dune utop src/lib/my_module
-
-utop # open My_module;;
-
-utop # My_module.Toolkit.(do_stuff (from_int 3));;
-- : float = 259200000.
+                                <pre><code class="console">$ dune build main.exe
 </code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can also directly run your program using `exec`. Note that the `.exe` extension has nothing to do with Windows executables.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ dune exec main.exe
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can install `ocamlformat` (`opam install ocamlformat`) to auto-format your code, and the language server protocol `ocaml-lsp-server` to support clicking through function definitions  in your favorite editor (check [OCaml Platform](https://github.com/ocamllabs/vscode-ocaml-platform) if you use VSCode).
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam install ocamlformat ocaml-lsp-server</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>.ocamlformat</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                 Just note that you&apos;ll need an empty `.ocamlformat` file at the root for `ocamlformat` to work.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console"></code></pre>
                             </td>
                         </tr>
                         
@@ -577,7 +632,7 @@ utop # My_module.Toolkit.(do_stuff (from_int 3));;
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-inline-tests.html">tests</a>
+                        next: <a href="build-libraries.html">libraries</a>
                         
                     </div>
 

@@ -313,11 +313,10 @@
                         
 
                         
-                        
 
                         
 
-                        <li>bits</li>
+                        <li><a href="basics-bits.html">bits</a></li>
 
                         
 
@@ -328,10 +327,6 @@
                     <ul>
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -429,15 +424,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="libraries-core_bench.html">core_bench: benchmarks</a></li>
-
                         
 
                         
 
+                        <li>core_bench: benchmarks</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -507,8 +507,62 @@
 
                 <div class="container">
 
-                    <h1>bits</h1>
+                    <h1>core_bench: benchmarks</h1>
 
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>dune</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Benchmarks are executables. They can live anywhere in your code, but are often found under a `bench/` directory.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(executable
+ (name bench)
+ (libraries core core_bench hexstring))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>bench.ml</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                ...
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">open Core
+open Core_bench
+
+let () =
+  let _ = Random.init (* seed: *) 0 in
+  let buffer_length = 100 in 
+  let rand_char _ = Random.int 256 |&gt; char_of_int in
+  let bytes_buffer = Bytes.init buffer_length ~f:rand_char in
+  let hexstring = Hexstring.encode bytes_buffer in
+  Command.run (Bench.make_command [
+    Bench.Test.create ~name:&quot;encoding&quot; 
+      (fun () -&gt; ignore (Hexstring.encode bytes_buffer));
+    Bench.Test.create ~name:&quot;decoding&quot; 
+      (fun () -&gt; ignore (Hexstring.decode hexstring));
+  ])</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
                     
                     <table class="explanation_code">
                         <tr>
@@ -523,37 +577,7 @@
                                 ...
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install hexstring base64</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>utop</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                ...
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">utop # let a = 0x12;;
-val a : int = 
-
-utop # let a = 0x1204_1024;;
-val a : int = 302256164
-
-utop # let some_bytes = Bytes.of_string &quot;\x01\x02&quot;;;
-utop # let hexstring = Hexstring.encode some_bytes;;
-utop # let some_bytes&apos; = Hexstring.decode hexstring;;
-
-utop # Hex.show hex;;
-- : string = &quot;0102&quot;</code></pre>
+                                <pre><code class="console">$ opam install core_bench</code></pre>
                             </td>
                         </tr>
                         
@@ -562,7 +586,7 @@ utop # Hex.show hex;;
 
                     <div style="text-align:right">
                         
-                        next: <a href="build-dune.html">dune</a>
+                        next: <a href="libraries-show.html">show: printing types</a>
                         
                     </div>
 

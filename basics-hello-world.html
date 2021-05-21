@@ -350,6 +350,18 @@
 
                         
 
+                        <li><a href="build-libraries.html">libraries</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
                         <li><a href="basics-inline-tests.html">tests</a></li>
 
                         
@@ -412,6 +424,18 @@
                     
                     <h2>Libraries</h2>
                     <ul>
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="libraries-core_bench.html">core_bench: benchmarks</a></li>
+
+                        
+
                         
 
                         
@@ -548,7 +572,7 @@ hello world</code></pre>
                         
                         <tr>
                             <td class="explanation">
-                                We can also use [methods of the Core library]((https://ocaml.janestreet.com/ocaml-core/odoc/stdlib/Stdlib/Printf/index.html)) we installed in the previous example. Notice that arguments of a function are not surrounded by parenthesis or commas.
+                                We can also use [methods of the Core library]((https://ocaml.janestreet.com/ocaml-core/odoc/stdlib/Stdlib/Printf/index.html) we installed in the previous example. Notice that arguments of a function are not surrounded by parenthesis or commas.
                             </td>
                             <td class="code">
                                 <pre><code class="ocaml">let () =
@@ -580,12 +604,13 @@ let () =
                         
                         <tr>
                             <td class="explanation">
-                                To compile code using external libraries, you can use `ocamlfind` which will do the work of finding and linking these libraries at compilation time. This is not ideal though, and you will later learn about an easier way to build your projects using [dune](build-dune.html).
+                                To compile code using external libraries, you can use `ocamlfind` which will do the work of finding and linking these libraries at compilation time.&lt;br&gt; This is a bit cumbersome though; you will later learn about an easier way to build projects using [dune](build-dune.html).
                             </td>
                             <td class="code">
                                 <pre><code class="console">$ opam install ocamlfind
 $ ocamlfind opt -package core -thread -linkpkg hello2.ml
 $ ./a.out
+hello world
 hello world</code></pre>
                             </td>
                         </tr>
