@@ -193,15 +193,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-imperative.html">imperative</a></li>
-
                         
 
                         
 
+                        <li>imperative</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -354,20 +359,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>libraries</li>
+                        <li><a href="build-libraries.html">libraries</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -519,68 +519,59 @@
 
                 <div class="container">
 
-                    <h1>libraries</h1>
+                    <h1>imperative</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>dune</code></h2>
+                                <h2><code>utop</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                You can use dune to manage internal (as well as external) libraries. You&apos;ll just need a name and a list of dependencies (in the `libraries` field).
+                                OCaml is a **functional** language, which is about evaluating functions. But programs are generally more complicated... One of the major feature of OCaml is the `in` keyword which allows to iteratively construct values that help evaluate the last expression.
                             </td>
                             <td class="code">
-                                <pre><code class="lisp">(library
- (name lib)
- (libraries core))</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>lib.ml</code></h2>
+                                <pre><code class="ocaml">utop # let one = 1 in
+let two = one + 1 in
+let four = two + two in
+four + four;;
+- : int = 8
+</code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                But complex programs have side effects: functions that change something somewhere else, like printing to stdout or getting some input from stdin. These side-effects don&apos;t always return anything, but they can still be chained using the `in` keyword.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">open Core
-
-let add_one i = i + 1</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console</code></h2>
+                                <pre><code class="ocaml">utop # let () = print_endline &quot;hello&quot; in
+  let () = print_endline &quot;world&quot; in
+  print_endline &quot;!&quot;;;
+hello
+world
+!
+- : unit = ()
+</code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                You can use dune to launch utop with your library.
+                                It is unatural though, and it is common to write in an **imperative** style by separating side-effects with a semicolon.
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ dune utop .
-
-utop # Lib.add_one 1;;
-- : int = 2</code></pre>
+                                <pre><code class="ocaml">utop # print_endline &quot;hello&quot;;
+  print_endline &quot;world&quot;;
+  print_endline &quot;!&quot;;;
+hello
+world
+!
+- : unit = ()</code></pre>
                             </td>
                         </tr>
                         
@@ -589,7 +580,7 @@ utop # Lib.add_one 1;;
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-inline-tests.html">tests</a>
+                        next: <a href="basics-match.html">match</a>
                         
                     </div>
 
