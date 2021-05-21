@@ -265,20 +265,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>arrays</li>
+                        <li><a href="basics-array.html">arrays</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -383,15 +378,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="build-dune-release.html">publishing</a></li>
-
                         
 
                         
 
+                        <li>publishing</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -519,24 +519,211 @@
 
                 <div class="container">
 
-                    <h1>arrays</h1>
+                    <h1>publishing</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>utop</code></h2>
+                                <h2><code>my_lib.ml</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                Arrays are similar to lists.
+                                ...
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let a = [| 1; 2; 3 |];;
-val a : int array = [|1; 2; 3|]</code></pre>
+                                <pre><code class="ocaml">let add_one i = i + 1</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>my_lib.opam</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                A library (or set of dune libraries) can be published to an opam repository. For this, an opam package file needs to be created with these fields.
+                            </td>
+                            <td class="code">
+                                <pre><code class="yml">opam-version: &quot;2.0&quot;
+name: &quot;my_lib&quot;
+version: &quot;0.2.0&quot;
+synopsis: &quot;A library to do things&quot;
+maintainer: &quot;your_email@gmail.com&quot;
+authors: &quot;your_email@gmail.com&quot;
+license: &quot;Apache-2.0&quot;
+homepage: &quot;https://github.com/mimoo/my_lib&quot;
+bug-reports: &quot;your_email@gmail.com&quot;
+depends: [
+  &quot;ocaml&quot; {&gt;= &quot;4.12.0&quot; &amp; &lt; &quot;4.13&quot;}
+  &quot;core&quot; {&gt;= &quot;v0.14.0&quot; &amp; &lt; &quot;v.0.15&quot;}
+]
+build: [&quot;dune&quot; &quot;build&quot; &quot;-p&quot; name &quot;-j&quot; jobs]
+dev-repo: &quot;git+https://github.com/mimoo/my_lib.git&quot;</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>dune</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The corresponding dune file must have a `public_name` field sharing the same name. This `public_name` field will be used by other dune files to list their dependency on your library, while the `name` will be used by OCaml code that wants to interact with the module. (In theory the `name` field can be anything but you should avoid that.)
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(library
+ (name my_lib)
+ (public_name my_lib)
+ (libraries core))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>dune2</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                An opam package can be a set of dune libraries. This sub-library will have to be imported as `my_lib.thing` by other dune files, but will be used as `my_lib_thing` by OCaml code.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(library
+ (name my_lib_thing)
+ (public_name my_lib.thing)
+ (libraries core))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>LICENSE</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Before publishing an opam package you need a license in your repository.
+                            </td>
+                            <td class="code">
+                                <pre><code class="text">whatever license you prefer</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>README.md</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                And a README, we&apos;re not fools.
+                            </td>
+                            <td class="code">
+                                <pre><code class="markdown"># My Lib
+
+That&apos;s my cool lib!</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>CHANGES.md</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You will also need to keep track of a changelog for each new version of your library.
+                            </td>
+                            <td class="code">
+                                <pre><code class="markdown">## 0.2.0 (2020-05-18)
+
+New minor version... Nothing should break.
+
+## 0.1.0 (2020-05-14)
+
+Wow, first version!</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>console</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                To publish a package you can install `dune-release`.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam install dune-release</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Make sure your package is correctly set up
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ dune-release lint</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                This will automatically detect the new version (in `CHANGES.md` and your opam package file `my_lib.opam`) and tag the repository accordingly.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ dune-release tag</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Finally, you can use this command to push the tag to your remote repository and create a pull request to the opam repository.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ dune-release</code></pre>
                             </td>
                         </tr>
                         
@@ -545,7 +732,7 @@ val a : int array = [|1; 2; 3|]</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-records.html">records</a>
+                        next: <a href="build-opam-pin.html">pins</a>
                         
                     </div>
 

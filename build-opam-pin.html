@@ -265,20 +265,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>arrays</li>
+                        <li><a href="basics-array.html">arrays</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -395,10 +390,11 @@
                         
 
                         
+                        
 
                         
 
-                        <li><a href="build-opam-pin.html">pins</a></li>
+                        <li>pins</li>
 
                         
 
@@ -409,6 +405,10 @@
                     <ul>
                         
 
+                        
+                        
+                        
+                        
                         
 
                         
@@ -519,24 +519,52 @@
 
                 <div class="container">
 
-                    <h1>arrays</h1>
+                    <h1>pins</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>utop</code></h2>
+                                <h2><code>console</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                Arrays are similar to lists.
+                                Sometimes, you want to use a specific version of a dependency, for this you have `opam pin`!
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let a = [| 1; 2; 3 |];;
-val a : int array = [|1; 2; 3|]</code></pre>
+                                <pre><code class="console"></code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can tell opam that some library `some_lib` lives under some path `some/path`. It opam finds a `some_lib.opam` file it&apos;ll install that library.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam pin add some_lib some/path --kind path
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Some libraries are in github repositories, but not published as an opam package. No worries, `opam pin` is here.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam pin add sponge https://github.com/o1-labs/snarky.git
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                If the name of the library is ommitted, `opam pin` will install all the opam package files it can find in the root folder of the given destination.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam pin add https://github.com/o1-labs/snarky.git</code></pre>
                             </td>
                         </tr>
                         
@@ -545,7 +573,7 @@ val a : int array = [|1; 2; 3|]</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-records.html">records</a>
+                        next: <a>functors</a>
                         
                     </div>
 
