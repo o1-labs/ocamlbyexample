@@ -11,9 +11,41 @@ utop # let fib n =
 ;;
 val fib : int -> int = <fun>
 
-utop # fib 0;;
-- : int = 1
 utop # fib 4;;
 - : int = 5
-utop # fib 6;;
-- : int = 13
+
+utop # fib 5;;
+- : int = 8
+
+utop # let rec sum i =
+  if i = 0 then 0
+  else
+    let rest = sum (pred i) in
+    i + rest
+;;
+val sum : int -> int = <fun>
+
+utop # sum 3;;
+- : int = 6
+
+utop # sum 4;;
+- : int = 10
+
+utop # let rec even x =
+  match x with
+  | 0 -> true
+  | _ -> odd (x - 1)
+
+and odd x =
+  match x with
+  | 0 -> false
+  | _ -> even(x - 1)
+;;
+val even : int -> bool = <fun>
+val odd : int -> bool = <fun>
+
+# odd 19 ;;
+- : bool = true
+
+# even 42 ;;
+- : bool = true
