@@ -1,0 +1,39 @@
+{
+    "title": "mutability",
+    "sections": [
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Variables are not mutable by default in OCaml, they are just re-declared (or shadowed)."
+                },
+                {
+                    "line": 7,
+                    "text": "Some OCaml types allow mutability. For example, `arrays` and `bytes`. Records also allow some of their fields to be modified by declaring them with the `mutable` keywords."
+                },
+                {
+                    "line": 10,
+                    "text": "You can then modify then with the mutation token [`<-`](https://www.craigfe.io/operator-lookup/?q=%3C-)."
+                },
+                {
+                    "line": 19,
+                    "text": "While you can wrap your mutable variables into records, it can get tedious. OCaml offers some syntaxic sugar that does that for you with the `ref` keyword."
+                },
+                {
+                    "line": 22,
+                    "text": "A ref can then be mutated with the reference assignment operator [`:=`](https://www.craigfe.io/operator-lookup/?q=%3A%3D)."
+                },
+                {
+                    "line": 28,
+                    "text": "To access a ref's content, just use the dereferencing operator [`!`](https://www.craigfe.io/operator-lookup/?q=%21)."
+                },
+                {
+                    "line": 31,
+                    "text": "But remember, under the hood a ref is just a record with a mutable field, as well as some re-define operators to facilitate manipulation of the mutable field."
+                }
+            ]
+        }
+    ]
+}

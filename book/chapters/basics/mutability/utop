@@ -1,0 +1,36 @@
+utop # let a =
+    let b = 5 in 
+    let b = 5 + b in 
+    b;;
+val a : int = 10
+
+utop # type bus = { mutable passengers : int };;
+type bus = { mutable passengers : int; }
+
+utop # let shuttle = { passengers = 0 };;
+val shuttle : bus = {passengers = 0}
+
+utop # shuttle.passengers <- 3;;
+- : unit = ()
+
+utop # shuttle;;
+- : bus = {passengers = 3}
+
+utop # let counter = ref 0;;
+val counter : int ref = {contents = 0}
+
+utop # counter := 3;;
+- : unit = ()
+
+utop # counter;;
+- : int ref = {contents = 3}
+
+utop # !counter + 4;;
+- : int = 7
+
+utop # type 'a ref = { mutable contents : 'a }
+let (:=) r v = r.contents <- v
+let (!) r = r.contents;;
+type 'a ref = { mutable contents : 'a; }
+val ( := ) : 'a ref -> 'a -> unit = <fun>
+val ( ! ) : 'a ref -> 'a = <fun>
