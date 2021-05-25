@@ -556,7 +556,7 @@
                         
                         <tr>
                             <td class="explanation">
-                                Recursive functions must be explicitely written with the keyword `rec`.
+                                Recursive functions must be explicitely written with the keyword `rec`. Here is an example with the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number).
                             </td>
                             <td class="code">
                                 <pre><code class="ocaml">utop # let fib n =
@@ -572,12 +572,60 @@
 ;;
 val fib : int -&gt; int = &lt;fun&gt;
 
-utop # fib 0;;
-- : int = 1
 utop # fib 4;;
 - : int = 5
-utop # fib 6;;
-- : int = 13</code></pre>
+
+utop # fib 5;;
+- : int = 8
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                There&apos;s an important concept when writing recursive code: **tail optimization**. It means that the compiler can optimize your code if the recursive function doesn&apos;t have to remember some state when it calls itself. Without that, Each call creates a new stack and you end up with stack overflows. This is an example of a non-tail optimized recursive function (notice that each call has to remember what `i` is to be able to use the return value of the recursive call.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # let rec sum i =
+  if i = 0 then 0
+  else
+    let rest = sum (pred i) in
+    i + rest
+;;
+val sum : int -&gt; int = &lt;fun&gt;
+
+utop # sum 3;;
+- : int = 6
+
+utop # sum 4;;
+- : int = 10
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Finally, here&apos;s an example copied from [Daniil Baturin](https://baturin.org/docs/ocaml-faq/) on how to write functions that recursively call one another.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # let rec even x =
+  match x with
+  | 0 -&gt; true
+  | _ -&gt; odd (x - 1)
+
+and odd x =
+  match x with
+  | 0 -&gt; false
+  | _ -&gt; even(x - 1)
+;;
+val even : int -&gt; bool = &lt;fun&gt;
+val odd : int -&gt; bool = &lt;fun&gt;
+
+# odd 19 ;;
+- : bool = true
+
+# even 42 ;;
+- : bool = true</code></pre>
                             </td>
                         </tr>
                         
