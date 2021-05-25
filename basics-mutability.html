@@ -289,15 +289,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-mutability.html">mutability</a></li>
-
                         
 
                         
 
+                        <li>mutability</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -472,20 +477,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>bin_prot: serialization</li>
+                        <li><a href="libraries-bin_prot.html">bin_prot: serialization</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -531,59 +531,106 @@
 
                 <div class="container">
 
-                    <h1>bin_prot: serialization</h1>
+                    <h1>mutability</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>main.ml</code></h2>
+                                <h2><code>utop</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                Variables are not mutable by default in OCaml, they are just re-declared (or shadowed).
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">open Core
-
-module Thing = struct
-  type t =
-  | No_arg
-  | One_arg of string
-  | Record_arg of { num : int } [@@deriving bin_io, show]
-end
-
-let () = 
-  let some = Thing.One_arg &quot;hello&quot; in
-  let buf = Bin_prot.Common.create_buf 50 in
-  let pos = Thing.bin_write_t buf ~pos:0 some in 
-  let pos&apos; = ref 0 in
-  let some&apos; = Thing.bin_read_t buf ~pos_ref:pos&apos; in 
-  printf &quot;%s =?= %s\n&quot; (Thing.show some) (Thing.show some&apos;);
-  printf &quot;%d =?= %d\n&quot; pos !pos&apos;
+                                <pre><code class="ocaml">utop # let a =
+    let b = 5 in 
+    let b = 5 + b in 
+    b;;
+val a : int = 10
 </code></pre>
                             </td>
                         </tr>
                         
-                    </table>
-                    
-                    <table class="explanation_code">
                         <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console</code></h2>
+                            <td class="explanation">
+                                Some OCaml types allow mutability. For example, `arrays` and `bytes`. Records also allow some of their fields to be modified by declaring them with the `mutable` keywords.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # type bus = { mutable passengers : int };;
+type bus = { mutable passengers : int; }
+</code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                You can then modify them with the mutation token [`&lt;-`](https://www.craigfe.io/operator-lookup/?q=%3C-).
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ dune exec ./main.exe</code></pre>
+                                <pre><code class="ocaml">utop # let shuttle = { passengers = 0 };;
+val shuttle : bus = {passengers = 0}
+
+utop # shuttle.passengers &lt;- 3;;
+- : unit = ()
+
+utop # shuttle;;
+- : bus = {passengers = 3}
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                While you can wrap your mutable variables into records, it can get tedious. OCaml offers some syntaxic sugar that does that for you with the `ref` keyword.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # let counter = ref 0;;
+val counter : int ref = {contents = 0}
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                A ref can then be mutated with the reference assignment operator [`:=`](https://www.craigfe.io/operator-lookup/?q=%3A%3D).
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # counter := 3;;
+- : unit = ()
+
+utop # counter;;
+- : int ref = {contents = 3}
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                To access a ref&apos;s content, just use the dereferencing operator [`!`](https://www.craigfe.io/operator-lookup/?q=%21).
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # !counter + 4;;
+- : int = 7
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                But remember, under the hood a ref is just a record with a mutable field, as well as some re-define operators to facilitate manipulation of the mutable field.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # type &apos;a ref = { mutable contents : &apos;a }
+let (:=) r v = r.contents &lt;- v
+let (!) r = r.contents;;
+type &apos;a ref = { mutable contents : &apos;a; }
+val ( := ) : &apos;a ref -&gt; &apos;a -&gt; unit = &lt;fun&gt;
+val ( ! ) : &apos;a ref -&gt; &apos;a = &lt;fun&gt;</code></pre>
                             </td>
                         </tr>
                         
@@ -592,7 +639,7 @@ let () =
 
                     <div style="text-align:right">
                         
-                        next: <a href="libraries-ctypes.html">ctypes: calling C programs</a>
+                        next: <a href="basics-map.html">maps</a>
                         
                     </div>
 
