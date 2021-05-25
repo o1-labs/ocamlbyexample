@@ -301,15 +301,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-recursion.html">recursion</a></li>
-
                         
 
                         
 
+                        <li>recursion</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -508,20 +513,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>js_of_ocaml: compiling to javascript</li>
+                        <li><a href="libraries-js_of_ocaml.html">js_of_ocaml: compiling to javascript</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -543,51 +543,41 @@
 
                 <div class="container">
 
-                    <h1>js_of_ocaml: compiling to javascript</h1>
+                    <h1>recursion</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>console</code></h2>
+                                <h2><code>utop</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                Recursive functions must be explicitely written with the keyword `rec`.
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install js_of_ocaml js_of_ocaml-compiler js_of_ocaml-ppx
-$ dune build ./main.bc.js
-$ node _build/default/main.bc.js
-hello from js
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>dune</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                ...
-                            </td>
-                            <td class="code">
-                                <pre><code class="lisp">(executable
- (name main)
- (libraries)
- (modes js)
- (preprocess
-  (pps js_of_ocaml-ppx)))</code></pre>
+                                <pre><code class="ocaml">utop # let fib n =
+  if n &lt; 2 then 1 else 
+  let rec go i prev prevprev = 
+    let res = prev + prevprev in
+    if i = 0 then 
+      res
+    else
+      go (pred i) res prev
+  in
+  go (n-2) 1 1
+;;
+val fib : int -&gt; int = &lt;fun&gt;
+
+utop # fib 0;;
+- : int = 1
+utop # fib 4;;
+- : int = 5
+utop # fib 6;;
+- : int = 13</code></pre>
                             </td>
                         </tr>
                         
@@ -596,7 +586,7 @@ hello from js
 
                     <div style="text-align:right">
                         
-                        next: <a href="libraries-qcheck.html">qcheck: property testing</a>
+                        next: <a href="basics-map.html">maps</a>
                         
                     </div>
 

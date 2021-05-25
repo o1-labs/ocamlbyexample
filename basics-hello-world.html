@@ -126,8 +126,8 @@
             <div class="col col-lg-2">
             </div>
 
-            <div class="col col-md-auto">
-                <h1 class="title">OCaml By Examples</h1>
+            <div class="col col-lg-10">
+                <h1 class="jumbotron p-3 p-md-5 text-white rounded bg-dark">OCaml By Examples</h1>
             </div>
         </div>
 
@@ -298,6 +298,18 @@
                         
 
                         <li><a href="basics-mutability.html">mutability</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="basics-recursion.html">recursion</a></li>
 
                         
 
@@ -544,12 +556,20 @@
                         
                         <tr>
                             <td class="explanation">
-                                There&apos;s no main function in OCaml, rather statements that can have side effects (here printing to stdout).
+                                
                             </td>
                             <td class="code">
                                 <pre><code class="ocaml">(* this is a comment *)
-print_endline &quot;hello world&quot;
 </code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                There are no `main()` function in OCaml, rather statements that can have side effects (here printing to stdout).
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">print_endline &quot;hello world&quot;</code></pre>
                             </td>
                         </tr>
                         
@@ -558,7 +578,8 @@ print_endline &quot;hello world&quot;
                                 A more idiomatic way to write this is to enforce that the code returns nothing, or in OCaml term that it returns the **unit** symbol `()`.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">let () = print_endline &quot;hello world&quot;</code></pre>
+                                <pre><code class="ocaml">
+let () = print_endline &quot;hello world&quot;</code></pre>
                             </td>
                         </tr>
                         
