@@ -15,6 +15,7 @@
                 "sets",
                 "basics/array",
                 "basics/records",
+                "basics/mutability",
                 "basics/map",
                 "basics/modules",
                 "basics/errors",

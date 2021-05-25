@@ -21,7 +21,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "You can compile your code with the OCaml compiler **ocamlc**, similar to C programs."
+                    "text": "You can compile your code with the OCaml compiler **ocamlopt**, similar to C programs."
                 }
             ]
         },
