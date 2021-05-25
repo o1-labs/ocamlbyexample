@@ -6,8 +6,8 @@
             "lang": "ocaml",
             "explanations": [
                 {
-                    "line": 1,
-                    "text": "There's no main function in OCaml, rather statements that can have side effects (here printing to stdout)."
+                    "line": 3,
+                    "text": "There are no `main()` function in OCaml, rather statements that can have side effects (here printing to stdout)."
                 },
                 {
                     "line": 4,

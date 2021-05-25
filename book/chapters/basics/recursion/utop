@@ -1,0 +1,19 @@
+utop # let fib n =
+  if n < 2 then 1 else 
+  let rec go i prev prevprev = 
+    let res = prev + prevprev in
+    if i = 0 then 
+      res
+    else
+      go (pred i) res prev
+  in
+  go (n-2) 1 1
+;;
+val fib : int -> int = <fun>
+
+utop # fib 0;;
+- : int = 1
+utop # fib 4;;
+- : int = 5
+utop # fib 6;;
+- : int = 13

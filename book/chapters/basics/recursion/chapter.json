@@ -1,0 +1,15 @@
+{
+    "title": "recursion",
+    "sections": [
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Recursive functions must be explicitely written with the keyword `rec`."
+                }
+            ]
+        }
+    ]
+}
