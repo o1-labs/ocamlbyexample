@@ -31,7 +31,7 @@
                 },
                 {
                     "line": 3,
-                    "text": "The built library will reside under `_build/default/`."
+                    "text": "The built library will reside under `_build/default/`. Relevant files are `.cma` (bytecode), `.cmxa` (native), and `.cmi` (the library's interface)"
                 },
                 {
                     "line": 7,
