@@ -598,6 +598,28 @@ let add_one i = i + 1</code></pre>
                         
                         <tr>
                             <td class="explanation">
+                                You can build your library using dune.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ dune build
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The built library will reside under `_build/default/`.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ ls _build/default/
+dune         lib.cma      lib.cmxs
+lib.a        lib.cmxa     lib.ml
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
                                 You can use dune to launch utop with your library.
                             </td>
                             <td class="code">
@@ -605,6 +627,43 @@ let add_one i = i + 1</code></pre>
 
 utop # Lib.add_one 1;;
 - : int = 2</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>utop</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can also import all the code from a file by including directly in utop.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # #use &quot;lib.ml&quot;;;
+val add_one : int -&gt; int = &lt;fun&gt;
+
+utop # add_one 1;;
+- : int = 2
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can also import a file as a module.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">utop # #mod_use &quot;lib.ml&quot;;;
+module Lib : sig val add_one : int -&gt; int end
+
+utop # Lib.add_one 2;;
+- : int = 3</code></pre>
                             </td>
                         </tr>
                         
