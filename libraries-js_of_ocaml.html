@@ -550,20 +550,29 @@
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>console</code></h2>
+                                <h2><code>dune</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                To compile ocaml to javascript, we are going to use the [js\_of\_ocaml](https://ocsigen.org/js_of_ocaml/latest/manual/overview) library. Note that Core is not supported, and so you&apos;ll have to use a smaller set of functionnalities of Core: [Core_kernel](https://docs.ocaml.pro/html/OPAM.core_kernel.v0.14.1/index.html).
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install js_of_ocaml js_of_ocaml-compiler js_of_ocaml-ppx
-$ dune build ./main.bc.js
-$ node _build/default/main.bc.js
-hello from js
-</code></pre>
+                                <pre><code class="lisp">(executable
+ (name main)
+ (libraries js_of_ocaml core_kernel)</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                dune supports js\_of\_ocaml out-of-the-box via the `js` mode.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp"> (modes js)
+ (preprocess
+  (pps js_of_ocaml-ppx)))</code></pre>
                             </td>
                         </tr>
                         
@@ -573,21 +582,116 @@ hello from js
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>dune</code></h2>
+                                <h2><code>main.ml</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                
                             </td>
                             <td class="code">
-                                <pre><code class="lisp">(executable
- (name main)
- (libraries)
- (modes js)
- (preprocess
-  (pps js_of_ocaml-ppx)))</code></pre>
+                                <pre><code class="ocaml">open Core_kernel
+open Js_of_ocaml
+
+let _ =
+  Js.export &quot;myLib&quot;
+    (object%js (_self)</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                you can export polymorphic methods to javascript.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">      method add x y = x + y
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                you can export values as well. Note that exported values and functions must follow the [snake case]().
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">      val myVal = 3
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The [Js\_of\_ocaml.Js](https://ocsigen.org/js_of_ocaml/latest/api/js_of_ocaml/Js_of_ocaml/Js/index.html) module contains javascript types and functions to handle them.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">      method hello (name: Js.js_string Js.t) : (Js.js_string Js.t) = 
+        let name = Js.to_string name in 
+        let hello_name = &quot;hello &quot; ^ name in
+        Js.string hello_name
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can also write javascript within your OCaml code. Note that the versino of javascript supported is not recent (no `let` keyword for example).
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">      method typedArray _ =
+         let init_typed_array = Js.Unsafe.js_expr
+            {js|(function() {
+              var buf = new Uint8Array(2);
+              buf[0] = 1;
+              return buf;
+            })|js}
+          in
+          let typed_array = Js.Unsafe.fun_call init_typed_array [||] in
+          let typed_array = Js_of_ocaml.Typed_array.String.of_uint8Array typed_array in
+          String.iter ~f:(fun (x:char) -&gt; printf &quot;%d\n&quot; (int_of_char x)) typed_array
+     end)</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>console</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam install js_of_ocaml js_of_ocaml-compiler js_of_ocaml-ppx</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                To compile to a `.js` file, you need to build with this specific command.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ dune build ./main.bc.js
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You can then use the exported module from javascript.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ node -e &apos;const m = require(&quot;./_build/default/main.bc.js&quot;).myLib; console.log(m.myVal);&apos;
+0
+$ node -e &apos;const m = require(&quot;./_build/default/main.bc.js&quot;).myLib; m.typedArray()();&apos;
+1
+0</code></pre>
                             </td>
                         </tr>
                         
