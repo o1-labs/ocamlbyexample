@@ -1,3 +1,9 @@
+$ dune build
+
+$ ls _build/default/
+dune         lib.cma      lib.cmxs
+lib.a        lib.cmxa     lib.ml
+
 $ dune utop .
 
 utop # Lib.add_one 1;;

@@ -1,0 +1,11 @@
+utop # #use "lib.ml";;
+val add_one : int -> int = <fun>
+
+utop # add_one 1;;
+- : int = 2
+
+utop # #mod_use "lib.ml";;
+module Lib : sig val add_one : int -> int end
+
+utop # Lib.add_one 2;;
+- : int = 3

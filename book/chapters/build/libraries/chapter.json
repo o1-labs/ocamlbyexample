@@ -27,7 +27,29 @@
             "explanations": [
                 {
                     "line": 1,
+                    "text": "You can build your library using dune."
+                },
+                {
+                    "line": 3,
+                    "text": "The built library will reside under `_build/default/`."
+                },
+                {
+                    "line": 7,
                     "text": "You can use dune to launch utop with your library."
+                }
+            ]
+        },
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "You can also import all the code from a file by including directly in utop."
+                },
+                {
+                    "line": 7,
+                    "text": "You can also import a file as a module."
                 }
             ]
         }
