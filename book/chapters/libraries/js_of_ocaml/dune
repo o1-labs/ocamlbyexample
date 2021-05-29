@@ -1,6 +1,6 @@
 (executable
  (name main)
- (libraries)
+ (libraries js_of_ocaml core_kernel)
  (modes js)
  (preprocess
   (pps js_of_ocaml-ppx)))

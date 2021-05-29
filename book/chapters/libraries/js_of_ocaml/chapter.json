@@ -2,22 +2,52 @@
     "title": "js_of_ocaml: compiling to javascript",
     "sections": [
         {
-            "file": "console",
-            "lang": "console",
-            "explanations": [
-                {
-                    "line": 1,
-                    "text": "..."
-                }
-            ]
-        },
-        {
             "file": "dune",
             "lang": "lisp",
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
+                    "text": "To compile ocaml to javascript, we are going to use the [js\\_of\\_ocaml](https://ocsigen.org/js_of_ocaml/latest/manual/overview) library. Note that Core is not supported, and so you'll have to use a smaller set of functionnalities of Core: [Core_kernel](https://docs.ocaml.pro/html/OPAM.core_kernel.v0.14.1/index.html)."
+                },
+                {
+                    "line": 4,
+                    "text": "dune supports js\\_of\\_ocaml out-of-the-box via the `js` mode."
+                }
+            ]
+        },
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 7,
+                    "text": "you can export polymorphic methods to javascript."
+                },
+                {
+                    "line": 9,
+                    "text": "you can export values as well. Note that exported values and functions must follow the [snake case]()."
+                },
+                {
+                    "line": 11,
+                    "text": "The [Js\\_of\\_ocaml.Js](https://ocsigen.org/js_of_ocaml/latest/api/js_of_ocaml/Js_of_ocaml/Js/index.html) module contains javascript types and functions to handle them."
+                },
+                {
+                    "line": 16,
+                    "text": "You can also write javascript within your OCaml code. Note that the versino of javascript supported is not recent (no `let` keyword for example)."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 2,
+                    "text": "To compile to a `.js` file, you need to build with this specific command."
+                },
+                {
+                    "line": 4,
+                    "text": "You can then use the exported module from javascript."
                 }
             ]
         }

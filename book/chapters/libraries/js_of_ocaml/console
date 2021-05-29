@@ -1,5 +1,8 @@
 $ opam install js_of_ocaml js_of_ocaml-compiler js_of_ocaml-ppx
 $ dune build ./main.bc.js
-$ node _build/default/main.bc.js
-hello from js
 
+$ node -e 'const m = require("./_build/default/main.bc.js").myLib; console.log(m.myVal);'
+0
+$ node -e 'const m = require("./_build/default/main.bc.js").myLib; m.typedArray()();'
+1
+0

@@ -7,7 +7,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "**utop** is a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) for OCaml: an interactive program that allows you to quickly test OCaml commands."
+                    "text": "**utop** is OCaml's [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) (referred to as a *toplevel* in OCaml): an interactive program that allows you to quickly test OCaml commands."
                 }
             ]
         },
