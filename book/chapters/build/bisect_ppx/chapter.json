@@ -1,0 +1,47 @@
+{
+    "title": "test coverage",
+    "sections": [
+        {
+            "file": "lib.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Test coverage allows us to understand how much is covered by our inline tests."
+                }
+            ]
+        },
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 7,
+                    "text": "To use it, simply add the [bisect_ppx](https://github.com/aantron/bisect_ppx) library as an *instrumentation backend*."
+                }
+            ]
+        },
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Make sure to install the library"
+                },
+                {
+                    "line": 3,
+                    "text": "Pass this command to generate the coverage data based on your tests."
+                },
+                {
+                    "line": 6,
+                    "text": "Via `bisect-ppx-report` you can generate a report within your terminal"
+                },
+                {
+                    "line": 9,
+                    "text": "Or as an HTML report (prettier)."
+                }
+            ]
+        }
+    ]
+}

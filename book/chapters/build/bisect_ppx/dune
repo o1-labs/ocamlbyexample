@@ -1,0 +1,8 @@
+(library
+ (name lib)
+ (libraries)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test))
+ (instrumentation
+  (backend bisect_ppx)))

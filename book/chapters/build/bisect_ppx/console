@@ -1,0 +1,10 @@
+$ opam install bisect_ppx
+
+$ find . -name '*.coverage' | xargs rm -f
+$ dune runtest --instrument-with bisect_ppx --force
+
+$ bisect-ppx-report summary
+Coverage: 8/11 (72.73%)
+
+$ bisect-ppx-report html
+Info: found coverage files in './_build/default/'
