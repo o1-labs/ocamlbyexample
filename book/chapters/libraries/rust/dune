@@ -1,21 +1,14 @@
+(dirs :standard \ target)
+
 (rule
- (targets libocaml_rust_starter.a dllocaml_rust_starter.so)
- (deps
-  (glob_files *.rs))
+ (target librust_thing.a)
  (action
   (progn
-   (run cargo build --target-dir %{project_root}/../../target --release)
-   (run
-    sh
-    -c
-    "mv %{project_root}/../../target/release/libocaml_rust_starter.so ./dllocaml_rust_starter.so 2> /dev/null || mv %{project_root}/../..target/release/libocaml_rust_starter.dylib ./dllocaml_rust_starter.so")
-   (run
-    mv
-    %{project_root}/../../target/release/libocaml_rust_starter.a
-    libocaml_rust_starter.a))))
+   (run cargo build --release)
+   (run cp target/release/%{target} .))))
 
 (library
  (name lib)
- (foreign_archives ocaml_rust_starter)
+ (foreign_archives rust_thing)
  (c_library_flags
   (-lpthread -lc -lm)))
