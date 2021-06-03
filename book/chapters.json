@@ -45,6 +45,7 @@
         {
             "title": "Libraries",
             "chapters": [
+                "libraries/bignum",
                 "libraries/core_bench",
                 "libraries/show",
                 "libraries/bin_prot",

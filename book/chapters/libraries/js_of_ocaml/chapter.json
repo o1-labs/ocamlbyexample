@@ -1,5 +1,5 @@
 {
-    "title": "js_of_ocaml: compiling to javascript",
+    "title": "javascript",
     "sections": [
         {
             "file": "dune",

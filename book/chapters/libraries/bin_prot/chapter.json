@@ -1,5 +1,5 @@
 {
-    "title": "bin_prot: serialization",
+    "title": "serialization",
     "sections": [
         {
             "file": "main.ml",
