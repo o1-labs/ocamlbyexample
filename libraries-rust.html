@@ -594,17 +594,22 @@
                                 <pre><code class="lisp">(dirs :standard \ target)
 
 (rule
- (target librust_thing.a)
+ (targets librust_thing.a)
+ (deps Cargo.toml lib.rs)
  (action
   (progn
    (run cargo build --release)
-   (run cp target/release/%{target} .))))
+   (run cp target/release/librust_thing.a .))))
 
 (library
  (name lib)
- (foreign_archives rust_thing)
- (c_library_flags
-  (-lpthread -lc -lm)))</code></pre>
+ (modules lib)
+ (foreign_archives rust_thing))
+
+(executable
+ (name main)
+ (modules main)
+ (libraries lib))</code></pre>
                             </td>
                         </tr>
                         
@@ -629,15 +634,11 @@ version = &quot;0.1.0&quot;
 edition = &quot;2018&quot;
 
 [lib]
-crate-type = [&quot;staticlib&quot;]
 path = &quot;lib.rs&quot;
+crate-type = [&quot;staticlib&quot;]
 
 [dependencies]
-ocaml = { version = &quot;0.22.0&quot; }
-
-[build]
-# this is required for MacOS
-rustflags = [&quot;-C&quot;, &quot;link-args=-Wl,-undefined,dynamic_lookup&quot;]</code></pre>
+ocaml = { version = &quot;0.22.0&quot; }</code></pre>
                             </td>
                         </tr>
                         
@@ -708,6 +709,7 @@ pub fn display_house(house: House) {
   door: bool;
   cupboards: int64;
 }
+
 
 external build : string -&gt; int -&gt; house = &quot;build_house&quot;
 
