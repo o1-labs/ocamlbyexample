@@ -1,0 +1,10 @@
+(library
+ (name lib)
+ (libraries))
+
+; run property tests with `dune runtest`
+
+(rule
+ (alias runtest)
+ (action
+  (run ./tests.exe)))

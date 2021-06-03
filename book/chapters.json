@@ -28,7 +28,8 @@
             "chapters": [
                 "build/dune",
                 "build/libraries",
-                "basics/inline-tests",
+                "build/inline-tests",
+                "build/qcheck",
                 "build/bisect_ppx",
                 "build/dune-release",
                 "build/opam-pin"
@@ -49,7 +50,7 @@
                 "libraries/bin_prot",
                 "libraries/ctypes",
                 "libraries/js_of_ocaml",
-                "libraries/qcheck"
+                "libraries/rust"
             ]
         }
     ]

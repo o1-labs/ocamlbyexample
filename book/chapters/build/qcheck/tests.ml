@@ -7,10 +7,15 @@ let encode_decode =
 
 let arbitrary_hexstring =
   let open QCheck.Gen in
+  (* the hexadecimal range *)
   let c = char_range 'a' 'f' in
   let d = char_range '0' '9' in
+  (* randomly choose a character in any given range *)
   let elem_gen = oneof [ c; d ] in
-  let size_gen = nat in
+  (* an hexstring is of even size ( 2 x natural number ) *)
+  let size_gen = map (fun x -> 2 * x) nat in
+  (* creates lists of size [size_gen] *)
+  (* containing elements generated via [elem_gen] *)
   list_size size_gen elem_gen
 
 let decode_arbitrary_hexstring =
@@ -21,10 +26,8 @@ let decode_arbitrary_hexstring =
         let len = List.length arb in
         let decoded = Hexstring.decode s in
         match decoded with
-        | Ok _ when len mod 2 <> 0 -> false
-        | Ok res when Bytes.length res <> len / 2 -> false
-        | Error _ when len mod 2 <> 1 -> false
-        | _ -> true))
+        | Ok r -> Hexstring.encode r = s
+        | Error _  -> false
 
 let () =
   QCheck_base_runner.run_tests_main

@@ -1,5 +1,5 @@
 {
-    "title": "qcheck: property testing",
+    "title": "property tests",
     "sections": [
         {
             "file": "console",
@@ -12,7 +12,7 @@
             ]
         },
         {
-            "file": "main.ml",
+            "file": "tests.ml",
             "lang": "ocaml",
             "explanations": [
                 {
@@ -28,8 +28,18 @@
                     "text": "We can use this generator of almost-valid hexadecimal string to ensure that decoding always work unless the string is of odd length."
                 },
                 {
-                    "line": 29,
+                    "line": 32,
                     "text": "Finally, we can run these tests using QCheck's provided helper `run_tests_main` as main function of our executable."
+                }
+            ]
+        },
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 7,
+                    "text": "So that property tests can be included by the `dune runtest` commands, and in turn in test coverage (see next section), you can add an extra rule to your `dune` file."
                 }
             ]
         }
