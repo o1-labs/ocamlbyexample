@@ -393,7 +393,19 @@
 
                         
 
-                        <li><a href="basics-inline-tests.html">tests</a></li>
+                        <li><a href="build-inline-tests.html">tests</a></li>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li><a href="build-qcheck.html">property tests</a></li>
 
                         
 
@@ -536,7 +548,7 @@
 
                         
 
-                        <li>qcheck: property testing</li>
+                        <li>rust</li>
 
                         
 
@@ -551,8 +563,156 @@
 
                 <div class="container">
 
-                    <h1>qcheck: property testing</h1>
+                    <h1>rust</h1>
 
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>dune</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                ...
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(rule
+ (targets libocaml_rust_starter.a dllocaml_rust_starter.so)
+ (deps
+  (glob_files *.rs))
+ (action
+  (progn
+   (run cargo build --target-dir %{project_root}/../../target --release)
+   (run
+    sh
+    -c
+    &quot;mv %{project_root}/../../target/release/libocaml_rust_starter.so ./dllocaml_rust_starter.so 2&gt; /dev/null || mv %{project_root}/../..target/release/libocaml_rust_starter.dylib ./dllocaml_rust_starter.so&quot;)
+   (run
+    mv
+    %{project_root}/../../target/release/libocaml_rust_starter.a
+    libocaml_rust_starter.a))))
+
+(library
+ (name lib)
+ (foreign_archives ocaml_rust_starter)
+ (c_library_flags
+  (-lpthread -lc -lm)))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>Cargo.toml</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                ...
+                            </td>
+                            <td class="code">
+                                <pre><code class="toml">[package]
+name = &quot;rust-lib&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2018&quot;
+
+[lib]
+crate-type = [&quot;staticlib&quot;]
+path = &quot;lib.rs&quot;
+
+[dependencies]
+ocaml = { version = &quot;0.22.0&quot; }
+
+[build]
+# this is required for MacOS
+rustflags = [&quot;-C&quot;, &quot;link-args=-Wl,-undefined,dynamic_lookup&quot;]</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>lib.rs</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                ...
+                            </td>
+                            <td class="code">
+                                <pre><code class="rust">#[derive(ocaml::IntoValue, ocaml::FromValue, Debug)]
+pub struct House {
+    name: String,
+    windows: u8,
+    door: bool,
+    cupboards: u64,
+}
+
+#[ocaml::func]
+pub fn build_house(name: String, windows: u8) -&gt; House {
+    House {
+        name,
+        windows,
+        door: true,
+        cupboards: 4,
+    }
+}
+
+#[ocaml::func]
+pub fn destroy_house(mut house: House) -&gt; House {
+    house.door = false;
+    house
+}
+
+#[ocaml::func]
+pub fn display_house(house: House) {
+    println!(&quot;{:?}&quot;, house);
+}</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>lib.ml</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                ...
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">type house = {
+  name: string;
+  windows: int;
+  door: bool;
+  cupboards: int64;
+}
+
+external build : string -&gt; int -&gt; house = &quot;build_house&quot;
+
+external destroy : house -&gt; house = &quot;destroy_house&quot;
+
+external display : house -&gt; unit = &quot;display_house&quot;</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
                     
                     <table class="explanation_code">
                         <tr>
@@ -564,83 +724,10 @@
                         
                         <tr>
                             <td class="explanation">
-                                QCheck is a property-based testing framework: it allows you to generate arbitrary values of your custom types, and test properties of your choice on them (e.g. does my Car type always contain at least 4 wheels).
+                                https://docs.rs/ocaml/0.22.0/ocaml/
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install qcheck</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>main.ml</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                We can create a thousand tests that will generate random strings (using the `QCheck.string` generator) and enforce that they can be hex encoded and then decoded to the same string.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let encode_decode =
-  QCheck.(
-    Test.make ~count:1000 ~name:&quot;encode -&gt; decode&quot; string (fun some_string -&gt;
-        let expected_result = Bytes.of_string some_string in
-        let hexstring = Bytes.of_string some_string |&gt; Hexstring.encode in
-        Hexstring.decode hexstring = Ok expected_result))
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                We can create our own value generators. For example, here we create an hexadecimal string (that isn&apos;t necessarily of even length). `QCheck.Gen.char_range` is used to specify a range of characters to generate, `QCHeck.Gen.oneof` is used to generate a value using one of the listed generators, and `QCheck.Gen.list_size` generates a list of a size generated by `QCheck.Gen.nat` using elements generated by our custom generator.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let arbitrary_hexstring =
-  let open QCheck.Gen in
-  let c = char_range &apos;a&apos; &apos;f&apos; in
-  let d = char_range &apos;0&apos; &apos;9&apos; in
-  let elem_gen = oneof [ c; d ] in
-  let size_gen = nat in
-  list_size size_gen elem_gen
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                We can use this generator of almost-valid hexadecimal string to ensure that decoding always work unless the string is of odd length.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let decode_arbitrary_hexstring =
-  QCheck.(
-    Test.make ~count:1000 ~name:&quot;rand hexstring -&gt; decode&quot;
-      (make arbitrary_hexstring) (fun arb -&gt;
-        let s = arb |&gt; List.to_seq |&gt; String.of_seq in
-        let len = List.length arb in
-        let decoded = Hexstring.decode s in
-        match decoded with
-        | Ok _ when len mod 2 &lt;&gt; 0 -&gt; false
-        | Ok res when Bytes.length res &lt;&gt; len / 2 -&gt; false
-        | Error _ when len mod 2 &lt;&gt; 1 -&gt; false
-        | _ -&gt; true))
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                Finally, we can run these tests using QCheck&apos;s provided helper `run_tests_main` as main function of our executable.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let () =
-  QCheck_base_runner.run_tests_main
-    [ encode_decode; decode_arbitrary_hexstring ]</code></pre>
+                                <pre><code class="console"></code></pre>
                             </td>
                         </tr>
                         
