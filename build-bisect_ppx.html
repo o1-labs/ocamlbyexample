@@ -265,20 +265,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>arrays</li>
+                        <li><a href="basics-array.html">arrays</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -407,15 +402,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="build-bisect_ppx.html">test coverage</a></li>
-
                         
 
                         
 
+                        <li>test coverage</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -555,24 +555,117 @@
 
                 <div class="container">
 
-                    <h1>arrays</h1>
+                    <h1>test coverage</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>utop</code></h2>
+                                <h2><code>lib.ml</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                Arrays are similar to lists.
+                                Test coverage allows us to understand how much is covered by our inline tests.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let a = [| 1; 2; 3 |];;
-val a : int array = [|1; 2; 3|]</code></pre>
+                                <pre><code class="ocaml">let great = function 
+  | 0 -&gt; &quot;zero&quot;
+  | 1 | 2 -&gt; &quot;1 or 2&quot;
+  | 3 -&gt; &quot;three&quot;
+  | _ -&gt; &quot;the rest&quot;
+
+let%test &quot;some test&quot; = (great 0 = &quot;zero&quot;)
+
+let%test &quot;some other test&quot; = (great 1 = &quot;1 or 2&quot;)</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>dune</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(library
+ (name lib)
+ (libraries)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test))</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                To use it, simply add the [bisect_ppx](https://github.com/aantron/bisect_ppx) library as an *instrumentation backend*.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp"> (instrumentation
+  (backend bisect_ppx)))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>console</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Make sure to install the library
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam install bisect_ppx
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Pass this command to generate the coverage data based on your tests.
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ find . -name &apos;*.coverage&apos; | xargs rm -f
+$ dune runtest --instrument-with bisect_ppx --force
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Via `bisect-ppx-report` you can generate a report within your terminal
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ bisect-ppx-report summary
+Coverage: 8/11 (72.73%)
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Or as an HTML report (prettier).
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ bisect-ppx-report html
+Info: found coverage files in &apos;./_build/default/&apos;</code></pre>
                             </td>
                         </tr>
                         
@@ -581,7 +674,7 @@ val a : int array = [|1; 2; 3|]</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-records.html">records</a>
+                        next: <a href="build-dune-release.html">publishing</a>
                         
                     </div>
 
