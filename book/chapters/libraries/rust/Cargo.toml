@@ -4,12 +4,8 @@ version = "0.1.0"
 edition = "2018"
 
 [lib]
-crate-type = ["staticlib"]
 path = "lib.rs"
+crate-type = ["staticlib"]
 
 [dependencies]
 ocaml = { version = "0.22.0" }
-
-[build]
-# this is required for MacOS
-rustflags = ["-C", "link-args=-Wl,-undefined,dynamic_lookup"]

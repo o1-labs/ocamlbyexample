@@ -5,6 +5,7 @@ type house = {
   cupboards: int64;
 }
 
+
 external build : string -> int -> house = "build_house"
 
 external destroy : house -> house = "destroy_house"
