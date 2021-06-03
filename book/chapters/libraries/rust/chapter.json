@@ -6,8 +6,32 @@
             "lang": "lisp",
             "explanations": [
                 {
+                    "line": 0,
+                    "text": "We can interact with Rust in the same way we can interact with C: we use dune to build a static library of the rust code, and we later link this library to our ocaml code."
+                },
+                {
                     "line": 1,
-                    "text": "..."
+                    "text": "The magic happens within the `_build` directory, where dune will copy and build things out. Let's avoid copying the entire `target` repository that cargo creates."
+                },
+                {
+                    "line": 3,
+                    "text": "Let's add a rule to build the rust static library every time we rune a dune command."
+                },
+                {
+                    "line": 4,
+                    "text": "`target` specifies the file produced by the rule. You can also use `targets` if you need to list several files."
+                },
+                {
+                    "line": 5,
+                    "text": "dune will avoid re-running this rule every time, that is unless one of the dependencies listed in `deps` has changed."
+                },
+                {
+                    "line": 6,
+                    "text": "Here's the actual content of the rule, `progn` lists a series of commands that have to be executed in sequence. In our example, we run `cargo build` on our project, and we then extract the produced library."
+                },
+                {
+                    "line": 11,
+                    "text": "Let's define the ocaml executable that will call the Rust code. Notice that it lists the library in the `foreign_archives` field."
                 }
             ]
         },
@@ -17,7 +41,15 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
+                    "text": "Here's our Rust library defined in a typical `Cargo.toml` file. Notice that the library name will prepend the word `lib` to the name of the library, as well as convert any hyphen to an underscore (typical in Rust)."
+                },
+                {
+                    "line": 8,
+                    "text": "As we're creating a static library to be linked with our OCaml code, we need to specify that."
+                },
+                {
+                    "line": 1,
+                    "text": "The [ocaml](https://crates.io/crates/ocaml) crate is used to facilitate exporting and importing types and functions to OCaml."
                 }
             ]
         },
@@ -27,17 +59,21 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "..."
+                    "text": "You can automagically match a structure with an OCaml record by using the derive feature of the ocaml package."
+                },
+                {
+                    "line": 9,
+                    "text": "The `ocaml::func` maccro can be used to export functions to OCaml."
                 }
             ]
         },
         {
-            "file": "lib.ml",
+            "file": "main.ml",
             "lang": "ocaml",
             "explanations": [
                 {
-                    "line": 1,
-                    "text": "..."
+                    "line": 9,
+                    "text": "External functions have their signatures defined with the `external` keyword."
                 }
             ]
         },
@@ -47,7 +83,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "https://docs.rs/ocaml/0.22.0/ocaml/"
+                    "text": "..."
                 }
             ]
         }

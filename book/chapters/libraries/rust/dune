@@ -1,19 +1,13 @@
 (dirs :standard \ target)
 
 (rule
- (targets librust_thing.a)
+ (target librust_thing.a)
  (deps Cargo.toml lib.rs)
  (action
   (progn
    (run cargo build --release)
    (run cp target/release/librust_thing.a .))))
 
-(library
- (name lib)
- (modules lib)
- (foreign_archives rust_thing))
-
 (executable
  (name main)
- (modules main)
- (libraries lib))
+ (foreign_archives rust_thing))

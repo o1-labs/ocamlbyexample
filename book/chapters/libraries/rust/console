@@ -1,0 +1,2 @@
+$ dune exec ./main exe
+House { name: "casa", windows: 5, door: false, cupboards: 4 }
