@@ -205,20 +205,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>match</li>
+                        <li><a href="basics-match.html">match</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -489,15 +484,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="libraries-bignum.html">bignum</a></li>
-
                         
 
                         
 
+                        <li>bignum</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -579,68 +579,27 @@
 
                 <div class="container">
 
-                    <h1>match</h1>
+                    <h1>bignum</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>utop</code></h2>
+                                <h2><code>main.ml</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                
+                                ...
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let i = 1;;
-val i : int = 1
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                OCaml offers a very powerful way to **match** patterns with the `match` keyword. Think of a `switch` or a long series of `if` and `else if` in a different language.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">utop # match i with
-| 0 -&gt; print_endline &quot;zero&quot;
-| 1 -&gt; print_endline &quot;one&quot;
-| _ -&gt; print_endline &quot;some other number&quot;;;
-one
-- : unit = ()
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                `match` are safe to use as they will not allow you to miss a pattern.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">utop # let last_name first_name =
-    match first_name with
-    | &quot;bill&quot; -&gt; &quot;gates&quot;
-    | &quot;elon&quot; -&gt; &quot;musk&quot;
-    ;;
-Lines 2-4, characters 0-18:
-Warning 8 [partial-match]: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-&quot;&quot;
-val last_name : string -&gt; string = &lt;fun&gt;
+                                <pre><code class="ocaml">let a = Bigint.zero
 
-utop # let last_name first_name =
-    match first_name with
-    | &quot;bill&quot; -&gt; &quot;gates&quot;
-    | &quot;elon&quot; -&gt; &quot;musk&quot;
-    | x -&gt; &quot;some other name: &quot; ^ x;;
-val last_name : string -&gt; string = &lt;fun&gt;
+let b = Bigint.of_int 3
 
-utop # last_name &quot;david&quot;;;
-- : string = &quot;some other name: david&quot;</code></pre>
+let c = Bigint.(a + b)</code></pre>
                             </td>
                         </tr>
                         
@@ -649,7 +608,7 @@ utop # last_name &quot;david&quot;;;
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-tuples.html">tuples</a>
+                        next: <a href="libraries-core_bench.html">benchmarks</a>
                         
                     </div>
 
