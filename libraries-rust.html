@@ -588,28 +588,71 @@
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                We can interact with Rust in the same way we can interact with C: we use dune to build a static library of the rust code, and we later link this library to our ocaml code.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp"></code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The magic happens within the `_build` directory, where dune will copy and build things out. Let&apos;s avoid copying the entire `target` repository that cargo creates.
                             </td>
                             <td class="code">
                                 <pre><code class="lisp">(dirs :standard \ target)
-
-(rule
- (targets librust_thing.a)
- (deps Cargo.toml lib.rs)
- (action
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Let&apos;s add a rule to build the rust static library every time we rune a dune command.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(rule</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                `target` specifies the file produced by the rule. You can also use `targets` if you need to list several files.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp"> (target librust_thing.a)</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                dune will avoid re-running this rule every time, that is unless one of the dependencies listed in `deps` has changed.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp"> (deps Cargo.toml lib.rs)</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Here&apos;s the actual content of the rule, `progn` lists a series of commands that have to be executed in sequence. In our example, we run `cargo build` on our project, and we then extract the produced library.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp"> (action
   (progn
    (run cargo build --release)
    (run cp target/release/librust_thing.a .))))
-
-(library
- (name lib)
- (modules lib)
- (foreign_archives rust_thing))
-
-(executable
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Let&apos;s define the ocaml executable that will call the Rust code. Notice that it lists the library in the `foreign_archives` field.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(executable
  (name main)
- (modules main)
- (libraries lib))</code></pre>
+ (foreign_archives rust_thing))</code></pre>
                             </td>
                         </tr>
                         
@@ -625,7 +668,7 @@
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                Here&apos;s our Rust library defined in a typical `Cargo.toml` file. Notice that the library name will prepend the word `lib` to the name of the library, as well as convert any hyphen to an underscore (typical in Rust).
                             </td>
                             <td class="code">
                                 <pre><code class="toml">[package]
@@ -634,8 +677,25 @@ version = &quot;0.1.0&quot;
 edition = &quot;2018&quot;
 
 [lib]
-path = &quot;lib.rs&quot;
-crate-type = [&quot;staticlib&quot;]
+path = &quot;lib.rs&quot;</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                As we&apos;re creating a static library to be linked with our OCaml code, we need to specify that.
+                            </td>
+                            <td class="code">
+                                <pre><code class="toml"></code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The [ocaml](https://crates.io/crates/ocaml) crate is used to facilitate exporting and importing types and functions to OCaml.
+                            </td>
+                            <td class="code">
+                                <pre><code class="toml">crate-type = [&quot;staticlib&quot;]
 
 [dependencies]
 ocaml = { version = &quot;0.22.0&quot; }</code></pre>
@@ -654,7 +714,7 @@ ocaml = { version = &quot;0.22.0&quot; }</code></pre>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                You can automagically match a structure with an OCaml record by using the derive feature of the ocaml package.
                             </td>
                             <td class="code">
                                 <pre><code class="rust">#[derive(ocaml::IntoValue, ocaml::FromValue, Debug)]
@@ -664,8 +724,16 @@ pub struct House {
     door: bool,
     cupboards: u64,
 }
-
-#[ocaml::func]
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The `ocaml::func` maccro can be used to export functions to OCaml.
+                            </td>
+                            <td class="code">
+                                <pre><code class="rust">#[ocaml::func]
 pub fn build_house(name: String, windows: u8) -&gt; House {
     House {
         name,
@@ -694,13 +762,13 @@ pub fn display_house(house: House) {
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>lib.ml</code></h2>
+                                <h2><code>main.ml</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                
                             </td>
                             <td class="code">
                                 <pre><code class="ocaml">type house = {
@@ -710,12 +778,25 @@ pub fn display_house(house: House) {
   cupboards: int64;
 }
 
-
-external build : string -&gt; int -&gt; house = &quot;build_house&quot;
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                External functions have their signatures defined with the `external` keyword.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">external build : string -&gt; int -&gt; house = &quot;build_house&quot;
 
 external destroy : house -&gt; house = &quot;destroy_house&quot;
 
-external display : house -&gt; unit = &quot;display_house&quot;</code></pre>
+external display : house -&gt; unit = &quot;display_house&quot;
+
+let () = 
+  let h = build &quot;casa&quot; 5 in
+  let h = destroy h in
+  display h</code></pre>
                             </td>
                         </tr>
                         
@@ -731,10 +812,11 @@ external display : house -&gt; unit = &quot;display_house&quot;</code></pre>
                         
                         <tr>
                             <td class="explanation">
-                                https://docs.rs/ocaml/0.22.0/ocaml/
+                                ...
                             </td>
                             <td class="code">
-                                <pre><code class="console"></code></pre>
+                                <pre><code class="console">$ dune exec ./main exe
+House { name: &quot;casa&quot;, windows: 5, door: false, cupboards: 4 }</code></pre>
                             </td>
                         </tr>
                         
