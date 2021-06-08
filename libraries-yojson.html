@@ -508,15 +508,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="libraries-yojson.html">json</a></li>
-
                         
 
                         
 
+                        <li>json</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -556,20 +561,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>serialization</li>
+                        <li><a href="libraries-bin_prot.html">serialization</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -615,44 +615,8 @@
 
                 <div class="container">
 
-                    <h1>serialization</h1>
+                    <h1>json</h1>
 
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>main.ml</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                ...
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">open Core
-
-module Thing = struct
-  type t =
-  | No_arg
-  | One_arg of string
-  | Record_arg of { num : int } [@@deriving bin_io, show]
-end
-
-let () = 
-  let some = Thing.One_arg &quot;hello&quot; in
-  let buf = Bin_prot.Common.create_buf 50 in
-  let pos = Thing.bin_write_t buf ~pos:0 some in 
-  let pos&apos; = ref 0 in
-  let some&apos; = Thing.bin_read_t buf ~pos_ref:pos&apos; in 
-  printf &quot;%s =?= %s\n&quot; (Thing.show some) (Thing.show some&apos;);
-  printf &quot;%d =?= %d\n&quot; pos !pos&apos;
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
                     
                     <table class="explanation_code">
                         <tr>
@@ -664,10 +628,72 @@ let () =
                         
                         <tr>
                             <td class="explanation">
-                                ...
+                                yojson.
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ dune exec ./main.exe</code></pre>
+                                <pre><code class="console"></code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                
+                            </td>
+                            <td class="code">
+                                <pre><code class="console">$ opam install yojson</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>utop</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">open Core
+
+let json = &apos;{  }&apos;
+
+let parse_test_vectors filepath =</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Here&apos;s how you can parse a json string. Yojson also has other methods like `from_file` to directly parse a `.json` file.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">  let json = Yojson.Basic.from_file filepath in
+  let open Yojson.Basic.Util in
+  let name = json |&gt; member &quot;name&quot; |&gt; to_string in 
+  let test_vectors = json |&gt; member &quot;test_vectors&quot; |&gt; to_list in
+  let json_to_test_vector test_vector = 
+    let input = test_vector |&gt; member &quot;input&quot; |&gt; to_list |&gt; filter_string in
+    let output = test_vector |&gt; member &quot;output&quot; |&gt; to_string in
+    {input; output}
+  in
+  let test_vectors = List.map test_vectors ~f:json_to_test_vector in
+  {name; test_vectors}
+
+let () = 
+  let cur_dir = Sys.argv.(0) |&gt; Filename.dirname in 
+  let test_vector_file = Filename.concat cur_dir &quot;three_wire.json&quot; in
+  let test_vectors = parse_test_vectors test_vector_file in 
+  assert (test_vectors.name = &quot;three_wire&quot;);
+  let check_test_vector test_vector = 
+    let digest = Hash_function.Hash.hash_field_elems test_vector.input in 
+    assert (digest = test_vector.output)
+  in
+  List.map test_vectors.test_vectors ~f:check_test_vector</code></pre>
                             </td>
                         </tr>
                         
@@ -676,7 +702,7 @@ let () =
 
                     <div style="text-align:right">
                         
-                        next: <a href="libraries-ctypes.html">C</a>
+                        next: <a href="libraries-bignum.html">bignum</a>
                         
                     </div>
 

@@ -361,15 +361,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-commands.html">commands</a></li>
-
                         
 
                         
 
+                        <li>commands</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -556,20 +561,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>serialization</li>
+                        <li><a href="libraries-bin_prot.html">serialization</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -615,14 +615,14 @@
 
                 <div class="container">
 
-                    <h1>serialization</h1>
+                    <h1>commands</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>main.ml</code></h2>
+                                <h2><code>utop</code></h2>
                             </td>
                         </tr>
                         
@@ -631,43 +631,14 @@
                                 ...
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">open Core
+                                <pre><code class="ocaml">utop # let run cmd =
+  let inp = Unix.open_process_in cmd in
+  let r = In_channel.input_all inp in
+  In_channel.close inp ; r;;
+val run : string -&gt; string = &lt;fun&gt;
 
-module Thing = struct
-  type t =
-  | No_arg
-  | One_arg of string
-  | Record_arg of { num : int } [@@deriving bin_io, show]
-end
-
-let () = 
-  let some = Thing.One_arg &quot;hello&quot; in
-  let buf = Bin_prot.Common.create_buf 50 in
-  let pos = Thing.bin_write_t buf ~pos:0 some in 
-  let pos&apos; = ref 0 in
-  let some&apos; = Thing.bin_read_t buf ~pos_ref:pos&apos; in 
-  printf &quot;%s =?= %s\n&quot; (Thing.show some) (Thing.show some&apos;);
-  printf &quot;%d =?= %d\n&quot; pos !pos&apos;
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                ...
-                            </td>
-                            <td class="code">
-                                <pre><code class="console">$ dune exec ./main.exe</code></pre>
+utop # run &quot;echo &apos;hello&apos;&quot;;;
+- : string = &quot;hello\n&quot;</code></pre>
                             </td>
                         </tr>
                         
@@ -676,7 +647,7 @@ let () =
 
                     <div style="text-align:right">
                         
-                        next: <a href="libraries-ctypes.html">C</a>
+                        next: <a href="basics-files.html">files</a>
                         
                     </div>
 
