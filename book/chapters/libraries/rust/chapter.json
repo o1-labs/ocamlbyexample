@@ -73,6 +73,10 @@
             "explanations": [
                 {
                     "line": 9,
+                    "text": "We can re-define the Rust structure in OCaml with our own record type. Note that the name of that type doesn't have to match the Rust name."
+                },
+                {
+                    "line": 9,
                     "text": "External functions have their signatures defined with the `external` keyword."
                 }
             ]

@@ -1,0 +1,4 @@
+utop # In_channel.read_lines ".gitignore";;
+- : string list = ["_build"; "dist"]
+
+utop # Out_channel.write_all ".gitignore" ~data:"_build"

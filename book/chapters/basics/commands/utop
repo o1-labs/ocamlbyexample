@@ -1,0 +1,8 @@
+utop # let run cmd =
+  let inp = Unix.open_process_in cmd in
+  let r = In_channel.input_all inp in
+  In_channel.close inp ; r;;
+val run : string -> string = <fun>
+
+utop # run "echo 'hello'";;
+- : string = "hello\n"

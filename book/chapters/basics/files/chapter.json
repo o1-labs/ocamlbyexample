@@ -1,0 +1,19 @@
+{
+    "title": "files",
+    "sections": [
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "Reading the lines of the `.gitignore` file contained in this repository."
+                },
+                {
+                    "line": 4,
+                    "text": "Write `_build` into the `.gitignore` file."
+                }
+            ]
+        }
+    ]
+}

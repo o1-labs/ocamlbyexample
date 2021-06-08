@@ -1,0 +1,25 @@
+{
+    "title": "json",
+    "sections": [
+        {
+            "file": "console",
+            "lang": "console",
+            "explanations": [
+                {
+                    "line": 0,
+                    "text": "yojson."
+                }
+            ]
+        },
+        {
+            "file": "utop",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 6,
+                    "text": "Here's how you can parse a json string. Yojson also has other methods like `from_file` to directly parse a `.json` file."
+                }
+            ]
+        }
+    ]
+}
