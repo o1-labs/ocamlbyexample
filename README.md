@@ -1,5 +1,7 @@
 # Ocaml By Example
 
+<img width="1337" alt="Screen Shot 2021-06-02 at 9 48 58 PM" src="https://user-images.githubusercontent.com/1316043/120588632-5cb50f00-c3ec-11eb-9007-5221ec26f885.png">
+
 Learn the OCaml language, following a series of examples!
 
 You can visit the rendered course here: https://o1-labs.github.io/ocamlbyexample/.
