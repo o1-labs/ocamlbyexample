@@ -1,0 +1,20 @@
+opam-version: "2.0"
+name: "ocamlbyexample"
+version: "~dev"
+synopsis: "OCaml by Example"
+maintainer: "David Wong <davidwong.crypto@gmail.com>"
+authors: "David Wong <davidwong.crypto@gmail.com>"
+license: "The MIT License (MIT)"
+homepage: "https://github.com/o1-labs/ocamlbyexample"
+bug-reports: "David Wong <davidwong.crypto@gmail.com>"
+depends: [
+  "dune" {>= "2.8.2"}
+  "core" {>= "0.12.1"}
+  "yojson" {>= "1.7.0"}
+  "jingoo" {>= "1.4.3"}
+  "ppx_deriving" {>= "4.4.1"}
+]
+build: [
+  [make]
+]
+install: [make "install"]

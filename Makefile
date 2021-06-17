@@ -5,4 +5,4 @@ watch:
 	dune exec bin/main.exe --root ./tools -- watch 
 
 deps:
-	opam install dune core yojson jingoo ppx_deriving
+	opam install . --deps-only
