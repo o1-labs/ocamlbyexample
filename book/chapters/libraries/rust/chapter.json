@@ -59,11 +59,15 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "You can automagically match a structure with an OCaml record by using the derive feature of the ocaml package."
+                    "text": "The derive macros `ocaml::IntoValue` and `ocaml::FromValue` allow you to convert entire types to OCaml types, which allows you to store them on the OCaml heap and have the OCaml's garbage collector handle them."
                 },
                 {
                     "line": 9,
-                    "text": "The `ocaml::func` maccro can be used to export functions to OCaml."
+                    "text": "The `ocaml::func` derive macro can be used to export functions to OCaml. Here the returned value will be converted to an OCaml type thanks to the `ocaml::IntoValue` a few lines above."
+                },
+                {
+                    "line": 30,
+                    "text": "The `ocaml::custom!` macro can be used to store custom types on the OCaml heap. As these will be ignored by the OCaml garbage collector, it is important to define a finalizer that will drop the value when it is garbage-collected. You have to use this when you can't implement ocaml::FromValue and ocaml::IntoValue for some type in your structure."
                 }
             ]
         },

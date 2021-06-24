@@ -26,3 +26,32 @@ pub fn destroy_house(mut house: House) -> House {
 pub fn display_house(house: House) {
     println!("{:?}", house);
 }
+
+#[derive(Debug, Clone)]
+pub struct Opaque(String);
+
+ocaml::custom!(Opaque {
+    finalize: finalizer,
+});
+
+unsafe extern "C" fn finalizer(v: ocaml::Raw) {
+    let ptr = v.as_pointer::<Opaque>();
+    ptr.drop_in_place()
+}
+
+unsafe impl ocaml::FromValue<'_> for Opaque {
+    fn from_value(value: ocaml::Value) -> Self {
+        let x: ocaml::Pointer<Self> = ocaml::FromValue::from_value(value);
+        x.as_ref().clone()
+    }
+}
+
+#[ocaml::func]
+pub fn create_opaque() -> Opaque {
+    Opaque("sup".to_string())
+}
+
+#[ocaml::func]
+pub fn print_opaque(opaque: Opaque) {
+    println!("{:?}", opaque);
+}
