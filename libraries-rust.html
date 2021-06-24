@@ -511,7 +511,7 @@
 
                         
 
-                        <li><a href="libraries-yojson.html">json</a></li>
+                        <li>libraries/yoijson</li>
 
                         
 
@@ -547,7 +547,7 @@
 
                         
 
-                        <li><a href="libraries-show.html">debugging</a></li>
+                        <li><a href="libraries-deriving.html">deriving</a></li>
 
                         
 
@@ -750,7 +750,7 @@ ocaml = { version = &quot;0.22.0&quot; }</code></pre>
                         
                         <tr>
                             <td class="explanation">
-                                You can automagically match a structure with an OCaml record by using the derive feature of the ocaml package.
+                                The derive macros `ocaml::IntoValue` and `ocaml::FromValue` allow you to convert entire types to OCaml types, which allows you to store them on the OCaml heap and have the OCaml&apos;s garbage collector handle them.
                             </td>
                             <td class="code">
                                 <pre><code class="rust">#[derive(ocaml::IntoValue, ocaml::FromValue, Debug)]
@@ -766,7 +766,7 @@ pub struct House {
                         
                         <tr>
                             <td class="explanation">
-                                The `ocaml::func` maccro can be used to export functions to OCaml.
+                                The `ocaml::func` derive macro can be used to export functions to OCaml. Here the returned value will be converted to an OCaml type thanks to the `ocaml::IntoValue` a few lines above.
                             </td>
                             <td class="code">
                                 <pre><code class="rust">#[ocaml::func]
@@ -788,6 +788,43 @@ pub fn destroy_house(mut house: House) -&gt; House {
 #[ocaml::func]
 pub fn display_house(house: House) {
     println!(&quot;{:?}&quot;, house);
+}
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                The `ocaml::custom!` macro can be used to store custom types on the OCaml heap. As these will be ignored by the OCaml garbage collector, it is important to define a finalizer that will drop the value when it is garbage-collected. You have to use this when you can&apos;t implement ocaml::FromValue and ocaml::IntoValue for some type in your structure.
+                            </td>
+                            <td class="code">
+                                <pre><code class="rust">#[derive(Debug, Clone)]
+pub struct Opaque(String);
+
+ocaml::custom!(Opaque {
+    finalize: finalizer,
+});
+
+unsafe extern &quot;C&quot; fn finalizer(v: ocaml::Raw) {
+    let ptr = v.as_pointer::&lt;Opaque&gt;();
+    ptr.drop_in_place()
+}
+
+unsafe impl ocaml::FromValue&lt;&apos;_&gt; for Opaque {
+    fn from_value(value: ocaml::Value) -&gt; Self {
+        let x: ocaml::Pointer&lt;Self&gt; = ocaml::FromValue::from_value(value);
+        x.as_ref().clone()
+    }
+}
+
+#[ocaml::func]
+pub fn create_opaque() -&gt; Opaque {
+    Opaque(&quot;sup&quot;.to_string())
+}
+
+#[ocaml::func]
+pub fn print_opaque(opaque: Opaque) {
+    println!(&quot;{:?}&quot;, opaque);
 }</code></pre>
                             </td>
                         </tr>
@@ -841,7 +878,20 @@ external display : house -&gt; unit = &quot;display_house&quot;
 let () = 
   let h = build &quot;casa&quot; 5 in
   let h = destroy h in
-  display h</code></pre>
+  display h
+
+module Opaque = struct
+  type t
+
+  external create : unit -&gt; t = &quot;create_opaque&quot;
+
+  external print : t -&gt; unit = &quot;print_opaque&quot;
+
+end
+
+let () =
+  let opaque = Opaque.create () in
+  Opaque.print opaque</code></pre>
                             </td>
                         </tr>
                         
