@@ -1,0 +1,32 @@
+utop # let a _ = printf "hey\n";;
+val a : 'a -> unit = <fun>
+
+utop # let a unit = printf "hey\n";;
+val a : 'a -> unit = <fun>
+
+utop # let a () = printf "hey\n";;
+val a : unit -> unit = <fun>
+
+utop # a ();;
+hey
+
+utop # let a ~thing = printf "hey %s\n" thing;;
+val a : thing:string -> unit = <fun>
+
+utop # let a ?thing lol = match thing with
+| Some x -> printf "%s %s\n" x lol
+| None -> printf "%s\n" lol;;
+val a : ?thing:string -> string -> unit = <fun>
+
+utop # a "hey";;
+hey
+
+utop # a ~thing:"hello" "world";;
+hello world
+
+utop # let a ?thing () = match thing with
+| Some x -> printf "some: %s\n" x
+| None -> printf "none\n";;
+
+utop # a ();;
+none
