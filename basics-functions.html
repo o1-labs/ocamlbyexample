@@ -157,20 +157,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>hello world</li>
+                        <li><a href="basics-hello-world.html">hello world</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -198,15 +193,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="basics-functions.html">functions</a></li>
-
                         
 
                         
 
+                        <li>functions</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -627,120 +627,54 @@
 
                 <div class="container">
 
-                    <h1>hello world</h1>
+                    <h1>functions</h1>
 
                     
                     <table class="explanation_code">
                         <tr>
                             <td class="explanation"></td>
                             <td class="filename">
-                                <h2><code>hello.ml</code></h2>
+                                <h2><code>utop</code></h2>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                
+                                ...
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">(* this is a comment *)
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                There are no `main()` function in OCaml, rather statements that can have side effects (here printing to stdout).
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">print_endline &quot;hello world&quot;</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                A more idiomatic way to write this is to enforce that the code returns nothing, or in OCaml term that it returns the **unit** symbol `()`.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">
-let () = print_endline &quot;hello world&quot;</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                You can compile your code with the OCaml compiler **ocamlopt**, similar to C programs.
-                            </td>
-                            <td class="code">
-                                <pre><code class="console">$ ocamlopt -o your_program hello.ml
-$ ./your_program
+                                <pre><code class="ocaml">utop # let a _ = printf &quot;hey\n&quot;;;
+val a : &apos;a -&gt; unit = &lt;fun&gt;
+
+utop # let a unit = printf &quot;hey\n&quot;;;
+val a : &apos;a -&gt; unit = &lt;fun&gt;
+
+utop # let a () = printf &quot;hey\n&quot;;;
+val a : unit -&gt; unit = &lt;fun&gt;
+
+utop # a ();;
+hey
+
+utop # let a ~thing = printf &quot;hey %s\n&quot; thing;;
+val a : thing:string -&gt; unit = &lt;fun&gt;
+
+utop # let a ?thing lol = match thing with
+| Some x -&gt; printf &quot;%s %s\n&quot; x lol
+| None -&gt; printf &quot;%s\n&quot; lol;;
+val a : ?thing:string -&gt; string -&gt; unit = &lt;fun&gt;
+
+utop # a &quot;hey&quot;;;
+hey
+
+utop # a ~thing:&quot;hello&quot; &quot;world&quot;;;
 hello world
-hello world</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>hello2.ml</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                We can also use [methods of the Core library]((https://ocaml.janestreet.com/ocaml-core/odoc/stdlib/Stdlib/Printf/index.html) we installed in the previous example. Notice that arguments of a function are not surrounded by parenthesis or commas.
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">let () =
-  Core.printf &quot;%s\n&quot; &quot;hello world&quot;
-</code></pre>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                You can also access a library&apos;s methods directly by opening the library. In general this is bad practice, unless the library is made to be opened (like Core).
-                            </td>
-                            <td class="code">
-                                <pre><code class="ocaml">open Core
-let () = 
-  printf &quot;%s\n&quot; &quot;hello world&quot;</code></pre>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    
-                    <table class="explanation_code">
-                        <tr>
-                            <td class="explanation"></td>
-                            <td class="filename">
-                                <h2><code>console2</code></h2>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="explanation">
-                                To compile code using external libraries, you can use `ocamlfind` which will do the work of finding and linking these libraries at compilation time.&lt;br&gt; This is a bit cumbersome though; you will later learn about an easier way to build projects using [dune](build-dune.html).
-                            </td>
-                            <td class="code">
-                                <pre><code class="console">$ opam install ocamlfind
-$ ocamlfind opt -package core -thread -linkpkg hello2.ml
-$ ./a.out
-hello world
-hello world</code></pre>
+
+utop # let a ?thing () = match thing with
+| Some x -&gt; printf &quot;some: %s\n&quot; x
+| None -&gt; printf &quot;none\n&quot;;;
+
+utop # a ();;
+none</code></pre>
                             </td>
                         </tr>
                         
@@ -749,7 +683,7 @@ hello world</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-utop.html">utop</a>
+                        next: <a href="basics-imperative.html">imperative</a>
                         
                     </div>
 
