@@ -810,7 +810,19 @@ pub fn display_house(house: House) {
                                 The `ocaml::custom!` macro can be used to store custom types on the OCaml heap. As these will be ignored by the OCaml garbage collector, it is important to define a finalizer that will drop the value when it is garbage-collected. You have to use this when you can&apos;t implement ocaml::FromValue and ocaml::IntoValue for some type in your structure.
                             </td>
                             <td class="code">
-                                <pre><code class="rust">#[derive(Debug, Clone)]
+                                <pre><code class="rust">#[ocaml::func]
+pub fn bump_windows(house: House, num: ocaml::Int) -&gt; Option&lt;House&gt; {
+    if house.num + num &gt;= 10 {
+        return None
+    } else {
+        Some(House {
+            windows: house.windows + num,
+            ..house
+        })
+    }
+}
+
+#[derive(Debug, Clone)]
 pub struct Opaque(String);
 
 ocaml::custom!(Opaque {
