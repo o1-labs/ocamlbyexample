@@ -42,14 +42,14 @@
             "title": "Advanced Ocaml",
             "chapters": [
                 "functors",
+                "advanced/macros",
                 "monads"
             ]
         },
         {
             "title": "Libraries",
             "chapters": [
-                "libraries/macros",
-                "libraries/yoijson",
+                "libraries/yojson",
                 "libraries/bignum",
                 "libraries/core_bench",
                 "libraries/deriving",
