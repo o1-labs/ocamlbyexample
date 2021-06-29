@@ -48,6 +48,7 @@
         {
             "title": "Libraries",
             "chapters": [
+                "libraries/macros",
                 "libraries/yoijson",
                 "libraries/bignum",
                 "libraries/core_bench",
