@@ -193,20 +193,15 @@
                         
 
                         
-                        
 
                         
 
-                        <li>functions</li>
+                        <li><a href="basics-functions.html">functions</a></li>
 
                         
 
                         
 
-                        
-                        
-                        
-                        
                         
 
                         
@@ -525,15 +520,20 @@
                         
 
                         
-
-                        
-
-                        <li><a href="libraries-macros.html">macros</a></li>
-
                         
 
                         
 
+                        <li>macros</li>
+
+                        
+
+                        
+
+                        
+                        
+                        
+                        
                         
 
                         
@@ -639,7 +639,7 @@
 
                 <div class="container">
 
-                    <h1>functions</h1>
+                    <h1>macros</h1>
 
                     
                     <table class="explanation_code">
@@ -655,38 +655,7 @@
                                 ...
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let a _ = printf &quot;hey\n&quot;;;
-val a : &apos;a -&gt; unit = &lt;fun&gt;
-
-utop # let a unit = printf &quot;hey\n&quot;;;
-val a : &apos;a -&gt; unit = &lt;fun&gt;
-
-utop # let a () = printf &quot;hey\n&quot;;;
-val a : unit -&gt; unit = &lt;fun&gt;
-
-utop # a ();;
-hey
-
-utop # let a ~thing = printf &quot;hey %s\n&quot; thing;;
-val a : thing:string -&gt; unit = &lt;fun&gt;
-
-utop # let a ?thing lol = match thing with
-| Some x -&gt; printf &quot;%s %s\n&quot; x lol
-| None -&gt; printf &quot;%s\n&quot; lol;;
-val a : ?thing:string -&gt; string -&gt; unit = &lt;fun&gt;
-
-utop # a &quot;hey&quot;;;
-hey
-
-utop # a ~thing:&quot;hello&quot; &quot;world&quot;;;
-hello world
-
-utop # let a ?thing () = match thing with
-| Some x -&gt; printf &quot;some: %s\n&quot; x
-| None -&gt; printf &quot;none\n&quot;;;
-
-utop # a ();;
-none</code></pre>
+                                <pre><code class="ocaml"></code></pre>
                             </td>
                         </tr>
                         
@@ -695,7 +664,7 @@ none</code></pre>
 
                     <div style="text-align:right">
                         
-                        next: <a href="basics-imperative.html">imperative</a>
+                        next: <a>libraries/yoijson</a>
                         
                     </div>
 
