@@ -27,6 +27,18 @@ pub fn display_house(house: House) {
     println!("{:?}", house);
 }
 
+#[ocaml::func]
+pub fn bump_windows(house: House, num: ocaml::Int) -> Option<House> {
+    if house.num + num >= 10 {
+        return None
+    } else {
+        Some(House {
+            windows: house.windows + num,
+            ..house
+        })
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct Opaque(String);
 
