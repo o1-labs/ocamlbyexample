@@ -652,13 +652,21 @@
                         
                         <tr>
                             <td class="explanation">
-                                
+                                The prime way of testing something in OCaml is to use _inline tests_. Note that inline tests can only exist in libraries.
                             </td>
                             <td class="code">
                                 <pre><code class="lisp">(library
  (name mylib)
- (libraries)
- (inline_tests)
+ (libraries)</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                You&apos;ll have to manually add the `inline_tests` field as well as the `ppx_inline_test` ppx.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp"> (inline_tests)
  (preprocess
   (pps ppx_inline_test)))</code></pre>
                             </td>
@@ -676,32 +684,45 @@
                         
                         <tr>
                             <td class="explanation">
-                                
+                                This test will succeed as long as it returns `true`.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">let%test &quot;this will pass if true&quot; = true 
-let%test_unit &quot;this will pass if unit is returned&quot; = ()
-let%test_module &quot;name&quot; = (module &lt;module-expr&gt;) 
+                                <pre><code class="ocaml">let%test &quot;some test&quot; = true
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                This test will succeed as long as it returns a unit `()`.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">let%test_unit &quot;some other test&quot; = ()
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Inline tests can be embedded in a lot of places, for example, modules.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">module A = struct
+  let lower_than_5 x = x &lt; 5
 
-(* taken from https://github.com/janestreet/ppx_inline_test *)
-let is_prime = &lt;magic&gt;
-
-let%test _ = is_prime 5
-let%test _ = is_prime 7
-let%test _ = not (is_prime 1)
-let%test _ = not (is_prime 8)
-//
-module Make(C : S) = struct
-  &lt;magic&gt;
-  let%test _ = &lt;some expression&gt;
+  let%test_unit _ = assert ( lower_than_5 3 )
 end
-
-module M = Make(Int)
-//
-let%test_module _ = (module struct
-    module UID = Unique_id.Int(struct end)
-
-    let%test _ = UID.create() &lt;&gt; UID.create()
+</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                Best practice is to &quot;hide&quot; tests and test helpers in their own `test_module`.
+                            </td>
+                            <td class="code">
+                                <pre><code class="ocaml">let%test_module _ = (module struct
+    let%test _ = A.lower_than_5 8
 end)</code></pre>
                             </td>
                         </tr>
@@ -721,16 +742,21 @@ end)</code></pre>
                                 
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ opam install ppx_inline_test</code></pre>
+                                <pre><code class="console">$ opam install ppx_inline_test
+</code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                unfortunately the output of dune runtest is **nothing** if tests pass, so it&apos;s not always clear if tests are actually working or not.
+                                Note that unfortunately, the output of `dune runtest` is **nothing** if tests pass, so it&apos;s not always clear if tests are actually working or not...
                             </td>
                             <td class="code">
-                                <pre><code class="console">$ dune runtest</code></pre>
+                                <pre><code class="console">$ dune runtest
+File &quot;main.ml&quot;, line 12, characters 4-33: &lt;&lt;A.lower_than_5 8&gt;&gt; is false.
+  in TEST_MODULE at file &quot;main.ml&quot;, line 11, characters 0-72
+
+FAILED 1 / 4 tests</code></pre>
                             </td>
                         </tr>
                         
