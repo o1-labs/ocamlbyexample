@@ -1,24 +1,13 @@
-let%test "this will pass if true" = true 
-let%test_unit "this will pass if unit is returned" = ()
-let%test_module "name" = (module <module-expr>) 
+let%test "some test" = true
 
-(* taken from https://github.com/janestreet/ppx_inline_test *)
-let is_prime = <magic>
+let%test_unit "some other test" = ()
 
-let%test _ = is_prime 5
-let%test _ = is_prime 7
-let%test _ = not (is_prime 1)
-let%test _ = not (is_prime 8)
-//
-module Make(C : S) = struct
-  <magic>
-  let%test _ = <some expression>
+module A = struct
+  let lower_than_5 x = x < 5
+
+  let%test_unit _ = assert ( lower_than_5 3 )
 end
 
-module M = Make(Int)
-//
 let%test_module _ = (module struct
-    module UID = Unique_id.Int(struct end)
-
-    let%test _ = UID.create() <> UID.create()
+    let%test _ = A.lower_than_5 8
 end)

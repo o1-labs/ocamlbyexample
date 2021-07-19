@@ -1,2 +1,7 @@
 $ opam install ppx_inline_test
+
 $ dune runtest
+File "main.ml", line 12, characters 4-33: <<A.lower_than_5 8>> is false.
+  in TEST_MODULE at file "main.ml", line 11, characters 0-72
+
+FAILED 1 / 4 tests
