@@ -1,0 +1,7 @@
+(library
+ (name mylib)
+ (libraries)
+ (inline_tests
+   (flags -only-test main.ml))
+ (preprocess
+  (pps ppx_inline_test)))

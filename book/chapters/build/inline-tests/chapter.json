@@ -46,6 +46,16 @@
                     "text": "Note that unfortunately, the output of `dune runtest` is **nothing** if tests pass, so it's not always clear if tests are actually working or not..."
                 }
             ]
+        },
+        {
+            "file": "dune2",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 5,
+                    "text": "To run a single test, you will have to manually add this line into the dune file. Not pretty, but it works. Just remember to remove it when you're done."
+                }
+            ]
         }
     ]
 }
