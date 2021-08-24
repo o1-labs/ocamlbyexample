@@ -53,7 +53,7 @@
             "explanations": [
                 {
                     "line": 5,
-                    "text": "To run a single test, you will have to manually add this line into the dune file. Not pretty, but it works. Just remember to remove it when you're done."
+                    "text": "To run a single test, you will have to manually add this line into the dune file. It will run ALL the tests in the file, but you can be more acurate by adding a colon a line number to the name of the file. Not pretty, but it works. Just remember to remove it when you're done."
                 }
             ]
         }
