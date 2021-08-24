@@ -762,6 +762,39 @@ FAILED 1 / 4 tests</code></pre>
                         
                     </table>
                     
+                    <table class="explanation_code">
+                        <tr>
+                            <td class="explanation"></td>
+                            <td class="filename">
+                                <h2><code>dune2</code></h2>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">(library
+ (name mylib)
+ (libraries)
+ (inline_tests</code></pre>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="explanation">
+                                To run a single test, you will have to manually add this line into the dune file. It will run ALL the tests in the file, but you can be more acurate by adding a colon a line number to the name of the file. Not pretty, but it works. Just remember to remove it when you&apos;re done.
+                            </td>
+                            <td class="code">
+                                <pre><code class="lisp">   (flags -only-test main.ml))
+ (preprocess
+  (pps ppx_inline_test)))</code></pre>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    
 
                     <div style="text-align:right">
                         
