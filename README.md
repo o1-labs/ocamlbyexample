@@ -6,7 +6,7 @@ Learn the OCaml language, following a series of examples!
 
 You can visit the rendered course here: https://o1-labs.github.io/ocamlbyexample/.
 
-This page is inspired by https://www.gobyexample.com.
+This page is inspired by https://gobyexample.com.
 
 ## Adding your own examples (chapters)
 
