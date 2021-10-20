@@ -1,5 +1,5 @@
 {
-    "title": "maps",
+    "title": "hash tables",
     "sections": [
         {
             "file": "utop",
@@ -7,19 +7,19 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "Maps are OCaml's associative arrays (also called hashmaps or dictionnaries). You can create a hashmap by specifying a module to use as a key type."
+                    "text": "Hashtbl are OCaml's hashmaps (also called associative arrays or dictionnaries). To create a hashtbl you need to specify an initial size (here 10). Don't worry too much about this as it'll expand by itself if you try to store more than 10 elements. Also note that you always need to pass `~random:true`, as unfortunately the default usage of this function is not secure."
                 },
                 {
                     "line": 4,
-                    "text": "Adding a value to a map returns the [polymorphic variant](basics-variants.html) `` `Ok`` or `` `Duplicate`` (in which case the value already exists in the map). "
+                    "text": "You can add values to your hashtable "
                 },
                 {
-                    "line": 8,
-                    "text": "To update a map, simply use the new map returned by `` `Ok`."
+                    "line": 7,
+                    "text": "`add` updates the value if it already exists"
                 },
                 {
-                    "line": 13,
-                    "text": "To update an already existing entry, you can use the `Map.set` method."
+                    "line": 10,
+                    "text": "You can retrieve value with `find_opt`."
                 }
             ]
         }
