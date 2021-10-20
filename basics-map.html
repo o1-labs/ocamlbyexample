@@ -329,7 +329,7 @@
 
                         
 
-                        <li>maps</li>
+                        <li>hash tables</li>
 
                         
 
@@ -639,7 +639,7 @@
 
                 <div class="container">
 
-                    <h1>maps</h1>
+                    <h1>hash tables</h1>
 
                     
                     <table class="explanation_code">
@@ -652,50 +652,47 @@
                         
                         <tr>
                             <td class="explanation">
-                                Maps are OCaml&apos;s associative arrays (also called hashmaps or dictionnaries). You can create a hashmap by specifying a module to use as a key type.
+                                Hashtbl are OCaml&apos;s hashmaps (also called associative arrays or dictionaries). To create a hashtbl you need to specify an initial size (here 10). Don&apos;t worry too much about this as it&apos;ll expand by itself if you try to store more than 10 elements. Also note that you always need to pass `~random:true`, as unfortunately the default usage of this function is not secure.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let balances = Map.empty (module String);;
-val balances : (string, &apos;a, String.comparator_witness) Map.t = &lt;abstr&gt;
+                                <pre><code class="ocaml">utop # let balances = Hashtbl.create ~random:true 10;;
+val balances : (&apos;_weak1, &apos;_weak2) Hashtbl.t = &lt;abstr&gt;
 </code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                Adding a value to a map returns the [polymorphic variant](basics-variants.html) `` `Ok`` or `` `Duplicate`` (in which case the value already exists in the map). 
+                                You can add values to your hashtable 
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # Map.add balances &quot;david&quot; 2;;
-- : (string, int, String.comparator_witness) Map.t Base.Map.Or_duplicate.t =
-`Ok &lt;abstr&gt;
+                                <pre><code class="ocaml">utop # Hashtbl.add balances &quot;david&quot; 2;;
+- : unit = ()
 </code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                To update a map, simply use the new map returned by `` `Ok`.
+                                `add` updates the value if it already exists
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let balances = match Map.add balances &quot;david&quot; 2 with
-| `Ok x -&gt; x
-| `Duplicate -&gt; balances;;
-val balances : (string, int, String.comparator_witness) Map.t = &lt;abstr&gt;
+                                <pre><code class="ocaml">utop # Hashtbl.add balances &quot;david&quot; 3;;
+- : unit = ()
 </code></pre>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="explanation">
-                                To update an already existing entry, you can use the `Map.set` method.
+                                You can retrieve value with `find_opt`.
                             </td>
                             <td class="code">
-                                <pre><code class="ocaml">utop # let balances = match Map.add balances &quot;david&quot; 3 with
-| `Ok x -&gt; x
-| `Duplicate -&gt; print_endline &quot;duplicate&quot;; Map.set balances &quot;david&quot; 3;;
-duplicate
-val balances : (string, int, String.comparator_witness) Map.t = &lt;abstr&gt;</code></pre>
+                                <pre><code class="ocaml">utop # Hashtbl.find_opt balances &quot;alice&quot;;;
+- : int option = None
+
+utop # Hashtbl.find_opt balances &quot;david&quot;;;
+- : int option = Some 3</code></pre>
                             </td>
                         </tr>
                         
