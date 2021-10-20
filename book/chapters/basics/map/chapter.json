@@ -7,7 +7,7 @@
             "explanations": [
                 {
                     "line": 1,
-                    "text": "Hashtbl are OCaml's hashmaps (also called associative arrays or dictionnaries). To create a hashtbl you need to specify an initial size (here 10). Don't worry too much about this as it'll expand by itself if you try to store more than 10 elements. Also note that you always need to pass `~random:true`, as unfortunately the default usage of this function is not secure."
+                    "text": "Hashtbl are OCaml's hashmaps (also called associative arrays or dictionaries). To create a hashtbl you need to specify an initial size (here 10). Don't worry too much about this as it'll expand by itself if you try to store more than 10 elements. Also note that you always need to pass `~random:true`, as unfortunately the default usage of this function is not secure."
                 },
                 {
                     "line": 4,
