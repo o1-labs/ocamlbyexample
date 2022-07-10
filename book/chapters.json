@@ -35,7 +35,9 @@
                 "build/qcheck",
                 "build/bisect_ppx",
                 "build/dune-release",
-                "build/opam-pin"
+                "build/opam-pin",
+                "build/rules",
+                "build/dune-release"
             ]
         },
         {

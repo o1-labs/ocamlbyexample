@@ -1,0 +1,11 @@
+(rule
+ (target hello)
+ (deps ./hello.c)
+ (mode promote)
+ (action
+  (run %{cc} -o %{target} %{deps})))
+
+(rule
+ (alias runtest)
+ (action
+  (run ./test.exe)))

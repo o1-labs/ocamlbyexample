@@ -1,0 +1,35 @@
+{
+    "title": "rules",
+    "sections": [
+        {
+            "file": "dune",
+            "lang": "lisp",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "A `dune` file can also use \"rules\" to sort-of replace a Makefile. All the rules within a `dune` file will be executed when running `dune build`."
+                },
+                {
+                    "line": 2,
+                    "text": "A rule can create a file (`target`) or multiple files (`targets`)."
+                },
+                {
+                    "line": 3,
+                    "text": "Dune needs to know which dependencies are used to build the file. You can use `(source_tree <folder>)` to import the entire source under a directory. If none of the listed dependencies change, `dune build` will not re-run a rule (similar to how Makefile detect changes). Note that it is important to list all dependencies as dune will copy them to the `_build` directory before running the commands there."
+                },
+                {
+                    "line": 4,
+                    "text": "By default, the target remains in the `_build` directory. If you want it to appear in the current directory then you can use `promote`."
+                },
+                {
+                    "line": 5,
+                    "text": "A single \"action\" can be listed, or many actions can be listed using `(progn ...)`."
+                },
+                {
+                    "line": 8,
+                    "text": "You can use dune rules for pretty much anything. For example, here, we use it to run a binary as part of the `dune test` command."
+                }
+            ]
+        }
+    ]
+}
