@@ -1,0 +1,13 @@
+(executable
+ (name main)
+ (modules main)
+ (preprocess
+  (pps thingify)))
+
+(library
+ (name thingify)
+ (modules lib)
+ (kind ppx_rewriter)
+ (libraries ppxlib ppx_tools core_kernel)
+ (preprocess
+  (pps ppxlib.metaquot ppx_sexp_conv)))

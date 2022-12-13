@@ -1,0 +1,15 @@
+{
+    "title": "ppx derivers",
+    "sections": [
+        {
+            "file": "lib.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "PPX derivers are macros that look like `[@deriver attributes]` and where the number of `@` can go from 1 to 3 depending on where you want the deriver to act. A deriver also generates code, but by analyzing its surrounding instead of a payload."
+                }
+            ]
+        }
+    ]
+}

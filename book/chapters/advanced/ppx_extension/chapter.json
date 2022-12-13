@@ -1,0 +1,25 @@
+{
+    "title": "ppx extensions",
+    "sections": [
+        {
+            "file": "lib.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "In this section we look at ppx extensions, which are macros that you can recognize in OCaml as `[%ppx_name payload]` or even as `let%ppx_name payload`. They generate (and insert) code in the location where they are written, based on the payload given (and the implementation of the ppx of course). To write such a ppx extension we use [ppxlib](https://github.com/ocaml-ppx/ppxlib)."
+                }
+            ]
+        },
+        {
+            "file": "main.ml",
+            "lang": "ocaml",
+            "explanations": [
+                {
+                    "line": 1,
+                    "text": "`ocamlfind ppx_tools/dumpast main.ml` allows you to dump the AST of a file (or an expression when used like so `ocamlfind ppx_tools/dumpast -e '1 + 1'`). This can be useful to understand what kind of AST nodes you're trying to parse, or produce. On the other hand, you can also use `dune describe pp file.ml` to print out the result of applying the ppx to the file."
+                }
+            ]
+        }
+    ]
+}
